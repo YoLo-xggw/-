@@ -74,6 +74,61 @@
     .target-outline .door { position:absolute; left:88px; top:145px; width:35px; height:55px; border:2px dashed rgba(65,107,85,.55); border-radius:9px 9px 0 0; }
     .target-outline .window { position:absolute; left:58px; top:107px; width:44px; height:36px; border:2px dashed rgba(65,107,85,.55); border-radius:8px; }
     .target-outline .chimney { position:absolute; left:150px; top:48px; width:25px; height:48px; border:2px dashed rgba(65,107,85,.55); border-radius:5px; }
+    .target-outline.blueprint-cart { width:240px; height:180px; }
+    .blueprint-cart .cart-body { position:absolute; left:54px; top:73px; width:132px; height:58px; border:2px dashed rgba(65,107,85,.55); border-radius:16px 16px 10px 10px; }
+    .blueprint-cart .cart-roof { position:absolute; left:80px; top:28px; width:80px; height:58px; border:2px dashed rgba(65,107,85,.55); border-radius:24px 24px 7px 7px; }
+    .blueprint-cart .cart-wheel.left, .blueprint-cart .cart-wheel.right { position:absolute; top:112px; width:36px; height:36px; border:2px dashed rgba(65,107,85,.55); border-radius:50%; }
+    .blueprint-cart .cart-wheel.left { left:65px; } .blueprint-cart .cart-wheel.right { right:65px; }
+    .blueprint-cart .cart-window { position:absolute; left:101px; top:46px; width:38px; height:24px; border:2px dashed rgba(65,107,85,.55); border-radius:8px; }
+    .target-outline.blueprint-boat { width:250px; height:185px; }
+    .blueprint-boat .boat-hull { position:absolute; left:34px; top:94px; width:182px; height:54px; border:2px dashed rgba(65,107,85,.55); border-radius:8px 8px 60px 60px; }
+    .blueprint-boat .boat-sail { position:absolute; left:98px; top:20px; width:92px; height:96px; border:2px dashed rgba(65,107,85,.55); clip-path:polygon(0 0,100% 100%,0 100%); }
+    .blueprint-boat .boat-mast { position:absolute; left:98px; top:20px; height:128px; border-left:2px dashed rgba(65,107,85,.55); }
+    .target-outline.blueprint-bridge { width:250px; height:200px; }
+    .blueprint-bridge .bridge-deck { position:absolute; left:35px; top:82px; width:180px; height:48px; border:2px dashed rgba(65,107,85,.55); border-radius:8px; }
+    .blueprint-bridge .bridge-post.left, .blueprint-bridge .bridge-post.right { position:absolute; top:120px; width:32px; height:68px; border:2px dashed rgba(65,107,85,.55); border-radius:6px; }
+    .blueprint-bridge .bridge-post.left { left:62px; } .blueprint-bridge .bridge-post.right { right:62px; }
+    .blueprint-bridge .bridge-rope { position:absolute; left:47px; top:45px; width:156px; height:55px; border:2px dashed rgba(65,107,85,.55); border-bottom:0; border-radius:90px 90px 0 0; }
+    .target-outline.blueprint-rocket { width:220px; height:230px; }
+    .blueprint-rocket .rocket-body { position:absolute; left:72px; top:34px; width:76px; height:145px; border:2px dashed rgba(65,107,85,.55); border-radius:45px 45px 12px 12px; }
+    .blueprint-rocket .rocket-window { position:absolute; left:89px; top:75px; width:42px; height:42px; border:2px dashed rgba(65,107,85,.55); border-radius:50%; }
+    .blueprint-rocket .rocket-fin.left, .blueprint-rocket .rocket-fin.right { position:absolute; top:126px; width:38px; height:62px; border:2px dashed rgba(65,107,85,.55); }
+    .blueprint-rocket .rocket-fin.left { left:34px; clip-path:polygon(100% 0,100% 100%,0 100%); } .blueprint-rocket .rocket-fin.right { right:34px; clip-path:polygon(0 0,100% 100%,0 100%); }
+    .target-outline.blueprint-windmill { width:220px; height:240px; }
+    .blueprint-windmill .mill-tower { position:absolute; left:79px; top:67px; width:62px; height:145px; border:2px dashed rgba(65,107,85,.55); clip-path:polygon(22% 0,78% 0,100% 100%,0 100%); }
+    .blueprint-windmill .mill-roof { position:absolute; left:59px; top:24px; width:102px; height:68px; border:2px dashed rgba(65,107,85,.55); border-radius:50% 50% 8px 8px; }
+    .blueprint-windmill .mill-blade.one, .blueprint-windmill .mill-blade.two { position:absolute; left:102px; top:79px; width:74px; height:2px; border-top:2px dashed rgba(65,107,85,.55); transform-origin:left center; }
+    .blueprint-windmill .mill-blade.one { transform:rotate(35deg); } .blueprint-windmill .mill-blade.two { transform:rotate(-35deg); }
+    .target-outline.blueprint-castle { width:250px; height:240px; }
+    .blueprint-castle .castle-main { position:absolute; left:65px; top:75px; width:120px; height:130px; border:2px dashed rgba(65,107,85,.55); border-radius:8px; }
+    .blueprint-castle .castle-tower.left, .blueprint-castle .castle-tower.right { position:absolute; top:40px; width:48px; height:165px; border:2px dashed rgba(65,107,85,.55); border-radius:7px; }
+    .blueprint-castle .castle-tower.left { left:28px; } .blueprint-castle .castle-tower.right { right:28px; }
+    .blueprint-castle .castle-flag { position:absolute; left:122px; top:10px; width:56px; height:37px; border:2px dashed rgba(65,107,85,.55); clip-path:polygon(0 0,100% 35%,0 70%); }
+    .target-outline.blueprint-treehouse { width:240px; height:240px; }
+    .blueprint-treehouse .trunk { position:absolute; left:101px; top:104px; width:38px; height:120px; border:2px dashed rgba(65,107,85,.55); border-radius:8px; }
+    .blueprint-treehouse .house { position:absolute; left:62px; top:50px; width:116px; height:78px; border:2px dashed rgba(65,107,85,.55); border-radius:8px; }
+    .blueprint-treehouse .roof { position:absolute; left:54px; top:18px; width:132px; height:60px; border:2px dashed rgba(65,107,85,.55); clip-path:polygon(50% 0,100% 100%,0 100%); }
+    .blueprint-treehouse .window { position:absolute; left:99px; top:73px; width:38px; height:28px; border:2px dashed rgba(65,107,85,.55); border-radius:8px; }
+    .target-outline.blueprint-train { width:250px; height:190px; }
+    .blueprint-train .train-body { position:absolute; left:36px; top:62px; width:180px; height:74px; border:2px dashed rgba(65,107,85,.55); border-radius:12px; }
+    .blueprint-train .train-cabin { position:absolute; left:118px; top:28px; width:76px; height:58px; border:2px dashed rgba(65,107,85,.55); border-radius:9px 9px 0 0; }
+    .blueprint-train .train-wheel.left, .blueprint-train .train-wheel.right { position:absolute; top:116px; width:38px; height:38px; border:2px dashed rgba(65,107,85,.55); border-radius:50%; }
+    .blueprint-train .train-wheel.left { left:63px; } .blueprint-train .train-wheel.right { right:63px; }
+    .target-outline.blueprint-carousel { width:240px; height:230px; }
+    .blueprint-carousel .carousel-pole { position:absolute; left:116px; top:30px; width:8px; height:166px; border:2px dashed rgba(65,107,85,.55); }
+    .blueprint-carousel .carousel-top { position:absolute; left:52px; top:48px; width:136px; height:44px; border:2px dashed rgba(65,107,85,.55); border-radius:50%; }
+    .blueprint-carousel .carousel-seat.left, .blueprint-carousel .carousel-seat.right { position:absolute; top:142px; width:45px; height:45px; border:2px dashed rgba(65,107,85,.55); border-radius:50%; }
+    .blueprint-carousel .carousel-seat.left { left:55px; } .blueprint-carousel .carousel-seat.right { right:55px; }
+    .target-outline.blueprint-pagoda { width:240px; height:240px; }
+    .blueprint-pagoda .pagoda-base { position:absolute; left:55px; top:170px; width:130px; height:42px; border:2px dashed rgba(65,107,85,.55); }
+    .blueprint-pagoda .pagoda-mid { position:absolute; left:76px; top:105px; width:88px; height:70px; border:2px dashed rgba(65,107,85,.55); }
+    .blueprint-pagoda .pagoda-roof.one { position:absolute; left:42px; top:145px; width:156px; height:30px; border:2px dashed rgba(65,107,85,.55); border-radius:50%; }
+    .blueprint-pagoda .pagoda-roof.two { position:absolute; left:63px; top:82px; width:114px; height:26px; border:2px dashed rgba(65,107,85,.55); border-radius:50%; }
+    .blueprint-pagoda .pagoda-spire { position:absolute; left:115px; top:20px; width:10px; height:65px; border-left:2px dashed rgba(65,107,85,.55); }
+    .target-outline.blueprint-lighthouse { width:220px; height:240px; }
+    .blueprint-lighthouse .light-tower { position:absolute; left:80px; top:62px; width:60px; height:160px; border:2px dashed rgba(65,107,85,.55); clip-path:polygon(15% 0,85% 0,100% 100%,0 100%); }
+    .blueprint-lighthouse .light-top { position:absolute; left:65px; top:32px; width:90px; height:45px; border:2px dashed rgba(65,107,85,.55); border-radius:50%; }
+    .blueprint-lighthouse .light-beam { position:absolute; left:20px; top:52px; width:180px; height:2px; border-top:2px dashed rgba(65,107,85,.55); transform:rotate(12deg); }
     .target-label { position:absolute; left:50%; top:87%; transform:translateX(-50%); color:rgba(38,52,44,.45); font-size:11px; white-space:nowrap; pointer-events:none; }
     .piece { position:absolute; z-index:3; cursor:grab; user-select:none; touch-action:none; filter:drop-shadow(0 6px 5px rgba(72,47,26,.16)); transition:box-shadow .15s, filter .15s; }
     .piece:active { cursor:grabbing; }
@@ -88,6 +143,14 @@
     .piece-tree { width:55px; height:76px; background:#6f8f6c; clip-path:polygon(50% 0, 100% 80%, 67% 80%, 78% 100%, 22% 100%,33% 80%,0 80%); }
     .piece-sign { width:67px; height:24px; background:#e9bb68; border-radius:6px; }
     .piece-sign::after { content:"云木"; position:absolute; inset:0; display:grid; place-items:center; font-size:11px; font-weight:800; color:#7a4b2c; }
+    .piece-plank { width:120px; height:30px; background:#c9955d; border-radius:7px; }
+    .piece-wheel { width:38px; height:38px; background:#8a5b3d; border:7px solid #c99761; border-radius:50%; }
+    .piece-mast { width:10px; height:128px; background:#93613f; border-radius:4px; }
+    .piece-flag { width:56px; height:36px; background:#e5a45f; clip-path:polygon(0 0,100% 35%,0 70%); }
+    .piece-gear { width:48px; height:48px; background:#d09a55; border:8px dotted #865b39; border-radius:50%; }
+    .piece-ball { width:44px; height:44px; background:#e5b665; border-radius:50%; }
+    .piece-cylinder { width:44px; height:82px; background:#b77a4d; border-radius:22px; }
+    .piece-base { width:130px; height:42px; background:#b27a4c; border-radius:8px; }
     .palette { margin-top:14px; padding:14px 14px 12px; border-radius:18px; background:#f5f4ef; border:1px solid #e5e3da; }
     .palette-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
     .palette-head strong { font-size:13px; }
@@ -213,7 +276,7 @@
           <div class="board" id="board">
             <div class="sun"></div><div class="cloud"></div>
             <div class="board-grid"></div>
-            <div class="target-outline"><div class="roof"></div><div class="house"></div><div class="door"></div><div class="window"></div><div class="chimney"></div></div>
+            <div class="target-outline" id="targetOutline"><div class="roof"></div><div class="house"></div><div class="door"></div><div class="window"></div><div class="chimney"></div></div>
             <div class="target-label" id="targetLabel">轮廓图纸 · 云朵小屋</div>
           </div>
         </div>
@@ -286,7 +349,15 @@
       { id:'window', label:'窗户', className:'piece-window', x:.39, y:.55, rotation:0 },
       { id:'chimney', label:'烟囱', className:'piece-chimney', x:.66, y:.32, rotation:0 },
       { id:'tree', label:'小树', className:'piece-tree', x:.22, y:.72, rotation:0 },
-      { id:'sign', label:'招牌', className:'piece-sign', x:.72, y:.68, rotation:0 }
+      { id:'sign', label:'招牌', className:'piece-sign', x:.72, y:.68, rotation:0 },
+      { id:'plank', label:'木板', className:'piece-plank', x:.5, y:.7, rotation:0 },
+      { id:'wheel', label:'木轮', className:'piece-wheel', x:.5, y:.7, rotation:0 },
+      { id:'mast', label:'木杆', className:'piece-mast', x:.5, y:.7, rotation:0 },
+      { id:'flag', label:'小旗', className:'piece-flag', x:.5, y:.7, rotation:0 },
+      { id:'gear', label:'齿轮', className:'piece-gear', x:.5, y:.7, rotation:0 },
+      { id:'ball', label:'木球', className:'piece-ball', x:.5, y:.7, rotation:0 },
+      { id:'cylinder', label:'木柱', className:'piece-cylinder', x:.5, y:.7, rotation:0 },
+      { id:'base', label:'底座', className:'piece-base', x:.5, y:.7, rotation:0 }
     ];
     let selected = null;
     let history = [];
@@ -299,6 +370,50 @@
     let musicOn = false;
     let musicStep = 0;
     let levelNumber = 1;
+    let blueprintIndex = 0;
+    const SAVE_PREFIX = 'yunmu-builder-save-v1:';
+    const USER_ID_KEY = 'yunmu-builder-user-id';
+    let userId = '';
+    const blueprints = [
+      { name:'云朵小屋', stage:'入门拼搭', description:'把木块放进轮廓里，让小屋稳稳站起来。', label:'轮廓图纸 · 云朵小屋', className:'', targets:{wall:'.house',roof:'.roof',door:'.door',window:'.window',chimney:'.chimney'}, markup:'<div class="roof"></div><div class="house"></div><div class="door"></div><div class="window"></div><div class="chimney"></div>' },
+      { name:'云端小车', stage:'结构拼搭', description:'把车身、车顶和两个木轮拼在一起，开往云端。', label:'轮廓图纸 · 云端小车', className:'blueprint-cart', targets:{wall:'.cart-body',roof:'.cart-roof',wheel:'.cart-wheel.left',tree:'.cart-wheel.right',window:'.cart-window'}, markup:'<div class="cart-body"></div><div class="cart-roof"></div><div class="cart-wheel left"></div><div class="cart-wheel right"></div><div class="cart-window"></div>' },
+      { name:'森林风车', stage:'机关拼搭', description:'把风车塔身和扇叶对齐，让它在云风里转起来。', label:'轮廓图纸 · 森林风车', className:'blueprint-windmill', targets:{wall:'.mill-tower',roof:'.mill-roof',door:'.mill-blade.one',window:'.mill-blade.two'}, markup:'<div class="mill-tower"></div><div class="mill-roof"></div><div class="mill-blade one"></div><div class="mill-blade two"></div>' },
+      { name:'云帆小船', stage:'海风拼搭', description:'拼好船身和船帆，载着木玩驶过云海。', label:'轮廓图纸 · 云帆小船', className:'blueprint-boat', targets:{plank:'.boat-hull',roof:'.boat-sail',mast:'.boat-mast'}, markup:'<div class="boat-hull"></div><div class="boat-sail"></div><div class="boat-mast"></div>' },
+      { name:'森林木桥', stage:'结构拼搭', description:'搭好桥面、桥柱和拱形护栏，让伙伴安全通过。', label:'轮廓图纸 · 森林木桥', className:'blueprint-bridge', targets:{plank:'.bridge-deck',cylinder:'.bridge-post.left',base:'.bridge-post.right',roof:'.bridge-rope'}, markup:'<div class="bridge-deck"></div><div class="bridge-post left"></div><div class="bridge-post right"></div><div class="bridge-rope"></div>' },
+      { name:'云朵火箭', stage:'创意拼搭', description:'让火箭、舷窗和尾翼对齐，准备飞向星星。', label:'轮廓图纸 · 云朵火箭', className:'blueprint-rocket', targets:{cylinder:'.rocket-body',ball:'.rocket-window',flag:'.rocket-fin.left',wheel:'.rocket-fin.right'}, markup:'<div class="rocket-body"></div><div class="rocket-window"></div><div class="rocket-fin left"></div><div class="rocket-fin right"></div>' },
+      { name:'童话城堡', stage:'建筑拼搭', description:'用塔楼、主楼和小旗搭出一座木玩城堡。', label:'轮廓图纸 · 童话城堡', className:'blueprint-castle', targets:{wall:'.castle-main',cylinder:'.castle-tower.left',base:'.castle-tower.right',flag:'.castle-flag'}, markup:'<div class="castle-main"></div><div class="castle-tower left"></div><div class="castle-tower right"></div><div class="castle-flag"></div>' },
+      { name:'森林树屋', stage:'自然拼搭', description:'先立起树干，再放上小屋和屋顶，完成秘密基地。', label:'轮廓图纸 · 森林树屋', className:'blueprint-treehouse', targets:{cylinder:'.trunk',wall:'.house',roof:'.roof',window:'.window'}, markup:'<div class="trunk"></div><div class="house"></div><div class="roof"></div><div class="window"></div>' },
+      { name:'木玩小火车', stage:'交通拼搭', description:'拼出车身、驾驶室和木轮，驶过云和小镇。', label:'轮廓图纸 · 木玩小火车', className:'blueprint-train', targets:{base:'.train-body',wall:'.train-cabin',wheel:'.train-wheel.left',tree:'.train-wheel.right'}, markup:'<div class="train-body"></div><div class="train-cabin"></div><div class="train-wheel left"></div><div class="train-wheel right"></div>' },
+      { name:'旋转木马', stage:'机关拼搭', description:'立起中心木杆，装好圆盘和座椅，做一台会转的木马。', label:'轮廓图纸 · 旋转木马', className:'blueprint-carousel', targets:{mast:'.carousel-pole',roof:'.carousel-top',wheel:'.carousel-seat.left',ball:'.carousel-seat.right'}, markup:'<div class="carousel-pole"></div><div class="carousel-top"></div><div class="carousel-seat left"></div><div class="carousel-seat right"></div>' },
+      { name:'云和小塔', stage:'传统拼搭', description:'一层一层搭好塔身和屋檐，完成木玩小塔。', label:'轮廓图纸 · 云和小塔', className:'blueprint-pagoda', targets:{base:'.pagoda-base',wall:'.pagoda-mid',roof:'.pagoda-roof.one',mast:'.pagoda-spire'}, markup:'<div class="pagoda-base"></div><div class="pagoda-mid"></div><div class="pagoda-roof one"></div><div class="pagoda-roof two"></div><div class="pagoda-spire"></div>' },
+      { name:'海边灯塔', stage:'终章拼搭', description:'拼好灯塔、灯室和云海光束，点亮最后一张图纸。', label:'轮廓图纸 · 海边灯塔', className:'blueprint-lighthouse', targets:{cylinder:'.light-tower',roof:'.light-top',plank:'.light-beam'}, markup:'<div class="light-tower"></div><div class="light-top"></div><div class="light-beam"></div>' }
+    ];
+
+    function getUserId() {
+      try {
+        let id = localStorage.getItem(USER_ID_KEY);
+        if (!id) { id = (crypto.randomUUID ? crypto.randomUUID() : `guest-${Date.now()}-${Math.random().toString(36).slice(2)}`); localStorage.setItem(USER_ID_KEY, id); }
+        return id;
+      } catch (_) { return 'guest-session'; }
+    }
+    function saveGame() {
+      try {
+        const pieces = [...board.querySelectorAll('.piece')].map(el => ({ type:el.dataset.type, x:el.dataset.x, y:el.dataset.y, rotation:el.dataset.rotation }));
+        localStorage.setItem(`${SAVE_PREFIX}${userId}`, JSON.stringify({ levelNumber, blueprintIndex, pieces, savedAt:Date.now() }));
+      } catch (_) { /* 隐私模式或存储空间不足时继续让游戏可玩 */ }
+    }
+    function loadGame() {
+      try {
+        const raw = localStorage.getItem(`${SAVE_PREFIX}${userId}`);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || !Array.isArray(saved.pieces)) return;
+        levelNumber = Math.max(1, Math.min(Number(saved.levelNumber) || 1, blueprints.length));
+        blueprintIndex = Math.max(0, Math.min(Number(saved.blueprintIndex) || 0, blueprints.length - 1));
+        renderBlueprint();
+        saved.pieces.forEach(data => { const type = types.find(item => item.id === data.type); if (type) { const piece = createPiece(type, Number(data.x), Number(data.y)); piece.dataset.rotation = Number(data.rotation) || 0; updatePiecePosition(piece); } });
+      } catch (_) { /* 损坏的本地存档不会阻止新游戏启动 */ }
+    }
     const melody = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 329.63, 293.66];
 
     // 用 Web Audio API 生成一段轻柔的木琴感旋律，不加载外部音频，避免版权和跨域问题。
@@ -355,7 +470,7 @@
         const card = document.createElement('button'); card.className = 'piece-card'; card.dataset.type = type.id;
         card.append(createMiniPiece(type)); const label = document.createElement('small'); label.textContent = type.label; card.append(label);
         card.addEventListener('click', () => {
-          const piece = createPiece(type, .5, .7); selectPiece(piece); showToast(`已拿起「${type.label}」，拖入画布试试`);
+          const piece = createPiece(type, .5, .7); selectPiece(piece); saveGame(); showToast(`已拿起「${type.label}」，拖入画布试试`);
         });
         piecesTray.append(card);
       });
@@ -391,7 +506,7 @@
     }
     function endDrag(el, pointerId) {
       if (!dragging || dragging !== el || (activePointerId !== null && pointerId !== activePointerId)) return;
-      dragging = null; activePointerId = null; snap(el);
+      dragging = null; activePointerId = null; snap(el); saveGame();
     }
     function cancelDrag(el, pointerId) {
       if (dragging !== el || (activePointerId !== null && pointerId !== activePointerId)) return;
@@ -399,7 +514,7 @@
     }
     function snap(el) {
       // 以虚线框的真实中心计算吸附位置，保证不同手机尺寸下都能完全对齐。
-      const targetByType = { wall:'.house', roof:'.roof', door:'.door', window:'.window', chimney:'.chimney' };
+      const targetByType = blueprints[blueprintIndex].targets;
       const targetSelector = targetByType[el.dataset.type];
       if (!targetSelector) return;
       const target = document.querySelector(`.target-outline ${targetSelector}`);
@@ -416,23 +531,32 @@
     }
     function deleteSelected() {
       if (!selected) { showToast('先选择一个要删除的零件'); return; }
-      snapshot(); selected.remove(); selected = null; showToast('零件已删除');
+      snapshot(); selected.remove(); selected = null; saveGame(); showToast('零件已删除');
+    }
+    function renderBlueprint() {
+      const blueprint = blueprints[blueprintIndex];
+      const outline = document.getElementById('targetOutline');
+      outline.className = `target-outline ${blueprint.className}`.trim();
+      outline.innerHTML = blueprint.markup;
+      const level = String(levelNumber).padStart(2, '0');
+      document.getElementById('levelEyebrow').textContent = `Blueprint ${level} · ${blueprint.stage}`;
+      document.getElementById('levelTitle').textContent = `搭一座${blueprint.name}`;
+      document.getElementById('levelDescription').textContent = blueprint.description;
+      document.getElementById('levelBadge').textContent = `${level} / 12`;
+      document.getElementById('targetLabel').textContent = blueprint.label;
     }
     function goToNextLevel() {
-      levelNumber += 1;
-      const level = String(levelNumber).padStart(2, '0');
-      document.getElementById('levelEyebrow').textContent = `Blueprint ${level} · 进阶拼搭`;
-      document.getElementById('levelTitle').textContent = `搭一座云朵小屋 · 第 ${levelNumber} 关`;
-      document.getElementById('levelDescription').textContent = '这一次试试更少的零件，把屋顶和窗户对得更准。';
-      document.getElementById('levelBadge').textContent = `${level} / 12`;
-      document.getElementById('targetLabel').textContent = `轮廓图纸 · 云朵小屋 ${level}`;
+      levelNumber = Math.min(levelNumber + 1, blueprints.length);
+      blueprintIndex = Math.min(levelNumber - 1, blueprints.length - 1);
+      renderBlueprint();
       board.querySelectorAll('.piece').forEach(el => el.remove());
       history = []; selected = null;
-      showToast(`已进入第 ${levelNumber} 关：新图纸已准备好`);
+      saveGame();
+      showToast(levelNumber === blueprints.length ? '终章图纸已解锁' : `已进入第 ${levelNumber} 关：新图纸已准备好`);
     }
-    function rotateSelected() { if(!selected) { showToast('先选择一个木玩零件'); return; } snapshot(); selected.dataset.rotation = (Number(selected.dataset.rotation)+90)%360; updatePiecePosition(selected); showToast('零件旋转 90°'); }
-    function resetBoard() { snapshot(); board.querySelectorAll('.piece').forEach(el=>el.remove()); selected=null; showToast('画布已清空'); }
-    function undo() { const last=history.pop(); if(!last){showToast('还没有可以撤销的操作');return;} restoreSnapshot(last); selected=null; showToast('已撤销上一步'); }
+    function rotateSelected() { if(!selected) { showToast('先选择一个木玩零件'); return; } snapshot(); selected.dataset.rotation = (Number(selected.dataset.rotation)+90)%360; updatePiecePosition(selected); saveGame(); showToast('零件旋转 90°'); }
+    function resetBoard() { snapshot(); board.querySelectorAll('.piece').forEach(el=>el.remove()); selected=null; saveGame(); showToast('画布已清空'); }
+    function undo() { const last=history.pop(); if(!last){showToast('还没有可以撤销的操作');return;} restoreSnapshot(last); selected=null; saveGame(); showToast('已撤销上一步'); }
     function finish() {
       const count=board.querySelectorAll('.piece').length;
       if(count<3){showToast('再放入至少 3 个零件，小屋才会站起来'); return;}
@@ -448,7 +572,9 @@
     window.addEventListener('resize', () => board.querySelectorAll('.piece').forEach(updatePiecePosition));
     window.addEventListener('pointerup', event => { if (dragging) endDrag(dragging, event.pointerId); }, { passive:true });
     window.addEventListener('pointercancel', event => { if (dragging) cancelDrag(dragging, event.pointerId); }, { passive:true });
+    userId = getUserId();
     renderPalette();
+    loadGame();
   </script>
 </body>
 </html>
