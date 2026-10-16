@@ -97,6 +97,14 @@
     .collection-item { min-height:67px; padding:8px 4px; border:1px solid #e3eadf; border-radius:12px; background:#f7faf4; color:var(--green-deep); font-size:10px; }
     .collection-item.locked { background:#f5f4ef; color:#a6aaa2; filter:grayscale(.65); }
     .collection-item b { display:block; font-size:18px; margin-bottom:3px; }
+    .collection-thumb { position:relative; height:58px; margin:-2px -1px 5px; overflow:hidden; border-radius:9px; background:linear-gradient(#d9ecf0 0 45%, #bed7b7 45% 100%); border:1px solid rgba(65,107,85,.14); }
+    .collection-thumb .piece { pointer-events:none; filter:drop-shadow(0 2px 2px rgba(72,47,26,.14)); }
+    .level-picker-title { display:flex; justify-content:space-between; align-items:center; margin:18px 0 9px; color:var(--green-deep); font-weight:800; font-size:13px; }
+    .level-picker-title span { color:var(--muted); font-size:10px; font-weight:500; }
+    .level-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:6px; }
+    .level-choice { min-height:35px; border:1px solid #e3eadf; border-radius:10px; background:#f7faf4; color:var(--green-deep); font-size:11px; font-weight:800; cursor:pointer; }
+    .level-choice.current { border-color:#d99b58; background:#fff5df; color:#906442; }
+    .level-choice.locked { color:#a6aaa2; background:#f5f4ef; cursor:not-allowed; }
     .coin-pill { display:flex; align-items:center; gap:5px; padding:9px 12px; background:#fff5df; border:1px solid #f0dfb8; border-radius:999px; color:#906442; font-size:12px; font-weight:800; }
     .topbar { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-bottom:18px; }
     .brand { display:flex; align-items:center; gap:12px; }
@@ -217,6 +225,14 @@
     .piece-ball { width:44px; height:44px; background:#e5b665; border-radius:50%; }
     .piece-cylinder { width:44px; height:82px; background:#b77a4d; border-radius:22px; }
     .piece-base { width:130px; height:42px; background:#b27a4c; border-radius:8px; }
+    .piece-tower { background:#b77a4d; clip-path:polygon(18% 0,82% 0,100% 100%,0 100%); }
+    .piece-post { background:#a8764d; border-radius:7px; }
+    .piece-hull { background:#c9955d; border-radius:8px 8px 60px 60px; }
+    .piece-sail { background:#e5b665; clip-path:polygon(0 0,100% 100%,0 100%); }
+    .piece-blade { background:#d09a55; border-radius:999px; transform-origin:center; }
+    .piece-rope { background:transparent; border:5px solid #a8764d; border-bottom:0; border-radius:90px 90px 0 0; filter:drop-shadow(0 4px 3px rgba(72,47,26,.12)); }
+    .piece-disc { background:#c9955d; border-radius:50%; }
+    .piece-beam { background:#e3b252; border-radius:999px; transform-origin:left center; }
     .palette { margin-top:14px; padding:14px 14px 12px; border-radius:18px; background:#f5f4ef; border:1px solid #e5e3da; }
     .palette-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
     .palette-head strong { font-size:13px; }
@@ -358,6 +374,8 @@
       </div>
       <div class="collection-title"><span>木玩图鉴</span><span id="collectionCount">0/12 已收藏</span></div>
       <div class="collection-grid" id="collectionGrid"></div>
+      <div class="level-picker-title"><span>关卡选择</span><span>已完成可回玩</span></div>
+      <div class="level-grid" id="levelGrid"></div>
       <div class="profile-actions">
         <button class="btn btn-primary" id="profileContinueBtn" type="button">继续游戏</button>
         <button class="btn btn-soft" id="profileSwitchBtn" type="button">切换用户</button>
@@ -527,6 +545,7 @@
     let score = 0;
     let coins = 120;
     let collection = [];
+    let collectionRecords = {};
     let accountName = '';
     const SAVE_PREFIX = 'yunmu-builder-save-v1:';
     const ACCOUNT_LIST_KEY = 'yunmu-builder-accounts-v1';
@@ -548,6 +567,38 @@
       { name:'海边灯塔', stage:'终章拼搭', description:'拼好灯塔、灯室和云海光束，点亮最后一张图纸。', label:'轮廓图纸 · 海边灯塔', className:'blueprint-lighthouse', targets:{cylinder:'.light-tower',roof:'.light-top',plank:'.light-beam'}, markup:'<div class="light-tower"></div><div class="light-top"></div><div class="light-beam"></div>' }
     ];
 
+    const variantTypes = [
+      { id:'houseWall', label:'房屋墙板', className:'piece-wall', targetKey:'wall' }, { id:'houseRoof', label:'房屋屋顶', className:'piece-roof', targetKey:'roof' }, { id:'houseDoor', label:'木门', className:'piece-door', targetKey:'door' }, { id:'houseWindow', label:'窗格', className:'piece-window', targetKey:'window' }, { id:'houseChimney', label:'烟囱', className:'piece-chimney', targetKey:'chimney' },
+      { id:'cartBody', label:'车厢', className:'piece-base', targetKey:'wall' }, { id:'cartRoof', label:'车棚', className:'piece-roof', targetKey:'roof' }, { id:'cartWheelLeft', label:'左木轮', className:'piece-wheel', targetKey:'wheel' }, { id:'cartWheelRight', label:'右木轮', className:'piece-wheel', targetKey:'tree' }, { id:'cartWindow', label:'车窗', className:'piece-window', targetKey:'window' },
+      { id:'millTower', label:'风车塔身', className:'piece-tower', targetKey:'wall' }, { id:'millRoof', label:'风车顶', className:'piece-roof', targetKey:'roof' }, { id:'millBladeLeft', label:'左扇叶', className:'piece-blade', targetKey:'door', thin:true }, { id:'millBladeRight', label:'右扇叶', className:'piece-blade', targetKey:'window', thin:true },
+      { id:'boatHull', label:'船身', className:'piece-hull', targetKey:'plank' }, { id:'boatSail', label:'云帆', className:'piece-sail', targetKey:'roof' }, { id:'boatMast', label:'桅杆', className:'piece-mast', targetKey:'mast', thin:true },
+      { id:'bridgeDeck', label:'桥面木板', className:'piece-plank', targetKey:'plank' }, { id:'bridgePostLeft', label:'左桥柱', className:'piece-post', targetKey:'cylinder' }, { id:'bridgePostRight', label:'右桥柱', className:'piece-post', targetKey:'base' }, { id:'bridgeRope', label:'弧形护栏', className:'piece-rope', targetKey:'roof' },
+      { id:'rocketBody', label:'火箭筒身', className:'piece-cylinder', targetKey:'cylinder' }, { id:'rocketWindow', label:'观察窗', className:'piece-ball', targetKey:'ball' }, { id:'rocketFinLeft', label:'左尾翼', className:'piece-flag', targetKey:'flag' }, { id:'rocketFinRight', label:'右尾翼', className:'piece-flag', targetKey:'wheel' },
+      { id:'castleMain', label:'城堡主楼', className:'piece-wall', targetKey:'wall' }, { id:'castleTowerLeft', label:'左塔楼', className:'piece-tower', targetKey:'cylinder' }, { id:'castleTowerRight', label:'右塔楼', className:'piece-tower', targetKey:'base' }, { id:'castleFlag', label:'城堡旗帜', className:'piece-flag', targetKey:'flag' },
+      { id:'treeTrunk', label:'树屋树干', className:'piece-cylinder', targetKey:'cylinder' }, { id:'treeHouse', label:'树屋主体', className:'piece-wall', targetKey:'wall' }, { id:'treeRoof', label:'树屋屋顶', className:'piece-roof', targetKey:'roof' }, { id:'treeWindow', label:'树屋窗', className:'piece-window', targetKey:'window' },
+      { id:'trainBody', label:'火车车身', className:'piece-base', targetKey:'base' }, { id:'trainCabin', label:'驾驶室', className:'piece-wall', targetKey:'wall' }, { id:'trainWheelLeft', label:'左车轮', className:'piece-wheel', targetKey:'wheel' }, { id:'trainWheelRight', label:'右车轮', className:'piece-wheel', targetKey:'tree' },
+      { id:'carouselPole', label:'中心木柱', className:'piece-mast', targetKey:'mast' }, { id:'carouselTop', label:'旋转圆盘', className:'piece-disc', targetKey:'roof' }, { id:'carouselSeatLeft', label:'左座椅', className:'piece-ball', targetKey:'wheel' }, { id:'carouselSeatRight', label:'右座椅', className:'piece-ball', targetKey:'ball' },
+      { id:'pagodaBase', label:'塔基', className:'piece-base', targetKey:'base' }, { id:'pagodaMid', label:'塔身', className:'piece-wall', targetKey:'wall' }, { id:'pagodaRoof', label:'飞檐', className:'piece-roof', targetKey:'roof' }, { id:'pagodaSpire', label:'塔尖', className:'piece-mast', targetKey:'mast', thin:true },
+      { id:'lightTower', label:'灯塔塔身', className:'piece-tower', targetKey:'cylinder' }, { id:'lightTop', label:'灯室', className:'piece-disc', targetKey:'roof' }, { id:'lightBeam', label:'海上光束', className:'piece-beam', targetKey:'plank', thin:true }
+    ];
+    const variantTypeMap = Object.fromEntries(variantTypes.map(type => [type.id, type]));
+    const levelPartIds = [
+      ['houseWall','houseRoof','houseDoor','houseWindow','houseChimney'],
+      ['cartBody','cartRoof','cartWheelLeft','cartWheelRight','cartWindow'],
+      ['millTower','millRoof','millBladeLeft','millBladeRight'],
+      ['boatHull','boatSail','boatMast'],
+      ['bridgeDeck','bridgePostLeft','bridgePostRight','bridgeRope'],
+      ['rocketBody','rocketWindow','rocketFinLeft','rocketFinRight'],
+      ['castleMain','castleTowerLeft','castleTowerRight','castleFlag'],
+      ['treeTrunk','treeHouse','treeRoof','treeWindow'],
+      ['trainBody','trainCabin','trainWheelLeft','trainWheelRight'],
+      ['carouselPole','carouselTop','carouselSeatLeft','carouselSeatRight'],
+      ['pagodaBase','pagodaMid','pagodaRoof','pagodaSpire'],
+      ['lightTower','lightTop','lightBeam']
+    ];
+    function getPieceType(id) { return types.find(type => type.id === id) || variantTypeMap[id] || null; }
+    function getCurrentPartTypes() { return (levelPartIds[blueprintIndex] || []).map(getPieceType).filter(Boolean); }
+    function targetSelectorForType(type) { const blueprint = blueprints[blueprintIndex]; return blueprint?.targets?.[type.targetKey || type.id] || null; }
     function readAccounts() {
       try { return JSON.parse(localStorage.getItem(ACCOUNT_LIST_KEY) || '[]').filter(account => account && account.id && account.name); }
       catch (_) { return []; }
@@ -585,15 +636,45 @@
       try { localStorage.setItem(CURRENT_ACCOUNT_KEY, userId); } catch (_) {}
       resetRuntimeForAccount(); loadGame(); renderCollection(); updateScore(); showHome(); showToast(`欢迎回来，${accountName}`);
     }
-    function resetRuntimeForAccount() { levelNumber=1; blueprintIndex=0; score=0; coins=120; collection=[]; history=[]; selected=null; board.querySelectorAll('.piece').forEach(el => el.remove()); renderBlueprint(); }
+    function resetRuntimeForAccount() { levelNumber=1; blueprintIndex=0; score=0; coins=120; collection=[]; collectionRecords={}; history=[]; selected=null; board.querySelectorAll('.piece').forEach(el => el.remove()); renderBlueprint(); }
     function showAccountScreen() { accountScreen.style.display='grid'; homeScreen.style.display='none'; gameScreen.style.display='none'; resultScreen.style.display='none'; userScreen.style.display='none'; renderAccountList(); setTimeout(() => accountNameInput.focus(), 0); }
     function switchAccount() { saveGame(); userId=''; accountName=''; try { localStorage.removeItem(CURRENT_ACCOUNT_KEY); } catch (_) {} resetRuntimeForAccount(); showAccountScreen(); }
+    function captureBoardPieces() {
+      return [...board.querySelectorAll('.piece')].map(el => ({
+        type: el.dataset.type,
+        x: Number(el.dataset.x),
+        y: Number(el.dataset.y),
+        rotation: Number(el.dataset.rotation) || 0,
+        width: el.offsetWidth,
+        height: el.offsetHeight
+      }));
+    }
+    function sanitizeCollectionRecords(value) {
+      const records = {};
+      if (!value || typeof value !== 'object') return records;
+      Object.entries(value).forEach(([key, record]) => {
+        const index = Number(key);
+        if (!Number.isInteger(index) || index < 0 || index >= blueprints.length || !record || !Array.isArray(record.pieces)) return;
+        records[index] = { pieces: record.pieces.filter(piece => piece && typeof piece.type === 'string').map(piece => ({ type:piece.type, x:Number(piece.x) || .5, y:Number(piece.y) || .5, rotation:Number(piece.rotation) || 0, width:Number(piece.width) || 0, height:Number(piece.height) || 0 })), savedAt:Number(record.savedAt) || Date.now(), rewarded:Boolean(record.rewarded) };
+      });
+      return records;
+    }
     function saveGame() {
       try {
-        const pieces = [...board.querySelectorAll('.piece')].map(el => ({ type:el.dataset.type, x:el.dataset.x, y:el.dataset.y, rotation:el.dataset.rotation }));
+        const pieces = captureBoardPieces();
         if (!userId) return;
-        localStorage.setItem(`${SAVE_PREFIX}${userId}`, JSON.stringify({ levelNumber, blueprintIndex, score, coins, collection, pieces, savedAt:Date.now() }));
+        localStorage.setItem(`${SAVE_PREFIX}${userId}`, JSON.stringify({ levelNumber, blueprintIndex, score, coins, collection, collectionRecords, pieces, savedAt:Date.now() }));
       } catch (_) { /* 隐私模式或存储空间不足时继续让游戏可玩 */ }
+    }
+    function restorePieces(pieceList) {
+      if (!Array.isArray(pieceList)) return;
+      pieceList.forEach(data => {
+        const type = getPieceType(data.type);
+        if (!type) return;
+        const piece = createPiece(type, Number(data.x) || .5, Number(data.y) || .5);
+        piece.dataset.rotation = Number(data.rotation) || 0;
+        updatePiecePosition(piece);
+      });
     }
     function loadGame() {
       try {
@@ -605,10 +686,11 @@
         blueprintIndex = Math.max(0, Math.min(Number(saved.blueprintIndex) || 0, blueprints.length - 1));
         score = Math.max(0, Number(saved.score) || 0);
         coins = Math.max(0, Number(saved.coins) || 120);
-        collection = Array.isArray(saved.collection) ? saved.collection.filter(index => Number.isInteger(index) && index >= 0 && index < blueprints.length) : [];
+        collection = Array.isArray(saved.collection) ? [...new Set(saved.collection.filter(index => Number.isInteger(index) && index >= 0 && index < blueprints.length))] : [];
+        collectionRecords = sanitizeCollectionRecords(saved.collectionRecords);
         updateScore();
         renderBlueprint();
-        saved.pieces.forEach(data => { const type = types.find(item => item.id === data.type); if (type) { const piece = createPiece(type, Number(data.x), Number(data.y)); piece.dataset.rotation = Number(data.rotation) || 0; updatePiecePosition(piece); } });
+        restorePieces(saved.pieces);
       } catch (_) { /* 损坏的本地存档不会阻止新游戏启动 */ }
     }
     const melody = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 329.63, 293.66];
@@ -666,40 +748,137 @@
       document.getElementById('profileName').textContent = accountName || '用户';
       document.getElementById('topAccountName').textContent = accountName || '用户';
     }
+    function renderCollectionThumb(record) {
+      const thumb = document.createElement('div');
+      thumb.className = 'collection-thumb';
+      (record?.pieces || []).forEach(data => {
+        const type = getPieceType(data.type);
+        if (!type) return;
+        const piece = document.createElement('div');
+        piece.className = `piece ${type.className}`;
+        piece.style.left = `${Math.max(0, Math.min(1, Number(data.x) || .5)) * 100}%`;
+        piece.style.top = `${Math.max(0, Math.min(1, Number(data.y) || .5)) * 100}%`;
+        if (Number(data.width) > 0) piece.style.width = `${Math.min(190, Number(data.width))}px`;
+        if (Number(data.height) > 0) piece.style.height = `${Math.min(190, Number(data.height))}px`;
+        piece.style.transform = `translate(-50%, -50%) rotate(${Number(data.rotation) || 0}deg) scale(.2)`;
+        thumb.append(piece);
+      });
+      return thumb;
+    }
     function renderCollection() {
       const grid = document.getElementById('collectionGrid');
-      const count = new Set(collection).size;
-      document.getElementById('collectionCount').textContent = `${count}/12 已收藏`;
+      const unlockedIndexes = new Set([...collection, ...Object.keys(collectionRecords).map(Number)]);
+      document.getElementById('collectionCount').textContent = `${unlockedIndexes.size}/12 已收藏`;
       grid.innerHTML = '';
       blueprints.forEach((blueprint, index) => {
-        const unlocked = collection.includes(index); const card = document.createElement('div'); card.className = `collection-item${unlocked ? '' : ' locked'}`;
-        card.innerHTML = `<b>${unlocked ? '✦' : '·'}</b><span>${unlocked ? blueprint.name : '未解锁图纸'}</span>`; grid.append(card);
+        const unlocked = unlockedIndexes.has(index);
+        const card = document.createElement('div');
+        card.className = `collection-item${unlocked ? '' : ' locked'}`;
+        if (unlocked) {
+          const record = collectionRecords[index];
+          if (record) card.append(renderCollectionThumb(record));
+          const title = document.createElement('span');
+          title.textContent = blueprint.name;
+          card.append(title);
+          card.title = '点击下方关卡按钮回玩并更新作品';
+        } else {
+          card.innerHTML = '<b>·</b><span>未解锁图纸</span>';
+        }
+        grid.append(card);
       });
+      renderLevelGrid();
+    }
+    function renderLevelGrid() {
+      const grid = document.getElementById('levelGrid');
+      if (!grid) return;
+      const completed = new Set([...collection, ...Object.keys(collectionRecords).map(Number)]);
+      const highestReachable = Math.max(0, blueprintIndex, ...completed);
+      grid.innerHTML = '';
+      blueprints.forEach((blueprint, index) => {
+        const unlocked = index <= highestReachable;
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = `level-choice${index === blueprintIndex ? ' current' : ''}${unlocked ? '' : ' locked'}`;
+        button.textContent = String(index + 1).padStart(2, '0');
+        button.title = unlocked ? `进入第 ${index + 1} 关：${blueprint.name}` : '完成前一关后解锁';
+        button.disabled = !unlocked;
+        if (unlocked) button.addEventListener('click', () => selectLevel(index));
+        grid.append(button);
+      });
+    }
+    function selectLevel(index) {
+      if (!Number.isInteger(index) || index < 0 || index >= blueprints.length) return;
+      const completed = new Set([...collection, ...Object.keys(collectionRecords).map(Number)]);
+      if (index > Math.max(0, blueprintIndex, ...completed)) { showToast('请先完成前面的图纸'); return; }
+      saveGame();
+      levelNumber = index + 1;
+      blueprintIndex = index;
+      history = [];
+      selected = null;
+      board.querySelectorAll('.piece').forEach(el => el.remove());
+      renderBlueprint();
+      if (collectionRecords[index]) restorePieces(collectionRecords[index].pieces);
+      updateScore();
+      saveGame();
+      startGame();
+      showToast(`已打开第 ${levelNumber} 关：${blueprints[index].name}`);
     }
     function showHome() { homeScreen.style.display='grid'; gameScreen.style.display='none'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; }
     function showUser() { updateScore(); renderCollection(); homeScreen.style.display='none'; gameScreen.style.display='none'; resultScreen.style.display='none'; accountScreen.style.display='none'; userScreen.style.display='grid'; }
-    function startGame() { homeScreen.style.display='none'; gameScreen.style.display='block'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; updateScore(); }
+    function startGame() {  homeScreen.style.display='none'; gameScreen.style.display='block'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; renderBlueprint(); updateScore(); }
     function showResult() { document.getElementById('finalScore').textContent = score; gameScreen.style.display='none'; homeScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; resultScreen.style.display='grid'; }
     function restartGame() { levelNumber=1; blueprintIndex=0; score=0; history=[]; board.querySelectorAll('.piece').forEach(el=>el.remove()); renderBlueprint(); updateScore(); saveGame(); startGame(); showToast('新一轮木玩拼搭开始啦'); }
     function createMiniPiece(type) {
       const wrap = document.createElement('div'); wrap.className = 'mini-piece';
-      const p = document.createElement('div'); p.className = `piece ${type.className}`; wrap.appendChild(p); return wrap;
+      const p = document.createElement('div'); p.className = `piece ${type.className}`;
+      fitPieceToTarget(p, type);
+      wrap.appendChild(p); return wrap;
     }
     function renderPalette() {
       piecesTray.innerHTML = '';
-      types.forEach(type => {
-        const card = document.createElement('button'); card.className = 'piece-card'; card.dataset.type = type.id;
-        card.append(createMiniPiece(type)); const label = document.createElement('small'); label.textContent = type.label; card.append(label);
+      getCurrentPartTypes().forEach(type => {
+        const card = document.createElement('button');
+        card.className = 'piece-card';
+        card.dataset.type = type.id;
+        card.append(createMiniPiece(type));
+        const label = document.createElement('small');
+        label.textContent = type.label;
+        card.append(label);
         card.addEventListener('click', () => {
-          const piece = createPiece(type, .5, .7); selectPiece(piece); saveGame(); showToast(`已拿起「${type.label}」，拖入画布试试`);
+          const piece = createPiece(type, .5, .7);
+          selectPiece(piece);
+          saveGame();
+          showToast(`已拿起「${type.label}」，拖到画布中摆放`);
         });
         piecesTray.append(card);
       });
     }
+    function fitPieceToTarget(el, type) {
+      const selector = targetSelectorForType(type);
+      if (!selector) return;
+      const target = document.querySelector(`.target-outline ${selector}`);
+      if (!target) return;
+      const rect = target.getBoundingClientRect();
+      const minimum = type.thin ? 8 : 12;
+      el.style.width = `${Math.max(minimum, rect.width * .92)}px`;
+      el.style.height = `${Math.max(minimum, rect.height * .92)}px`;
+    }
     function createPiece(type, x, y) {
-      const el = document.createElement('div'); el.className = `piece ${type.className}`; el.dataset.type = type.id;
-      el.dataset.x = x; el.dataset.y = y; el.dataset.rotation = type.rotation || 0; el.title = type.label;
-      const grain = document.createElement('div'); grain.className = 'grain'; el.append(grain); board.append(el); updatePiecePosition(el); bindPiece(el); return el;
+      const el = document.createElement('div');
+      el.className = `piece ${type.className}`;
+      el.dataset.type = type.id;
+      el.dataset.x = x;
+      el.dataset.y = y;
+      el.dataset.rotation = type.rotation || 0;
+      el.title = type.label;
+      const grain = document.createElement('div');
+      grain.className = 'grain';
+      el.append(grain);
+      board.append(el);
+      fitPieceToTarget(el, type);
+      updatePiecePosition(el);
+      bindPiece(el);
+      return el;
     }
     function updatePiecePosition(el) {
       const x = Number(el.dataset.x), y = Number(el.dataset.y), r = Number(el.dataset.rotation);
@@ -738,14 +917,17 @@
       snapshot(); selected.remove(); selected = null; saveGame(); showToast('零件已删除');
     }
     function showHint() {
-      const targetMap = blueprints[blueprintIndex].targets;
-      const type = selected ? selected.dataset.type : Object.keys(targetMap).find(key => ![...board.querySelectorAll('.piece')].some(piece => piece.dataset.type === key));
-      if (!type || !targetMap[type]) { showToast('这张图纸已经没有待完成的零件了'); return; }
-      const target = document.querySelector(`.target-outline ${targetMap[type]}`);
-      target?.classList.remove('hint-target'); target?.classList.add('hint-target');
+      const parts = getCurrentPartTypes();
+      const selectedType = selected ? getPieceType(selected.dataset.type) : null;
+      const type = selectedType || parts.find(item => ![...board.querySelectorAll('.piece')].some(piece => piece.dataset.type === item.id));
+      const targetSelector = type && targetSelectorForType(type);
+      if (!type || !targetSelector) { showToast('这张图纸已经没有待摆放的零件了'); return; }
+      const target = document.querySelector(`.target-outline ${targetSelector}`);
+      target?.classList.remove('hint-target');
+      target?.classList.add('hint-target');
       if (selected) { selected.classList.remove('hint'); selected.classList.add('hint'); }
       window.setTimeout(() => { target?.classList.remove('hint-target'); selected?.classList.remove('hint'); }, 2500);
-      showToast(selected ? '发光的位置就是它的拼搭位置' : '试试先拿起一个高亮零件');
+      showToast(selected ? '发光的位置就是它的摆放区域' : `试试先拿起「${type.label}」`);
     }
     function renderBlueprint() {
       const blueprint = blueprints[blueprintIndex];
@@ -758,6 +940,7 @@
       document.getElementById('levelDescription').textContent = blueprint.description;
       document.getElementById('levelBadge').textContent = `${level} / 12`;
       document.getElementById('targetLabel').textContent = blueprint.label;
+      renderPalette();
     }
     function goToNextLevel() {
       levelNumber = Math.min(levelNumber + 1, blueprints.length);
@@ -777,8 +960,9 @@
       const count = board.querySelectorAll('.piece').length;
       if (count < 3) { showToast('再放入至少 3 个零件，作品才可以完成'); return; }
       const completedIndex = blueprintIndex;
-      const firstCompletion = !collection.includes(completedIndex);
-      if (firstCompletion) { collection.push(completedIndex); coins += 30; }
+      collectionRecords[completedIndex] = { pieces: captureBoardPieces(), savedAt: Date.now(), rewarded: Boolean(collectionRecords[completedIndex]?.rewarded) };
+      const firstCompletion = !collection.includes(completedIndex) && !collectionRecords[completedIndex].rewarded;
+      if (firstCompletion) { collection.push(completedIndex); coins += 30; collectionRecords[completedIndex].rewarded = true; }
       score += 100;
       coins += 20;
       updateScore();
@@ -809,7 +993,7 @@
     document.getElementById('finishBtn').addEventListener('click', finish);
     document.getElementById('closeModal').addEventListener('click', () => { successModal.classList.remove('show'); showToast('新图纸「木轮小车」已解锁'); });
     successModal.addEventListener('click', e => { if(e.target===successModal) successModal.classList.remove('show'); });
-    window.addEventListener('resize', () => board.querySelectorAll('.piece').forEach(updatePiecePosition));
+    window.addEventListener('resize', () => board.querySelectorAll('.piece').forEach(piece => { const type = getPieceType(piece.dataset.type); if (type) fitPieceToTarget(piece, type); updatePiecePosition(piece); }));
     window.addEventListener('pointerup', event => { if (dragging) endDrag(dragging, event.pointerId); }, { passive:true });
     window.addEventListener('pointercancel', event => { if (dragging) cancelDrag(dragging, event.pointerId); }, { passive:true });
     userId = getUserId();
