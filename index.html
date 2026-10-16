@@ -202,11 +202,11 @@
       <section class="panel play-panel">
         <div class="quest-row">
           <div>
-            <div class="eyebrow">Blueprint 01 · 入门拼搭</div>
-            <h2>搭一座云朵小屋</h2>
-            <p>把木块放进轮廓里，让小屋稳稳站起来。</p>
+            <div class="eyebrow" id="levelEyebrow">Blueprint 01 · 入门拼搭</div>
+            <h2 id="levelTitle">搭一座云朵小屋</h2>
+            <p id="levelDescription">把木块放进轮廓里，让小屋稳稳站起来。</p>
           </div>
-          <div class="mission-badge">今日图纸<strong>01 / 12</strong></div>
+          <div class="mission-badge">今日图纸<strong id="levelBadge">01 / 12</strong></div>
         </div>
 
         <div class="board-wrap">
@@ -214,7 +214,7 @@
             <div class="sun"></div><div class="cloud"></div>
             <div class="board-grid"></div>
             <div class="target-outline"><div class="roof"></div><div class="house"></div><div class="door"></div><div class="window"></div><div class="chimney"></div></div>
-            <div class="target-label">轮廓图纸 · 云朵小屋</div>
+            <div class="target-label" id="targetLabel">轮廓图纸 · 云朵小屋</div>
           </div>
         </div>
 
@@ -297,6 +297,7 @@
     let musicTimer = null;
     let musicOn = false;
     let musicStep = 0;
+    let levelNumber = 1;
     const melody = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 329.63, 293.66];
 
     // 用 Web Audio API 生成一段轻柔的木琴感旋律，不加载外部音频，避免版权和跨域问题。
@@ -406,13 +407,25 @@
       if (!selected) { showToast('先选择一个要删除的零件'); return; }
       snapshot(); selected.remove(); selected = null; showToast('零件已删除');
     }
+    function goToNextLevel() {
+      levelNumber += 1;
+      const level = String(levelNumber).padStart(2, '0');
+      document.getElementById('levelEyebrow').textContent = `Blueprint ${level} · 进阶拼搭`;
+      document.getElementById('levelTitle').textContent = `搭一座云朵小屋 · 第 ${levelNumber} 关`;
+      document.getElementById('levelDescription').textContent = '这一次试试更少的零件，把屋顶和窗户对得更准。';
+      document.getElementById('levelBadge').textContent = `${level} / 12`;
+      document.getElementById('targetLabel').textContent = `轮廓图纸 · 云朵小屋 ${level}`;
+      board.querySelectorAll('.piece').forEach(el => el.remove());
+      history = []; selected = null;
+      showToast(`已进入第 ${levelNumber} 关：新图纸已准备好`);
+    }
     function rotateSelected() { if(!selected) { showToast('先选择一个木玩零件'); return; } snapshot(); selected.dataset.rotation = (Number(selected.dataset.rotation)+90)%360; updatePiecePosition(selected); showToast('零件旋转 90°'); }
     function resetBoard() { snapshot(); board.querySelectorAll('.piece').forEach(el=>el.remove()); selected=null; showToast('画布已清空'); }
     function undo() { const last=history.pop(); if(!last){showToast('还没有可以撤销的操作');return;} restoreSnapshot(last); selected=null; showToast('已撤销上一步'); }
     function finish() {
       const count=board.querySelectorAll('.piece').length;
       if(count<3){showToast('再放入至少 3 个零件，小屋才会站起来'); return;}
-      successModal.classList.add('show');
+      goToNextLevel();
     }
     document.getElementById('rotateBtn').addEventListener('click', rotateSelected);
     document.getElementById('deleteBtn').addEventListener('click', deleteSelected);
