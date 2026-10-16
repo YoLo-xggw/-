@@ -36,6 +36,52 @@
     }
     button { font: inherit; color: inherit; -webkit-tap-highlight-color: transparent; }
     .app-shell { max-width: 1180px; margin: 0 auto; padding: 24px; }
+    .screen { min-height: 100dvh; }
+    .game-screen { display:none; }
+    .home-screen, .result-screen { display:grid; place-items:center; padding:24px; }
+    .welcome-card, .result-card { width:min(440px, 100%); padding:30px 24px 24px; border-radius:28px; text-align:center; background:rgba(255,255,255,.78); border:1px solid rgba(255,255,255,.9); box-shadow:var(--shadow); backdrop-filter:blur(14px); }
+    .welcome-art { position:relative; height:260px; margin:-5px auto 18px; border:1px dashed rgba(65,107,85,.4); border-radius:20px; overflow:hidden; background:linear-gradient(#d9ecf0 0 47%, #bed7b7 47% 100%); }
+    .welcome-art .welcome-sun { position:absolute; width:62px; height:62px; right:28px; top:26px; border-radius:50%; background:#f5c86f; box-shadow:0 0 0 10px rgba(245,200,111,.18); }
+    .welcome-art .welcome-cloud { position:absolute; width:82px; height:22px; left:24px; top:55px; border-radius:30px; background:rgba(255,255,255,.8); }
+    .welcome-art .welcome-cloud::before,.welcome-art .welcome-cloud::after { content:""; position:absolute; border-radius:50%; background:inherit; }
+    .welcome-art .welcome-cloud::before { width:32px; height:32px; left:15px; bottom:0; } .welcome-art .welcome-cloud::after { width:42px; height:42px; left:42px; bottom:0; }
+    .welcome-house { position:absolute; left:50%; bottom:34px; width:116px; height:96px; transform:translateX(-50%); border:3px solid #6c7068; border-radius:5px; background:#fcfaf2; }
+    .welcome-house::before { content:""; position:absolute; left:-14px; top:-57px; width:138px; height:70px; border:3px solid #6c7068; border-bottom:0; background:#fbf5e7; clip-path:polygon(50% 0,100% 100%,0 100%); }
+    .welcome-door { position:absolute; left:42px; bottom:0; width:30px; height:49px; border:2px solid #93613f; border-bottom:0; border-radius:13px 13px 0 0; background:#c99564; }
+    .welcome-window { position:absolute; left:16px; top:30px; width:23px; height:22px; border:2px solid #77968a; background:#d9eef0; box-shadow:46px 0 0 -2px #d9eef0,46px 0 0 0 #77968a; }
+    .welcome-piece { position:absolute; bottom:16px; width:30px; height:24px; border:2px solid #95623e; background:#d8a26e; border-radius:3px; }
+    .welcome-piece.one { left:25px; } .welcome-piece.two { left:68px; } .welcome-piece.three { right:28px; }
+    .welcome-title { margin:0; font-size:30px; letter-spacing:.1em; color:var(--green-deep); }
+    .welcome-subtitle { margin:8px 0 4px; font-size:13px; color:var(--muted); letter-spacing:.12em; }
+    .welcome-signature { margin:0 0 20px; font-size:11px; color:#a27955; }
+    .welcome-actions { display:flex; flex-direction:column; gap:10px; }
+    .welcome-actions .btn { min-height:48px; font-size:14px; }
+    .result-screen { display:none; }
+    .result-icon { width:72px; height:72px; margin:0 auto 14px; display:grid; place-items:center; border-radius:25px; background:#eaf2e5; color:var(--green); font-size:34px; }
+    .result-card h2 { margin:0 0 7px; font-size:25px; color:var(--green-deep); }
+    .result-card p { margin:0; color:var(--muted); font-size:13px; }
+    .result-score { margin:22px 0; padding:16px; border-radius:18px; background:#fff8e9; border:1px solid #f0dfb8; }
+    .result-score strong { display:block; font-size:42px; color:#a9683e; letter-spacing:-.05em; }
+    .result-score span { color:#876c4d; font-size:11px; }
+    .result-actions { display:flex; gap:10px; }
+    .result-actions .btn { flex:1; min-height:46px; }
+    .home-btn { border:1px solid var(--line); background:rgba(255,255,255,.7); border-radius:999px; padding:9px 12px; cursor:pointer; font-size:12px; color:var(--muted); }
+    .score-pill { display:flex; align-items:center; gap:5px; padding:9px 12px; background:#fff5df; border:1px solid #f0dfb8; border-radius:999px; color:#906442; font-size:12px; font-weight:800; }
+    .help-modal-card { text-align:left; }
+    .help-modal-card h3 { margin:0 0 10px; color:var(--green-deep); }
+    .help-modal-card p { margin:8px 0; color:var(--muted); font-size:13px; line-height:1.7; }
+    .help-modal-card .btn { width:100%; margin-top:10px; }
+    .user-screen { display:none; place-items:center; padding:24px; }
+    .profile-card { width:min(440px,100%); padding:26px 22px 22px; border-radius:28px; background:rgba(255,255,255,.8); border:1px solid rgba(255,255,255,.9); box-shadow:var(--shadow); text-align:center; }
+    .profile-avatar { width:76px; height:76px; margin:0 auto 12px; display:grid; place-items:center; border-radius:26px; background:#edc878; color:#6b4927; font-size:28px; font-weight:800; box-shadow:0 8px 18px rgba(135,93,47,.14); }
+    .profile-card h2 { margin:0; color:var(--green-deep); font-size:23px; }
+    .profile-card p { margin:6px 0 18px; color:var(--muted); font-size:12px; }
+    .profile-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:18px; }
+    .profile-stat { padding:12px 5px; background:#f4f7f0; border:1px solid #e1eadb; border-radius:15px; }
+    .profile-stat strong { display:block; color:var(--green-deep); font-size:20px; }
+    .profile-stat span { color:var(--muted); font-size:10px; }
+    .profile-actions { display:flex; gap:9px; }
+    .profile-actions .btn { flex:1; min-height:45px; }
     .topbar { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-bottom:18px; }
     .brand { display:flex; align-items:center; gap:12px; }
     .brand-mark { width:43px; height:43px; display:grid; place-items:center; border-radius:15px; background:var(--green); color:#fff; box-shadow:0 8px 18px rgba(46,78,62,.2); position:relative; overflow:hidden; }
@@ -133,6 +179,10 @@
     .piece { position:absolute; z-index:3; cursor:grab; user-select:none; touch-action:none; filter:drop-shadow(0 6px 5px rgba(72,47,26,.16)); transition:box-shadow .15s, filter .15s; }
     .piece:active { cursor:grabbing; }
     .piece.selected { filter:drop-shadow(0 0 0 #fff) drop-shadow(0 0 8px #f4bd67); }
+    .piece.hint { animation:pieceHint 1.1s ease-in-out 2; }
+    .target-outline .hint-target { animation:targetHint 1.1s ease-in-out 2; }
+    @keyframes pieceHint { 0%,100% { filter:drop-shadow(0 6px 5px rgba(72,47,26,.16)); } 50% { filter:drop-shadow(0 0 0 #fff) drop-shadow(0 0 12px #efb660); } }
+    @keyframes targetHint { 0%,100% { opacity:1; } 50% { opacity:.28; stroke-width:4; filter:drop-shadow(0 0 6px #efb660); } }
     .piece .grain { position:absolute; inset:0; opacity:.38; background:repeating-linear-gradient(5deg, transparent 0 7px, rgba(102,61,27,.22) 8px 9px, transparent 10px 16px); pointer-events:none; border-radius:inherit; }
     .piece-roof { width:156px; height:94px; background:var(--wood); clip-path:polygon(50% 0,100% 100%,0 100%); }
     .piece-roof .grain { clip-path:inherit; border-radius:0; }
@@ -248,13 +298,51 @@
   </style>
 </head>
 <body>
-  <main class="app-shell">
+  <section class="screen home-screen" id="homeScreen">
+    <div class="welcome-card">
+      <div class="welcome-art">
+        <div class="welcome-sun"></div><div class="welcome-cloud"></div>
+        <div class="welcome-house"><div class="welcome-door"></div><div class="welcome-window"></div></div>
+        <div class="welcome-piece one"></div><div class="welcome-piece two"></div><div class="welcome-piece three"></div>
+      </div>
+      <h1 class="welcome-title">云木搭搭</h1>
+      <p class="welcome-subtitle">木玩拼图 · 云和童话工坊</p>
+      <p class="welcome-signature">设计署名：云木小匠</p>
+      <div class="welcome-actions">
+        <button class="btn btn-primary" id="startGameBtn" type="button">开始游戏 <span>→</span></button>
+        <button class="btn btn-soft" id="showHelpBtn" type="button">游戏说明</button>
+        <button class="btn btn-ghost" id="profileBtn" type="button">用户</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen user-screen" id="userScreen">
+    <div class="profile-card">
+      <div class="profile-avatar">木</div>
+      <h2>用户</h2>
+      <p>你的云木搭搭个人工坊</p>
+      <div class="profile-stats">
+        <div class="profile-stat"><strong id="profileScore">0</strong><span>总得分</span></div>
+        <div class="profile-stat"><strong id="profileLevel">01</strong><span>当前图纸</span></div>
+        <div class="profile-stat"><strong>12</strong><span>木玩图纸</span></div>
+      </div>
+      <div class="profile-actions">
+        <button class="btn btn-primary" id="profileContinueBtn" type="button">继续游戏</button>
+        <button class="btn btn-soft" id="profileHomeBtn" type="button">返回首页</button>
+      </div>
+    </div>
+  </section>
+
+  <main class="app-shell screen game-screen" id="gameScreen">
     <header class="topbar">
       <div class="brand">
         <div class="brand-mark"><span>木</span></div>
         <div><h1>云木搭搭</h1><p>YUNMU BUILDING LAB</p></div>
       </div>
       <div class="top-actions">
+        <button class="home-btn" id="homeBtn" type="button">⌂ 首页</button>
+        <button class="home-btn" id="userBtn" type="button">用户</button>
+        <div class="score-pill">得分 <strong id="scoreValue">0</strong></div>
         <div class="top-pill">☼ 今日灵感 <strong>3/3</strong></div>
         <button class="music-toggle" id="musicToggle" type="button" aria-label="开启舒缓音乐">♫ 开启音乐</button>
         <div class="top-pill"><div class="avatar">木</div><span>小木匠</span></div>
@@ -286,6 +374,7 @@
           <div class="pieces" id="pieces"></div>
         </div>
         <div class="control-row">
+          <button class="btn btn-soft" id="hintBtn">✦ 提示</button>
           <button class="btn btn-soft" id="rotateBtn">↻ 旋转</button>
           <button class="btn btn-ghost" id="deleteBtn">⌫ 删除</button>
           <button class="btn btn-ghost" id="undoBtn">↶ 撤销</button>
@@ -325,6 +414,28 @@
     </section>
   </main>
 
+  <section class="screen result-screen" id="resultScreen">
+    <div class="result-card">
+      <div class="result-icon">✦</div>
+      <h2>云木工坊完成啦</h2>
+      <p>你完成了 12 张木玩图纸，成为真正的云木搭搭小匠。</p>
+      <div class="result-score"><strong id="finalScore">0</strong><span>本次木匠得分</span></div>
+      <div class="result-actions">
+        <button class="btn btn-primary" id="restartGameBtn" type="button">重新开始</button>
+        <button class="btn btn-soft" id="resultHomeBtn" type="button">返回首页</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal" id="helpModal">
+    <div class="modal-card help-modal-card">
+      <h3>怎么玩？</h3>
+      <p>从下方选择木玩零件，拖到中间图纸的虚线框附近，松手后会自动吸附。</p>
+      <p>选中零件后可以旋转、删除或撤销。每张图纸完成后会进入下一关，12关全部完成后结算。</p>
+      <button class="btn btn-primary" id="closeHelpBtn" type="button">知道了，开始搭建</button>
+    </div>
+  </div>
+
   <div class="toast" id="toast"></div>
   <div class="modal" id="successModal">
     <div class="modal-card">
@@ -342,6 +453,11 @@
     const toast = document.getElementById('toast');
     const successModal = document.getElementById('successModal');
     const musicToggle = document.getElementById('musicToggle');
+    const homeScreen = document.getElementById('homeScreen');
+    const gameScreen = document.getElementById('gameScreen');
+    const resultScreen = document.getElementById('resultScreen');
+    const userScreen = document.getElementById('userScreen');
+    const helpModal = document.getElementById('helpModal');
     const types = [
       { id:'wall', label:'房身', className:'piece-wall', x:.5, y:.57, rotation:0 },
       { id:'roof', label:'屋顶', className:'piece-roof', x:.5, y:.34, rotation:0 },
@@ -371,6 +487,7 @@
     let musicStep = 0;
     let levelNumber = 1;
     let blueprintIndex = 0;
+    let score = 0;
     const SAVE_PREFIX = 'yunmu-builder-save-v1:';
     const USER_ID_KEY = 'yunmu-builder-user-id';
     let userId = '';
@@ -399,7 +516,7 @@
     function saveGame() {
       try {
         const pieces = [...board.querySelectorAll('.piece')].map(el => ({ type:el.dataset.type, x:el.dataset.x, y:el.dataset.y, rotation:el.dataset.rotation }));
-        localStorage.setItem(`${SAVE_PREFIX}${userId}`, JSON.stringify({ levelNumber, blueprintIndex, pieces, savedAt:Date.now() }));
+        localStorage.setItem(`${SAVE_PREFIX}${userId}`, JSON.stringify({ levelNumber, blueprintIndex, score, pieces, savedAt:Date.now() }));
       } catch (_) { /* 隐私模式或存储空间不足时继续让游戏可玩 */ }
     }
     function loadGame() {
@@ -410,6 +527,8 @@
         if (!saved || !Array.isArray(saved.pieces)) return;
         levelNumber = Math.max(1, Math.min(Number(saved.levelNumber) || 1, blueprints.length));
         blueprintIndex = Math.max(0, Math.min(Number(saved.blueprintIndex) || 0, blueprints.length - 1));
+        score = Math.max(0, Number(saved.score) || 0);
+        updateScore();
         renderBlueprint();
         saved.pieces.forEach(data => { const type = types.find(item => item.id === data.type); if (type) { const piece = createPiece(type, Number(data.x), Number(data.y)); piece.dataset.rotation = Number(data.rotation) || 0; updatePiecePosition(piece); } });
       } catch (_) { /* 损坏的本地存档不会阻止新游戏启动 */ }
@@ -460,6 +579,12 @@
       toast.textContent = message; toast.classList.add('show');
       clearTimeout(showToast.timer); showToast.timer = setTimeout(() => toast.classList.remove('show'), 1800);
     }
+    function updateScore() { document.getElementById('scoreValue').textContent = score; document.getElementById('profileScore').textContent = score; document.getElementById('profileLevel').textContent = String(levelNumber).padStart(2, '0'); }
+    function showHome() { homeScreen.style.display='grid'; gameScreen.style.display='none'; resultScreen.style.display='none'; userScreen.style.display='none'; }
+    function showUser() { updateScore(); homeScreen.style.display='none'; gameScreen.style.display='none'; resultScreen.style.display='none'; userScreen.style.display='grid'; }
+    function startGame() { homeScreen.style.display='none'; gameScreen.style.display='block'; resultScreen.style.display='none'; userScreen.style.display='none'; updateScore(); }
+    function showResult() { document.getElementById('finalScore').textContent = score; gameScreen.style.display='none'; homeScreen.style.display='none'; userScreen.style.display='none'; resultScreen.style.display='grid'; }
+    function restartGame() { levelNumber=1; blueprintIndex=0; score=0; history=[]; board.querySelectorAll('.piece').forEach(el=>el.remove()); renderBlueprint(); updateScore(); saveGame(); startGame(); showToast('新一轮木玩拼搭开始啦'); }
     function createMiniPiece(type) {
       const wrap = document.createElement('div'); wrap.className = 'mini-piece';
       const p = document.createElement('div'); p.className = `piece ${type.className}`; wrap.appendChild(p); return wrap;
@@ -526,12 +651,24 @@
       const distance = Math.hypot(Number(el.dataset.x) - targetX, Number(el.dataset.y) - targetY);
       const snapRadius = window.matchMedia && window.matchMedia('(max-width: 600px)').matches ? .28 : .14;
       if (distance < snapRadius) {
-        el.dataset.x = targetX; el.dataset.y = targetY; updatePiecePosition(el); showToast('咔哒！已精准吸附到虚线框');
+        el.dataset.x = targetX; el.dataset.y = targetY; updatePiecePosition(el);
+        if (el.dataset.scored !== 'true') { score += 10; el.dataset.scored = 'true'; updateScore(); }
+        showToast('咔哒！已精准吸附到虚线框');
       }
     }
     function deleteSelected() {
       if (!selected) { showToast('先选择一个要删除的零件'); return; }
       snapshot(); selected.remove(); selected = null; saveGame(); showToast('零件已删除');
+    }
+    function showHint() {
+      const targetMap = blueprints[blueprintIndex].targets;
+      const type = selected ? selected.dataset.type : Object.keys(targetMap).find(key => ![...board.querySelectorAll('.piece')].some(piece => piece.dataset.type === key && piece.dataset.scored === 'true'));
+      if (!type || !targetMap[type]) { showToast('这张图纸已经没有待完成的零件了'); return; }
+      const target = document.querySelector(`.target-outline ${targetMap[type]}`);
+      target?.classList.remove('hint-target'); target?.classList.add('hint-target');
+      if (selected) { selected.classList.remove('hint'); selected.classList.add('hint'); }
+      window.setTimeout(() => { target?.classList.remove('hint-target'); selected?.classList.remove('hint'); }, 2500);
+      showToast(selected ? '发光的位置就是它的拼搭位置' : '试试先拿起一个高亮零件');
     }
     function renderBlueprint() {
       const blueprint = blueprints[blueprintIndex];
@@ -560,9 +697,23 @@
     function finish() {
       const count=board.querySelectorAll('.piece').length;
       if(count<3){showToast('再放入至少 3 个零件，小屋才会站起来'); return;}
+      score += 100; updateScore();
+      if (levelNumber >= blueprints.length) { saveGame(); showResult(); return; }
       goToNextLevel();
     }
+    document.getElementById('startGameBtn').addEventListener('click', startGame);
+    document.getElementById('showHelpBtn').addEventListener('click', () => helpModal.classList.add('show'));
+    document.getElementById('profileBtn').addEventListener('click', showUser);
+    document.getElementById('closeHelpBtn').addEventListener('click', () => { helpModal.classList.remove('show'); startGame(); });
+    document.getElementById('homeBtn').addEventListener('click', showHome);
+    document.getElementById('restartGameBtn').addEventListener('click', restartGame);
+    document.getElementById('resultHomeBtn').addEventListener('click', showHome);
+    document.getElementById('userBtn').addEventListener('click', showUser);
+    document.getElementById('profileContinueBtn').addEventListener('click', startGame);
+    document.getElementById('profileHomeBtn').addEventListener('click', showHome);
+    helpModal.addEventListener('click', event => { if (event.target === helpModal) helpModal.classList.remove('show'); });
     document.getElementById('rotateBtn').addEventListener('click', rotateSelected);
+    document.getElementById('hintBtn').addEventListener('click', showHint);
     document.getElementById('deleteBtn').addEventListener('click', deleteSelected);
     document.getElementById('undoBtn').addEventListener('click', undo);
     document.getElementById('resetBtn').addEventListener('click', resetBoard);
