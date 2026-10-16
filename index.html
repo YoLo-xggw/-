@@ -291,6 +291,7 @@
     let selected = null;
     let history = [];
     let dragging = null;
+    let activePointerId = null;
     let dragOffset = { x:0, y:0 };
     let audioContext = null;
     let musicBus = null;
@@ -380,12 +381,21 @@
     function restoreSnapshot(state) { board.querySelectorAll('.piece').forEach(el => el.remove()); state.forEach(s => { s.el.dataset.x=s.x; s.el.dataset.y=s.y; s.el.dataset.rotation=s.rotation; board.append(s.el); updatePiecePosition(s.el); bindPiece(s.el); }); }
     function bindPiece(el) {
       el.onpointerdown = (event) => {
-        event.preventDefault(); selectPiece(el); snapshot(); dragging = el; el.setPointerCapture?.(event.pointerId);
+        event.preventDefault(); selectPiece(el); snapshot(); dragging = el; activePointerId = event.pointerId; el.setPointerCapture?.(event.pointerId);
         const b = board.getBoundingClientRect(); dragOffset.x = event.clientX - (b.left + Number(el.dataset.x) * b.width); dragOffset.y = event.clientY - (b.top + Number(el.dataset.y) * b.height);
       };
       el.onpointermove = (event) => { if (!dragging || dragging !== el) return; const b=board.getBoundingClientRect(); const x=Math.max(.08,Math.min(.92,(event.clientX-b.left-dragOffset.x)/b.width)); const y=Math.max(.12,Math.min(.9,(event.clientY-b.top-dragOffset.y)/b.height)); el.dataset.x=x; el.dataset.y=y; updatePiecePosition(el); };
-      el.onpointerup = () => { if (!dragging) return; dragging=null; snap(el); };
-      el.onpointercancel = () => { dragging=null; };
+      el.onpointerup = (event) => endDrag(el, event.pointerId);
+      el.onpointercancel = (event) => cancelDrag(el, event.pointerId);
+      el.onlostpointercapture = (event) => { if (dragging === el) endDrag(el, event.pointerId); };
+    }
+    function endDrag(el, pointerId) {
+      if (!dragging || dragging !== el || (activePointerId !== null && pointerId !== activePointerId)) return;
+      dragging = null; activePointerId = null; snap(el);
+    }
+    function cancelDrag(el, pointerId) {
+      if (dragging !== el || (activePointerId !== null && pointerId !== activePointerId)) return;
+      dragging = null; activePointerId = null;
     }
     function snap(el) {
       // 以虚线框的真实中心计算吸附位置，保证不同手机尺寸下都能完全对齐。
@@ -399,7 +409,8 @@
       const targetX = (targetRect.left + targetRect.width / 2 - boardRect.left) / boardRect.width;
       const targetY = (targetRect.top + targetRect.height / 2 - boardRect.top) / boardRect.height;
       const distance = Math.hypot(Number(el.dataset.x) - targetX, Number(el.dataset.y) - targetY);
-      if (distance < .14) {
+      const snapRadius = window.matchMedia && window.matchMedia('(max-width: 600px)').matches ? .28 : .14;
+      if (distance < snapRadius) {
         el.dataset.x = targetX; el.dataset.y = targetY; updatePiecePosition(el); showToast('咔哒！已精准吸附到虚线框');
       }
     }
@@ -435,6 +446,8 @@
     document.getElementById('closeModal').addEventListener('click', () => { successModal.classList.remove('show'); showToast('新图纸「木轮小车」已解锁'); });
     successModal.addEventListener('click', e => { if(e.target===successModal) successModal.classList.remove('show'); });
     window.addEventListener('resize', () => board.querySelectorAll('.piece').forEach(updatePiecePosition));
+    window.addEventListener('pointerup', event => { if (dragging) endDrag(dragging, event.pointerId); }, { passive:true });
+    window.addEventListener('pointercancel', event => { if (dragging) cancelDrag(dragging, event.pointerId); }, { passive:true });
     renderPalette();
   </script>
 </body>
