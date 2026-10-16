@@ -72,6 +72,8 @@
     .target-outline .roof { position:absolute; left:24px; top:0; width:162px; height:106px; background:rgba(255,255,255,.24); border:2px dashed rgba(65,107,85,.55); clip-path:polygon(50% 0, 100% 100%, 0 100%); }
     .target-outline .house { position:absolute; left:45px; top:84px; width:120px; height:116px; border:2px dashed rgba(65,107,85,.55); border-radius:10px; }
     .target-outline .door { position:absolute; left:88px; top:145px; width:35px; height:55px; border:2px dashed rgba(65,107,85,.55); border-radius:9px 9px 0 0; }
+    .target-outline .window { position:absolute; left:58px; top:107px; width:44px; height:36px; border:2px dashed rgba(65,107,85,.55); border-radius:8px; }
+    .target-outline .chimney { position:absolute; left:150px; top:48px; width:25px; height:48px; border:2px dashed rgba(65,107,85,.55); border-radius:5px; }
     .target-label { position:absolute; left:50%; top:87%; transform:translateX(-50%); color:rgba(38,52,44,.45); font-size:11px; white-space:nowrap; pointer-events:none; }
     .piece { position:absolute; z-index:3; cursor:grab; user-select:none; touch-action:none; filter:drop-shadow(0 6px 5px rgba(72,47,26,.16)); transition:box-shadow .15s, filter .15s; }
     .piece:active { cursor:grabbing; }
@@ -211,7 +213,7 @@
           <div class="board" id="board">
             <div class="sun"></div><div class="cloud"></div>
             <div class="board-grid"></div>
-            <div class="target-outline"><div class="roof"></div><div class="house"></div><div class="door"></div></div>
+            <div class="target-outline"><div class="roof"></div><div class="house"></div><div class="door"></div><div class="window"></div><div class="chimney"></div></div>
             <div class="target-label">轮廓图纸 · 云朵小屋</div>
           </div>
         </div>
@@ -222,6 +224,7 @@
         </div>
         <div class="control-row">
           <button class="btn btn-soft" id="rotateBtn">↻ 旋转</button>
+          <button class="btn btn-ghost" id="deleteBtn">⌫ 删除</button>
           <button class="btn btn-ghost" id="undoBtn">↶ 撤销</button>
           <button class="btn btn-ghost" id="resetBtn">重置</button>
           <button class="btn btn-primary" id="finishBtn">完成搭建 <span>→</span></button>
@@ -384,10 +387,24 @@
       el.onpointercancel = () => { dragging=null; };
     }
     function snap(el) {
-      const x=Number(el.dataset.x), y=Number(el.dataset.y);
-      const points = [{x:.5,y:.56},{x:.5,y:.34},{x:.5,y:.7},{x:.39,y:.55},{x:.66,y:.32}];
-      let nearest = points[0], distance = Infinity; points.forEach(p=>{const d=Math.hypot(x-p.x,y-p.y); if(d<distance){distance=d;nearest=p;}});
-      if(distance<.07){ el.dataset.x=nearest.x; el.dataset.y=nearest.y; updatePiecePosition(el); showToast('咔哒！零件已吸附'); }
+      // 以虚线框的真实中心计算吸附位置，保证不同手机尺寸下都能完全对齐。
+      const targetByType = { wall:'.house', roof:'.roof', door:'.door', window:'.window', chimney:'.chimney' };
+      const targetSelector = targetByType[el.dataset.type];
+      if (!targetSelector) return;
+      const target = document.querySelector(`.target-outline ${targetSelector}`);
+      if (!target) return;
+      const boardRect = board.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      const targetX = (targetRect.left + targetRect.width / 2 - boardRect.left) / boardRect.width;
+      const targetY = (targetRect.top + targetRect.height / 2 - boardRect.top) / boardRect.height;
+      const distance = Math.hypot(Number(el.dataset.x) - targetX, Number(el.dataset.y) - targetY);
+      if (distance < .14) {
+        el.dataset.x = targetX; el.dataset.y = targetY; updatePiecePosition(el); showToast('咔哒！已精准吸附到虚线框');
+      }
+    }
+    function deleteSelected() {
+      if (!selected) { showToast('先选择一个要删除的零件'); return; }
+      snapshot(); selected.remove(); selected = null; showToast('零件已删除');
     }
     function rotateSelected() { if(!selected) { showToast('先选择一个木玩零件'); return; } snapshot(); selected.dataset.rotation = (Number(selected.dataset.rotation)+90)%360; updatePiecePosition(selected); showToast('零件旋转 90°'); }
     function resetBoard() { snapshot(); board.querySelectorAll('.piece').forEach(el=>el.remove()); selected=null; showToast('画布已清空'); }
@@ -398,6 +415,7 @@
       successModal.classList.add('show');
     }
     document.getElementById('rotateBtn').addEventListener('click', rotateSelected);
+    document.getElementById('deleteBtn').addEventListener('click', deleteSelected);
     document.getElementById('undoBtn').addEventListener('click', undo);
     document.getElementById('resetBtn').addEventListener('click', resetBoard);
     document.getElementById('finishBtn').addEventListener('click', finish);
