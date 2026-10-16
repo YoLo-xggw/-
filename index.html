@@ -570,7 +570,7 @@
     const variantTypes = [
       { id:'houseWall', label:'房屋墙板', className:'piece-wall', targetKey:'wall' }, { id:'houseRoof', label:'房屋屋顶', className:'piece-roof', targetKey:'roof' }, { id:'houseDoor', label:'木门', className:'piece-door', targetKey:'door' }, { id:'houseWindow', label:'窗格', className:'piece-window', targetKey:'window' }, { id:'houseChimney', label:'烟囱', className:'piece-chimney', targetKey:'chimney' },
       { id:'cartBody', label:'车厢', className:'piece-base', targetKey:'wall' }, { id:'cartRoof', label:'车棚', className:'piece-roof', targetKey:'roof' }, { id:'cartWheelLeft', label:'左木轮', className:'piece-wheel', targetKey:'wheel' }, { id:'cartWheelRight', label:'右木轮', className:'piece-wheel', targetKey:'tree' }, { id:'cartWindow', label:'车窗', className:'piece-window', targetKey:'window' },
-      { id:'millTower', label:'风车塔身', className:'piece-tower', targetKey:'wall' }, { id:'millRoof', label:'风车顶', className:'piece-roof', targetKey:'roof' }, { id:'millBladeLeft', label:'左扇叶', className:'piece-blade', targetKey:'door', thin:true }, { id:'millBladeRight', label:'右扇叶', className:'piece-blade', targetKey:'window', thin:true },
+      { id:'millTower', label:'风车塔身', className:'piece-tower', targetKey:'wall' }, { id:'millRoof', label:'风车顶', className:'piece-roof', targetKey:'roof' }, { id:'millBladeLeft', label:'左扇叶', className:'piece-blade', targetKey:'door', rotation:35, thin:true }, { id:'millBladeRight', label:'右扇叶', className:'piece-blade', targetKey:'window', rotation:-35, thin:true },
       { id:'boatHull', label:'船身', className:'piece-hull', targetKey:'plank' }, { id:'boatSail', label:'云帆', className:'piece-sail', targetKey:'roof' }, { id:'boatMast', label:'桅杆', className:'piece-mast', targetKey:'mast', thin:true },
       { id:'bridgeDeck', label:'桥面木板', className:'piece-plank', targetKey:'plank' }, { id:'bridgePostLeft', label:'左桥柱', className:'piece-post', targetKey:'cylinder' }, { id:'bridgePostRight', label:'右桥柱', className:'piece-post', targetKey:'base' }, { id:'bridgeRope', label:'弧形护栏', className:'piece-rope', targetKey:'roof' },
       { id:'rocketBody', label:'火箭筒身', className:'piece-cylinder', targetKey:'cylinder' }, { id:'rocketWindow', label:'观察窗', className:'piece-ball', targetKey:'ball' }, { id:'rocketFinLeft', label:'左尾翼', className:'piece-flag', targetKey:'flag' }, { id:'rocketFinRight', label:'右尾翼', className:'piece-flag', targetKey:'wheel' },
@@ -579,7 +579,7 @@
       { id:'trainBody', label:'火车车身', className:'piece-base', targetKey:'base' }, { id:'trainCabin', label:'驾驶室', className:'piece-wall', targetKey:'wall' }, { id:'trainWheelLeft', label:'左车轮', className:'piece-wheel', targetKey:'wheel' }, { id:'trainWheelRight', label:'右车轮', className:'piece-wheel', targetKey:'tree' },
       { id:'carouselPole', label:'中心木柱', className:'piece-mast', targetKey:'mast' }, { id:'carouselTop', label:'旋转圆盘', className:'piece-disc', targetKey:'roof' }, { id:'carouselSeatLeft', label:'左座椅', className:'piece-ball', targetKey:'wheel' }, { id:'carouselSeatRight', label:'右座椅', className:'piece-ball', targetKey:'ball' },
       { id:'pagodaBase', label:'塔基', className:'piece-base', targetKey:'base' }, { id:'pagodaMid', label:'塔身', className:'piece-wall', targetKey:'wall' }, { id:'pagodaRoof', label:'飞檐', className:'piece-roof', targetKey:'roof' }, { id:'pagodaSpire', label:'塔尖', className:'piece-mast', targetKey:'mast', thin:true },
-      { id:'lightTower', label:'灯塔塔身', className:'piece-tower', targetKey:'cylinder' }, { id:'lightTop', label:'灯室', className:'piece-disc', targetKey:'roof' }, { id:'lightBeam', label:'海上光束', className:'piece-beam', targetKey:'plank', thin:true }
+      { id:'lightTower', label:'灯塔塔身', className:'piece-tower', targetKey:'cylinder' }, { id:'lightTop', label:'灯室', className:'piece-disc', targetKey:'roof' }, { id:'lightBeam', label:'海上光束', className:'piece-beam', targetKey:'plank', rotation:12, thin:true }
     ];
     const variantTypeMap = Object.fromEntries(variantTypes.map(type => [type.id, type]));
     const levelPartIds = [
@@ -831,6 +831,7 @@
     function createMiniPiece(type) {
       const wrap = document.createElement('div'); wrap.className = 'mini-piece';
       const p = document.createElement('div'); p.className = `piece ${type.className}`;
+            p.style.transform = `translate(-50%, -50%) rotate(${type.rotation || 0}deg)`;
       fitPieceToTarget(p, type);
       wrap.appendChild(p); return wrap;
     }
