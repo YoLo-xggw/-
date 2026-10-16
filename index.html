@@ -41,6 +41,9 @@
     .brand p { margin:3px 0 0; font-size:11px; color:var(--muted); letter-spacing:.1em; }
     .top-actions { display:flex; align-items:center; gap:10px; }
     .top-pill { display:flex; align-items:center; gap:8px; padding:9px 12px; border:1px solid var(--line); background:rgba(255,255,255,.65); border-radius:999px; font-size:12px; color:var(--muted); }
+    .music-toggle { border:1px solid #d8e6d8; background:#eef5ed; color:var(--green-deep); border-radius:999px; padding:9px 12px; cursor:pointer; font-size:12px; font-weight:700; transition:.15s; }
+    .music-toggle:hover { transform:translateY(-1px); box-shadow:0 6px 14px rgba(43,58,48,.09); }
+    .music-toggle.muted { background:rgba(255,255,255,.65); border-color:var(--line); color:var(--muted); }
     .avatar { width:28px; height:28px; display:grid; place-items:center; border-radius:10px; background:#edc878; color:#6b4927; font-weight:800; }
     .layout { display:grid; grid-template-columns: 1fr 310px; gap:18px; align-items:start; }
     .panel { background:var(--panel); border:1px solid rgba(255,255,255,.8); box-shadow:var(--shadow); backdrop-filter: blur(14px); border-radius:24px; }
@@ -169,6 +172,7 @@
       </div>
       <div class="top-actions">
         <div class="top-pill">☼ 今日灵感 <strong>3/3</strong></div>
+        <button class="music-toggle" id="musicToggle" type="button" aria-label="开启舒缓音乐">♫ 开启音乐</button>
         <div class="top-pill"><div class="avatar">木</div><span>小木匠</span></div>
       </div>
     </header>
@@ -252,6 +256,7 @@
     const piecesTray = document.getElementById('pieces');
     const toast = document.getElementById('toast');
     const successModal = document.getElementById('successModal');
+    const musicToggle = document.getElementById('musicToggle');
     const types = [
       { id:'wall', label:'房身', className:'piece-wall', x:.5, y:.57, rotation:0 },
       { id:'roof', label:'屋顶', className:'piece-roof', x:.5, y:.34, rotation:0 },
@@ -265,6 +270,52 @@
     let history = [];
     let dragging = null;
     let dragOffset = { x:0, y:0 };
+    let audioContext = null;
+    let musicBus = null;
+    let musicTimer = null;
+    let musicOn = false;
+    let musicStep = 0;
+    const melody = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 329.63, 293.66];
+
+    // 用 Web Audio API 生成一段轻柔的木琴感旋律，不加载外部音频，避免版权和跨域问题。
+    function playSoftNote(frequency, duration = 1.8, volume = .07) {
+      if (!audioContext || !musicBus) return;
+      const now = audioContext.currentTime;
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(frequency, now);
+      gain.gain.setValueAtTime(.0001, now);
+      gain.gain.exponentialRampToValueAtTime(volume, now + .08);
+      gain.gain.exponentialRampToValueAtTime(.0001, now + duration);
+      oscillator.connect(gain); gain.connect(musicBus);
+      oscillator.start(now); oscillator.stop(now + duration + .05);
+    }
+    function playMusicStep() {
+      const note = melody[musicStep % melody.length];
+      playSoftNote(note, 2.05, .06);
+      if (musicStep % 2 === 0) playSoftNote(note / 2, 2.7, .022);
+      musicStep += 1;
+    }
+    function startMusic() {
+      if (musicOn) return;
+      audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+      if (audioContext.state === 'suspended') audioContext.resume();
+      musicBus = musicBus || audioContext.createGain();
+      musicBus.gain.setValueAtTime(.72, audioContext.currentTime);
+      musicBus.connect(audioContext.destination);
+      musicOn = true; musicToggle.classList.remove('muted'); musicToggle.textContent = '♫ 音乐播放中';
+      playMusicStep(); musicTimer = window.setInterval(playMusicStep, 2200);
+    }
+    function stopMusic() {
+      musicOn = false; musicToggle.classList.add('muted'); musicToggle.textContent = '♫ 开启音乐';
+      if (musicTimer) { window.clearInterval(musicTimer); musicTimer = null; }
+      if (musicBus && audioContext) musicBus.gain.setTargetAtTime(.0001, audioContext.currentTime, .08);
+    }
+    musicToggle.addEventListener('click', () => { if (musicOn) stopMusic(); else startMusic(); });
+    document.addEventListener('pointerdown', event => {
+      if (!musicOn && !event.target.closest('#musicToggle')) startMusic();
+    }, { once:true });
 
     function showToast(message) {
       toast.textContent = message; toast.classList.add('show');
