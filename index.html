@@ -234,6 +234,48 @@
     .piece-rope { background:transparent; border:5px solid #a8764d; border-bottom:0; border-radius:90px 90px 0 0; filter:drop-shadow(0 4px 3px rgba(72,47,26,.12)); }
     .piece-disc { background:#c9955d; border-radius:50%; }
     .piece-beam { background:#e3b252; border-radius:999px; transform-origin:left center; }
+    .piece-house-wall { background:linear-gradient(135deg,#e5b77f,#c98752); border:2px solid #a96d44; border-radius:11px; box-shadow:inset 7px 0 rgba(255,245,214,.24), inset -6px -7px rgba(117,67,36,.12); }
+    .piece-house-roof { background:linear-gradient(140deg,#c67c4d,#965738); clip-path:polygon(50% 0,100% 100%,0 100%); }
+    .piece-house-door { background:linear-gradient(90deg,#9b6540,#bc7b4a); border:2px solid #7b4a30; border-radius:50% 50% 5px 5px; }
+    .piece-house-window { border:5px solid #739d98; background:linear-gradient(90deg,transparent 45%,#739d98 46% 54%,transparent 55%),linear-gradient(0deg,transparent 45%,#739d98 46% 54%,transparent 55%),#c8e6df; border-radius:7px; }
+    .piece-house-chimney { background:repeating-linear-gradient(0deg,#a96c47 0 9px,#c98a58 10px 12px); border-radius:5px 5px 2px 2px; }
+    .piece-cart-body { background:linear-gradient(#d89c60,#b87146); border:2px solid #965a3b; border-radius:17px 17px 10px 10px; }
+    .piece-cart-roof { background:linear-gradient(#d5a66d,#b8784a); border:2px solid #955a3b; border-radius:50% 50% 10px 10px; }
+    .piece-cart-wheel { background:#795039; border:7px solid #d3a06a; box-shadow:inset 0 0 0 3px #946344; border-radius:50%; }
+    .piece-cart-window { border:5px solid #769b97; background:#cce7e1; border-radius:9px; }
+    .piece-mill-tower { background:linear-gradient(90deg,#d6a16a,#a96842); border:2px solid #8e5739; clip-path:polygon(18% 0,82% 0,100% 100%,0 100%); }
+    .piece-mill-roof { background:linear-gradient(#c68550,#9a5a3b); border:2px solid #805034; border-radius:50% 50% 10px 10px; }
+    .piece-mill-blade { background:linear-gradient(90deg,#e1b579,#c88149); clip-path:polygon(0 35%,78% 0,100% 50%,78% 100%,0 65%); border-radius:999px; }
+    .piece-boat-hull { background:linear-gradient(#c9874e,#9f5d3b); border:2px solid #7e4931; clip-path:polygon(0 10%,100% 10%,88% 75%,70% 100%,30% 100%,12% 75%); }
+    .piece-boat-sail { background:linear-gradient(135deg,#f0c979,#dc9c58); clip-path:polygon(0 0,100% 100%,0 100%); }
+    .piece-boat-mast { background:linear-gradient(90deg,#75472f,#b67849); border-radius:5px; }
+    .piece-bridge-deck { background:repeating-linear-gradient(0deg,#d7a06b 0 8px,#bb794d 9px 11px); border:2px solid #8e573b; border-radius:8px; }
+    .piece-bridge-post { background:linear-gradient(90deg,#a96a43,#d29a62); border:2px solid #8b5437; border-radius:7px; }
+    .piece-bridge-rope { background:transparent; border:5px solid #a66c46; border-bottom:0; border-radius:90px 90px 0 0; }
+    .piece-rocket-body { background:linear-gradient(90deg,#bf7448,#e1aa68,#b76a46); border:2px solid #8a4e35; border-radius:48% 48% 16px 16px; }
+    .piece-rocket-window { background:#9bd0c7; border:6px solid #7f593e; border-radius:50%; box-shadow:inset 0 0 0 3px #d8f1eb; }
+    .piece-rocket-fin { background:#d66d4f; clip-path:polygon(100% 0,100% 100%,0 100%); border:2px solid #a14f3e; }
+    .piece-castle-main { background:linear-gradient(135deg,#d6a56d,#b8774b); border:2px solid #8d573a; border-radius:8px; }
+    .piece-castle-tower { background:linear-gradient(90deg,#c48753,#e0af72); border:2px solid #8d573a; clip-path:polygon(16% 0,84% 0,100% 100%,0 100%); }
+    .piece-castle-flag { background:#d8684c; clip-path:polygon(0 0,100% 35%,0 70%); }
+    .piece-tree-trunk { background:linear-gradient(90deg,#8c5939,#c0834f,#8a5435); border-radius:35% 35% 12px 12px; }
+    .piece-tree-house { background:linear-gradient(135deg,#d9a56c,#b87349); border:2px solid #8c5437; border-radius:10px; }
+    .piece-tree-roof { background:linear-gradient(140deg,#72916b,#4e735b); clip-path:polygon(50% 0,100% 100%,0 100%); }
+    .piece-tree-window { border:5px solid #739d98; background:#c9e6df; border-radius:8px; }
+    .piece-train-body { background:linear-gradient(#d68e53,#ad633f); border:2px solid #854b35; border-radius:14px 24px 12px 12px; }
+    .piece-train-cabin { background:linear-gradient(#d8a06a,#b87348); border:2px solid #8b5437; border-radius:12px 12px 3px 3px; }
+    .piece-train-wheel { background:#754c38; border:7px solid #d09a5f; box-shadow:inset 0 0 0 3px #9a6642; border-radius:50%; }
+    .piece-carousel-pole { background:linear-gradient(90deg,#8b5738,#d09a60,#8b5738); border-radius:5px; }
+    .piece-carousel-top { background:linear-gradient(#e5b56d,#bc784b); border:2px solid #915638; border-radius:50%; }
+    .piece-carousel-seat { background:#d58c52; border:2px solid #914e35; border-radius:45% 45% 25% 25%; box-shadow:inset 0 -7px rgba(112,58,39,.14); }
+    .piece-pagoda-base { background:linear-gradient(#b87548,#8e5037); border:2px solid #75432e; border-radius:6px; }
+    .piece-pagoda-mid { background:linear-gradient(90deg,#d29a62,#af6943); border:2px solid #895137; border-radius:6px; }
+    .piece-pagoda-roof { background:linear-gradient(#5f8367,#3f644e); border:2px solid #385441; border-radius:50%; }
+    .piece-pagoda-roof-upper { background:linear-gradient(#72916b,#4d7056); border:2px solid #385441; border-radius:50%; }
+    .piece-pagoda-spire { background:linear-gradient(90deg,#8a5738,#c18750); border-radius:5px; }
+    .piece-light-tower { background:linear-gradient(90deg,#d79c61,#b46c46); border:2px solid #8f563b; clip-path:polygon(15% 0,85% 0,100% 100%,0 100%); }
+    .piece-light-top { background:linear-gradient(#e7ba6e,#c47c4c); border:2px solid #925735; border-radius:50%; }
+    .piece-light-beam { background:linear-gradient(90deg,rgba(246,205,113,.95),rgba(246,205,113,.15)); border-radius:999px; transform-origin:left center; }
     .palette { margin-top:14px; padding:14px 14px 12px; border-radius:18px; background:#f5f4ef; border:1px solid #e5e3da; }
     .palette-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
     .palette-head strong { font-size:13px; }
@@ -423,7 +465,7 @@
         </div>
 
         <div class="palette">
-          <div class="palette-head"><strong>木玩零件</strong><span>点击零件，再拖入画布</span></div>
+          <div class="palette-head"><strong>本关专属木玩零件</strong><span id="paletteHint">点击零件，再拖入画布</span></div>
           <div class="pieces" id="pieces"></div>
         </div>
         <div class="control-row">
@@ -438,14 +480,14 @@
 
       <aside class="side">
         <section class="panel side-card progress-card">
-          <div class="side-title"><strong>木匠成长</strong><span>Lv. 03</span></div>
-          <div class="progress-number">680 <small style="font-size:14px;letter-spacing:0">XP</small></div>
-          <div class="progress-copy">再完成 2 个作品，解锁「木轮」</div>
+          <div class="side-title"><strong>木匠成长</strong><span id="sideLevel">Lv. 01</span></div>
+          <div class="progress-number"><span id="sideScore">0</span> <small style="font-size:14px;letter-spacing:0">XP</small></div>
+          <div class="progress-copy" id="sideProgressCopy">完成作品，收集云和木玩图纸</div>
           <div class="bar"><span></span></div>
-          <div class="progress-foot"><span>工坊学徒</span><span>680 / 1000</span></div>
+          <div class="progress-foot"><span id="sideRank">工坊学徒</span><span id="sideProgressText">0 / 1000</span></div>
         </section>
         <section class="panel side-card">
-          <div class="side-title"><strong>正在收集</strong><span>图鉴 08/24</span></div>
+          <div class="side-title"><strong>正在收集</strong><span id="sideCollectionCount">图鉴 0/12</span></div>
           <div class="recipe">
             <div class="recipe-thumb"><div class="piece piece-wall"></div><div class="piece piece-roof"></div></div>
             <div class="recipe-info"><strong>云朵小屋</strong><span>木块 × 2 · 门 × 1</span></div><div class="recipe-status">进行中</div>
@@ -462,7 +504,7 @@
             <div class="check pending"><i>○</i><div>分享你的作品<small>解锁云朵贴纸</small></div></div>
           </div>
         </section>
-        <div class="tip">小提示：先放好房身，再把屋顶贴近轮廓边缘，零件会自动吸附。</div>
+        <div class="tip">小提示：先观察虚线曲线，再用一指拖动零件；双指可以放大画布查看细节。</div>
       </aside>
     </section>
   </main>
@@ -483,8 +525,8 @@
   <div class="modal" id="helpModal">
     <div class="modal-card help-modal-card">
       <h3>怎么玩？</h3>
-      <p>从下方选择木玩零件，拖到中间图纸的虚线框附近，松手后会自动吸附。</p>
-      <p>选中零件后可以旋转、删除或撤销。每张图纸完成后会进入下一关，12关全部完成后结算。</p>
+      <p>从下方选择本关专属木玩零件，按住后自由拖到画布上；虚线只是造型参考，摆在你喜欢的位置即可。</p>
+      <p>选中零件后可以旋转、删除或撤销，也可以双指缩放画布查看细节。每张图纸完成后会进入下一关，12关全部完成后结算。</p>
       <button class="btn btn-primary" id="closeHelpBtn" type="button">知道了，开始搭建</button>
     </div>
   </div>
@@ -493,8 +535,8 @@
   <div class="modal" id="successModal">
     <div class="modal-card">
       <div class="success-icon">✦</div>
-      <h3>小屋搭好啦</h3>
-      <p>木头、云朵和一点点耐心，变成了你的第一件木玩作品。</p>
+      <h3>木玩作品完成啦</h3>
+      <p>木头、云朵和一点点耐心，变成了你的专属木玩作品。</p>
       <div class="modal-stats"><div><strong>92</strong><span>结构完成度</span></div><div><strong>+80</strong><span>木匠经验</span></div><div><strong>✦</strong><span>新图纸</span></div></div>
       <button class="btn btn-primary" id="closeModal" style="width:100%">继续搭下一件</button>
     </div>
@@ -564,23 +606,23 @@
       { name:'森林树屋', stage:'自然拼搭', description:'先立起树干，再放上小屋和屋顶，完成秘密基地。', label:'轮廓图纸 · 森林树屋', className:'blueprint-treehouse', targets:{cylinder:'.trunk',wall:'.house',roof:'.roof',window:'.window'}, markup:'<div class="trunk"></div><div class="house"></div><div class="roof"></div><div class="window"></div>' },
       { name:'木玩小火车', stage:'交通拼搭', description:'拼出车身、驾驶室和木轮，驶过云和小镇。', label:'轮廓图纸 · 木玩小火车', className:'blueprint-train', targets:{base:'.train-body',wall:'.train-cabin',wheel:'.train-wheel.left',tree:'.train-wheel.right'}, markup:'<div class="train-body"></div><div class="train-cabin"></div><div class="train-wheel left"></div><div class="train-wheel right"></div>' },
       { name:'旋转木马', stage:'机关拼搭', description:'立起中心木杆，装好圆盘和座椅，做一台会转的木马。', label:'轮廓图纸 · 旋转木马', className:'blueprint-carousel', targets:{mast:'.carousel-pole',roof:'.carousel-top',wheel:'.carousel-seat.left',ball:'.carousel-seat.right'}, markup:'<div class="carousel-pole"></div><div class="carousel-top"></div><div class="carousel-seat left"></div><div class="carousel-seat right"></div>' },
-      { name:'云和小塔', stage:'传统拼搭', description:'一层一层搭好塔身和屋檐，完成木玩小塔。', label:'轮廓图纸 · 云和小塔', className:'blueprint-pagoda', targets:{base:'.pagoda-base',wall:'.pagoda-mid',roof:'.pagoda-roof.one',mast:'.pagoda-spire'}, markup:'<div class="pagoda-base"></div><div class="pagoda-mid"></div><div class="pagoda-roof one"></div><div class="pagoda-roof two"></div><div class="pagoda-spire"></div>' },
+      { name:'云和小塔', stage:'传统拼搭', description:'一层一层搭好塔身和屋檐，完成木玩小塔。', label:'轮廓图纸 · 云和小塔', className:'blueprint-pagoda', targets:{base:'.pagoda-base',wall:'.pagoda-mid',roof:'.pagoda-roof.one',roofUpper:'.pagoda-roof.two',mast:'.pagoda-spire'}, markup:'<div class="pagoda-base"></div><div class="pagoda-mid"></div><div class="pagoda-roof one"></div><div class="pagoda-roof two"></div><div class="pagoda-spire"></div>' },
       { name:'海边灯塔', stage:'终章拼搭', description:'拼好灯塔、灯室和云海光束，点亮最后一张图纸。', label:'轮廓图纸 · 海边灯塔', className:'blueprint-lighthouse', targets:{cylinder:'.light-tower',roof:'.light-top',plank:'.light-beam'}, markup:'<div class="light-tower"></div><div class="light-top"></div><div class="light-beam"></div>' }
     ];
 
     const variantTypes = [
-      { id:'houseWall', label:'房屋墙板', className:'piece-wall', targetKey:'wall' }, { id:'houseRoof', label:'房屋屋顶', className:'piece-roof', targetKey:'roof' }, { id:'houseDoor', label:'木门', className:'piece-door', targetKey:'door' }, { id:'houseWindow', label:'窗格', className:'piece-window', targetKey:'window' }, { id:'houseChimney', label:'烟囱', className:'piece-chimney', targetKey:'chimney' },
-      { id:'cartBody', label:'车厢', className:'piece-base', targetKey:'wall' }, { id:'cartRoof', label:'车棚', className:'piece-roof', targetKey:'roof' }, { id:'cartWheelLeft', label:'左木轮', className:'piece-wheel', targetKey:'wheel' }, { id:'cartWheelRight', label:'右木轮', className:'piece-wheel', targetKey:'tree' }, { id:'cartWindow', label:'车窗', className:'piece-window', targetKey:'window' },
-      { id:'millTower', label:'风车塔身', className:'piece-tower', targetKey:'wall' }, { id:'millRoof', label:'风车顶', className:'piece-roof', targetKey:'roof' }, { id:'millBladeLeft', label:'左扇叶', className:'piece-blade', targetKey:'door', rotation:35, thin:true }, { id:'millBladeRight', label:'右扇叶', className:'piece-blade', targetKey:'window', rotation:-35, thin:true },
-      { id:'boatHull', label:'船身', className:'piece-hull', targetKey:'plank' }, { id:'boatSail', label:'云帆', className:'piece-sail', targetKey:'roof' }, { id:'boatMast', label:'桅杆', className:'piece-mast', targetKey:'mast', thin:true },
-      { id:'bridgeDeck', label:'桥面木板', className:'piece-plank', targetKey:'plank' }, { id:'bridgePostLeft', label:'左桥柱', className:'piece-post', targetKey:'cylinder' }, { id:'bridgePostRight', label:'右桥柱', className:'piece-post', targetKey:'base' }, { id:'bridgeRope', label:'弧形护栏', className:'piece-rope', targetKey:'roof' },
-      { id:'rocketBody', label:'火箭筒身', className:'piece-cylinder', targetKey:'cylinder' }, { id:'rocketWindow', label:'观察窗', className:'piece-ball', targetKey:'ball' }, { id:'rocketFinLeft', label:'左尾翼', className:'piece-flag', targetKey:'flag' }, { id:'rocketFinRight', label:'右尾翼', className:'piece-flag', targetKey:'wheel' },
-      { id:'castleMain', label:'城堡主楼', className:'piece-wall', targetKey:'wall' }, { id:'castleTowerLeft', label:'左塔楼', className:'piece-tower', targetKey:'cylinder' }, { id:'castleTowerRight', label:'右塔楼', className:'piece-tower', targetKey:'base' }, { id:'castleFlag', label:'城堡旗帜', className:'piece-flag', targetKey:'flag' },
-      { id:'treeTrunk', label:'树屋树干', className:'piece-cylinder', targetKey:'cylinder' }, { id:'treeHouse', label:'树屋主体', className:'piece-wall', targetKey:'wall' }, { id:'treeRoof', label:'树屋屋顶', className:'piece-roof', targetKey:'roof' }, { id:'treeWindow', label:'树屋窗', className:'piece-window', targetKey:'window' },
-      { id:'trainBody', label:'火车车身', className:'piece-base', targetKey:'base' }, { id:'trainCabin', label:'驾驶室', className:'piece-wall', targetKey:'wall' }, { id:'trainWheelLeft', label:'左车轮', className:'piece-wheel', targetKey:'wheel' }, { id:'trainWheelRight', label:'右车轮', className:'piece-wheel', targetKey:'tree' },
-      { id:'carouselPole', label:'中心木柱', className:'piece-mast', targetKey:'mast' }, { id:'carouselTop', label:'旋转圆盘', className:'piece-disc', targetKey:'roof' }, { id:'carouselSeatLeft', label:'左座椅', className:'piece-ball', targetKey:'wheel' }, { id:'carouselSeatRight', label:'右座椅', className:'piece-ball', targetKey:'ball' },
-      { id:'pagodaBase', label:'塔基', className:'piece-base', targetKey:'base' }, { id:'pagodaMid', label:'塔身', className:'piece-wall', targetKey:'wall' }, { id:'pagodaRoof', label:'飞檐', className:'piece-roof', targetKey:'roof' }, { id:'pagodaSpire', label:'塔尖', className:'piece-mast', targetKey:'mast', thin:true },
-      { id:'lightTower', label:'灯塔塔身', className:'piece-tower', targetKey:'cylinder' }, { id:'lightTop', label:'灯室', className:'piece-disc', targetKey:'roof' }, { id:'lightBeam', label:'海上光束', className:'piece-beam', targetKey:'plank', rotation:12, thin:true }
+      { id:'houseWall', label:'房屋墙板', className:'piece-house-wall', targetKey:'wall' }, { id:'houseRoof', label:'房屋屋顶', className:'piece-house-roof', targetKey:'roof' }, { id:'houseDoor', label:'木门', className:'piece-house-door', targetKey:'door' }, { id:'houseWindow', label:'窗格', className:'piece-house-window', targetKey:'window' }, { id:'houseChimney', label:'烟囱', className:'piece-house-chimney', targetKey:'chimney' },
+      { id:'cartBody', label:'车厢', className:'piece-cart-body', targetKey:'wall' }, { id:'cartRoof', label:'车棚', className:'piece-cart-roof', targetKey:'roof' }, { id:'cartWheelLeft', label:'左木轮', className:'piece-cart-wheel', targetKey:'wheel' }, { id:'cartWheelRight', label:'右木轮', className:'piece-cart-wheel', targetKey:'tree' }, { id:'cartWindow', label:'车窗', className:'piece-cart-window', targetKey:'window' },
+      { id:'millTower', label:'风车塔身', className:'piece-mill-tower', targetKey:'wall' }, { id:'millRoof', label:'风车顶', className:'piece-mill-roof', targetKey:'roof' }, { id:'millBladeLeft', label:'左扇叶', className:'piece-mill-blade', targetKey:'door', rotation:35, thin:true }, { id:'millBladeRight', label:'右扇叶', className:'piece-mill-blade', targetKey:'window', rotation:-35, thin:true },
+      { id:'boatHull', label:'船身', className:'piece-boat-hull', targetKey:'plank' }, { id:'boatSail', label:'云帆', className:'piece-boat-sail', targetKey:'roof' }, { id:'boatMast', label:'桅杆', className:'piece-boat-mast', targetKey:'mast', thin:true },
+      { id:'bridgeDeck', label:'桥面木板', className:'piece-bridge-deck', targetKey:'plank' }, { id:'bridgePostLeft', label:'左桥柱', className:'piece-bridge-post', targetKey:'cylinder' }, { id:'bridgePostRight', label:'右桥柱', className:'piece-bridge-post', targetKey:'base' }, { id:'bridgeRope', label:'弧形护栏', className:'piece-bridge-rope', targetKey:'roof' },
+      { id:'rocketBody', label:'火箭筒身', className:'piece-rocket-body', targetKey:'cylinder' }, { id:'rocketWindow', label:'观察窗', className:'piece-rocket-window', targetKey:'ball' }, { id:'rocketFinLeft', label:'左尾翼', className:'piece-rocket-fin', targetKey:'flag' }, { id:'rocketFinRight', label:'右尾翼', className:'piece-rocket-fin', targetKey:'wheel' },
+      { id:'castleMain', label:'城堡主楼', className:'piece-castle-main', targetKey:'wall' }, { id:'castleTowerLeft', label:'左塔楼', className:'piece-castle-tower', targetKey:'cylinder' }, { id:'castleTowerRight', label:'右塔楼', className:'piece-castle-tower', targetKey:'base' }, { id:'castleFlag', label:'城堡旗帜', className:'piece-castle-flag', targetKey:'flag' },
+      { id:'treeTrunk', label:'树屋树干', className:'piece-tree-trunk', targetKey:'cylinder' }, { id:'treeHouse', label:'树屋主体', className:'piece-tree-house', targetKey:'wall' }, { id:'treeRoof', label:'树屋屋顶', className:'piece-tree-roof', targetKey:'roof' }, { id:'treeWindow', label:'树屋窗', className:'piece-tree-window', targetKey:'window' },
+      { id:'trainBody', label:'火车车身', className:'piece-train-body', targetKey:'base' }, { id:'trainCabin', label:'驾驶室', className:'piece-train-cabin', targetKey:'wall' }, { id:'trainWheelLeft', label:'左车轮', className:'piece-train-wheel', targetKey:'wheel' }, { id:'trainWheelRight', label:'右车轮', className:'piece-train-wheel', targetKey:'tree' },
+      { id:'carouselPole', label:'中心木柱', className:'piece-carousel-pole', targetKey:'mast' }, { id:'carouselTop', label:'旋转圆盘', className:'piece-carousel-top', targetKey:'roof' }, { id:'carouselSeatLeft', label:'左座椅', className:'piece-carousel-seat', targetKey:'wheel' }, { id:'carouselSeatRight', label:'右座椅', className:'piece-carousel-seat', targetKey:'ball' },
+      { id:'pagodaBase', label:'塔基', className:'piece-pagoda-base', targetKey:'base' }, { id:'pagodaMid', label:'塔身', className:'piece-pagoda-mid', targetKey:'wall' }, { id:'pagodaRoof', label:'下层飞檐', className:'piece-pagoda-roof', targetKey:'roof' }, { id:'pagodaRoofUpper', label:'上层飞檐', className:'piece-pagoda-roof-upper', targetKey:'roofUpper' }, { id:'pagodaSpire', label:'塔尖', className:'piece-pagoda-spire', targetKey:'mast', thin:true },
+      { id:'lightTower', label:'灯塔塔身', className:'piece-light-tower', targetKey:'cylinder' }, { id:'lightTop', label:'灯室', className:'piece-light-top', targetKey:'roof' }, { id:'lightBeam', label:'海上光束', className:'piece-light-beam', targetKey:'plank', rotation:12, thin:true }
     ];
     const variantTypeMap = Object.fromEntries(variantTypes.map(type => [type.id, type]));
     const levelPartIds = [
@@ -594,7 +636,7 @@
       ['treeTrunk','treeHouse','treeRoof','treeWindow'],
       ['trainBody','trainCabin','trainWheelLeft','trainWheelRight'],
       ['carouselPole','carouselTop','carouselSeatLeft','carouselSeatRight'],
-      ['pagodaBase','pagodaMid','pagodaRoof','pagodaSpire'],
+      ['pagodaBase','pagodaMid','pagodaRoof','pagodaRoofUpper','pagodaSpire'],
       ['lightTower','lightTop','lightBeam']
     ];
     function getPieceType(id) { return types.find(type => type.id === id) || variantTypeMap[id] || null; }
@@ -650,6 +692,13 @@
         height: el.offsetHeight
       }));
     }
+    function pieceTypeForSavedData(data, levelIndex = blueprintIndex, used = new Set()) {
+      const currentTypes = (levelPartIds[levelIndex] || []).map(getPieceType).filter(Boolean);
+      const exact = currentTypes.find(type => type.id === data.type);
+      if (exact) return exact;
+      const legacyMatch = currentTypes.find(type => type.targetKey === data.type && !used.has(type.id));
+      return legacyMatch || getPieceType(data.type);
+    }
     function sanitizeCollectionRecords(value) {
       const records = {};
       if (!value || typeof value !== 'object') return records;
@@ -669,9 +718,11 @@
     }
     function restorePieces(pieceList) {
       if (!Array.isArray(pieceList)) return;
+      const used = new Set();
       pieceList.forEach(data => {
-        const type = getPieceType(data.type);
+        const type = pieceTypeForSavedData(data, blueprintIndex, used);
         if (!type) return;
+        used.add(type.id);
         const piece = createPiece(type, Number(data.x) || .5, Number(data.y) || .5);
         piece.dataset.rotation = Number(data.rotation) || 0;
         updatePiecePosition(piece);
@@ -748,13 +799,22 @@
       document.getElementById('profileCoins').textContent = coins;
       document.getElementById('profileName').textContent = accountName || '用户';
       document.getElementById('topAccountName').textContent = accountName || '用户';
+      const completedCount = new Set([...collection, ...Object.keys(collectionRecords).map(Number)]).size;
+      document.getElementById('sideScore').textContent = score;
+      document.getElementById('sideLevel').textContent = `Lv. ${String(Math.min(12, Math.max(1, levelNumber))).padStart(2, '0')}`;
+      document.getElementById('sideProgressCopy').textContent = completedCount ? `已收集 ${completedCount} 张木玩图纸，继续完成新作品` : '完成作品，收集云和木玩图纸';
+      document.getElementById('sideCollectionCount').textContent = `图鉴 ${completedCount}/12`;
+      document.getElementById('sideProgressText').textContent = `${Math.min(1000, score)} / 1000`;
+      document.querySelector('.bar span').style.width = `${Math.min(100, score / 10)}%`;
     }
-    function renderCollectionThumb(record) {
+    function renderCollectionThumb(record, levelIndex = blueprintIndex) {
       const thumb = document.createElement('div');
       thumb.className = 'collection-thumb';
+      const used = new Set();
       (record?.pieces || []).forEach(data => {
-        const type = getPieceType(data.type);
+        const type = pieceTypeForSavedData(data, levelIndex, used);
         if (!type) return;
+        used.add(type.id);
         const piece = document.createElement('div');
         piece.className = `piece ${type.className}`;
         piece.style.left = `${Math.max(0, Math.min(1, Number(data.x) || .5)) * 100}%`;
@@ -777,7 +837,7 @@
         card.className = `collection-item${unlocked ? '' : ' locked'}`;
         if (unlocked) {
           const record = collectionRecords[index];
-          if (record) card.append(renderCollectionThumb(record));
+          if (record) card.append(renderCollectionThumb(record, index));
           const title = document.createElement('span');
           title.textContent = blueprint.name;
           card.append(title);
@@ -838,7 +898,9 @@
     }
     function renderPalette() {
       piecesTray.innerHTML = '';
-      getCurrentPartTypes().forEach(type => {
+      const currentTypes = getCurrentPartTypes();
+      document.getElementById('paletteHint').textContent = `${currentTypes.length} 个专属零件 · 自由摆放`;
+      currentTypes.forEach(type => {
         const card = document.createElement('button');
         card.className = 'piece-card';
         card.dataset.type = type.id;
@@ -959,8 +1021,10 @@
     function resetBoard() { snapshot(); board.querySelectorAll('.piece').forEach(el=>el.remove()); selected=null; saveGame(); showToast('画布已清空'); }
     function undo() { const last=history.pop(); if(!last){showToast('还没有可以撤销的操作');return;} restoreSnapshot(last); selected=null; saveGame(); showToast('已撤销上一步'); }
     function finish() {
-      const count = board.querySelectorAll('.piece').length;
-      if (count < 3) { showToast('再放入至少 3 个零件，作品才可以完成'); return; }
+      const requiredTypes = getCurrentPartTypes();
+      const placedIds = new Set([...board.querySelectorAll('.piece')].map(piece => piece.dataset.type));
+      const missing = requiredTypes.filter(type => !placedIds.has(type.id));
+      if (missing.length) { showToast(`还差 ${missing.length} 个零件：${missing.slice(0, 2).map(type => type.label).join('、')}`); return; }
       const completedIndex = blueprintIndex;
       collectionRecords[completedIndex] = { pieces: captureBoardPieces(), savedAt: Date.now(), rewarded: Boolean(collectionRecords[completedIndex]?.rewarded) };
       const firstCompletion = !collection.includes(completedIndex) && !collectionRecords[completedIndex].rewarded;
