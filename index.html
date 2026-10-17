@@ -1117,17 +1117,22 @@
       const ctx = ensureAudioContext();
       if (!ctx) return;
       const now = ctx.currentTime;
-      const oscillator = ctx.createOscillator();
-      const gain = ctx.createGain();
-      const notes = { pickup:523.25, drop:392, rotate:659.25, delete:220, coin:783.99, complete:523.25 };
-      oscillator.type = kind === 'delete' ? 'triangle' : kind === 'complete' ? 'sine' : 'sine';
-      oscillator.frequency.setValueAtTime(notes[kind] || 440, now);
-      if (kind === 'rotate') oscillator.frequency.exponentialRampToValueAtTime(783.99, now + .12);
-      if (kind === 'complete') oscillator.frequency.exponentialRampToValueAtTime(1046.5, now + .28);
-      gain.gain.setValueAtTime(.0001, now);
-      gain.gain.exponentialRampToValueAtTime(kind === 'complete' ? .09 : .045, now + .015);
-      gain.gain.exponentialRampToValueAtTime(.0001, now + (kind === 'complete' ? .42 : .16));
-      oscillator.connect(gain); gain.connect(ctx.destination); oscillator.start(now); oscillator.stop(now + .48);
+      const notes = { pickup:523.25, drop:392, rotate:659.25, delete:220, coin:783.99 };
+      const frequencies = kind === 'complete' ? [523.25, 659.25, 783.99] : [notes[kind] || 440];
+      frequencies.forEach((frequency, index) => {
+        const oscillator = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const start = now + (kind === 'complete' ? index * .025 : 0);
+        const end = start + (kind === 'complete' ? .48 : .16);
+        oscillator.type = kind === 'delete' ? 'triangle' : 'sine';
+        oscillator.frequency.setValueAtTime(frequency, start);
+        if (kind === 'rotate') oscillator.frequency.exponentialRampToValueAtTime(783.99, start + .12);
+        if (kind === 'complete') oscillator.frequency.exponentialRampToValueAtTime(frequency * 1.015, start + .28);
+        gain.gain.setValueAtTime(.0001, start);
+        gain.gain.exponentialRampToValueAtTime(kind === 'complete' ? .055 : .045, start + .015);
+        gain.gain.exponentialRampToValueAtTime(.0001, end);
+        oscillator.connect(gain); gain.connect(ctx.destination); oscillator.start(start); oscillator.stop(end + .04);
+      });
       if (navigator.vibrate && ['pickup','drop','rotate','complete'].includes(kind)) navigator.vibrate(kind === 'complete' ? [18,28,18] : 10);
     }
     function updateSoundButton() {
