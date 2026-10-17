@@ -55,6 +55,7 @@
     .welcome-subtitle { margin:8px 0 4px; font-size:13px; color:var(--muted); letter-spacing:.12em; }
     .welcome-signature { margin:0 0 20px; font-size:11px; color:#a27955; }
     .welcome-tag { display:inline-flex; align-items:center; justify-content:center; margin:-8px auto 14px; padding:5px 10px; border-radius:999px; background:#f3e3c9; color:#8a5a28; font-size:10px; font-weight:800; }
+    .demo-link { color:var(--green-deep); font-size:11px; font-weight:800; text-decoration:underline; text-underline-offset:3px; }
     .welcome-actions { display:flex; flex-direction:column; gap:10px; }
     .welcome-actions .btn { min-height:48px; font-size:14px; }
     .home-dashboard { margin:16px 0 14px; padding:13px 14px 11px; border-radius:16px; text-align:left; background:#3a2a1b; color:#f7f1e5; }
@@ -115,6 +116,7 @@
     .collection-item { min-height:67px; padding:8px 4px; border:1px solid #e3eadf; border-radius:12px; background:#f7faf4; color:var(--green-deep); font-size:10px; }
     .collection-item.locked { background:#f5f4ef; color:#a6aaa2; filter:grayscale(.65); }
     .collection-item b { display:block; font-size:18px; margin-bottom:3px; }
+    .collection-meta { display:block; margin-top:3px; color:var(--muted); font-size:9px; line-height:1.4; }
     .collection-thumb { position:relative; height:58px; margin:-2px -1px 5px; overflow:hidden; border-radius:9px; background:linear-gradient(#d9ecf0 0 45%, #bed7b7 45% 100%); border:1px solid rgba(65,107,85,.14); }
     .collection-thumb .piece { pointer-events:none; filter:drop-shadow(0 2px 2px rgba(72,47,26,.14)); }
     .level-picker-title { display:flex; justify-content:space-between; align-items:center; margin:18px 0 9px; color:var(--green-deep); font-weight:800; font-size:13px; }
@@ -148,6 +150,15 @@
     .story-line::before { content:'✦'; flex:none; color:var(--yellow); font-size:13px; line-height:1.3; }
     .level-meta { display:flex; justify-content:space-between; gap:10px; margin-top:9px; color:var(--muted); font-size:10px; }
     .level-meta strong { color:var(--green); }
+    .guide-widget { display:flex; align-items:center; gap:10px; margin:0 0 12px; padding:10px 12px; border:1px solid #ead8b6; border-radius:16px; background:linear-gradient(100deg,#fff8e9,#fffdf7); }
+    .dragon-orb { position:relative; flex:none; width:44px; height:44px; display:grid; place-items:center; border-radius:15px; background:linear-gradient(145deg,#e9a45c,#d66d4f); color:#fff8e9; font-size:25px; box-shadow:0 6px 12px rgba(214,109,79,.2); }
+    .dragon-orb::after { content:'云和祥龙'; position:absolute; left:50%; bottom:-8px; transform:translateX(-50%); white-space:nowrap; padding:2px 5px; border-radius:6px; color:#8a5a28; background:#f3e3c9; font-size:8px; font-weight:800; }
+    .guide-copy { min-width:0; flex:1; }
+    .guide-copy strong { display:block; color:#8a5a28; font-size:11px; }
+    .guide-copy span { display:block; margin-top:3px; color:#76532f; font-size:12px; line-height:1.5; }
+    .sound-btn { flex:none; border:1px solid #ead8b6; border-radius:999px; padding:7px 8px; color:#8a5a28; background:#fffdf7; font-size:10px; cursor:pointer; }
+    .guide-widget.talking .dragon-orb { animation:dragon-bob .55s ease; }
+    @keyframes dragon-bob { 0%,100%{transform:translateY(0) rotate(0)} 40%{transform:translateY(-4px) rotate(-4deg)} 70%{transform:translateY(1px) rotate(3deg)} }
     .mission-badge { min-width:104px; padding:10px 12px; background:#eff5ed; border:1px solid #dae8d8; border-radius:16px; font-size:11px; color:var(--green-deep); text-align:right; }
     .mission-badge strong { display:block; font-size:18px; margin-top:3px; }
     .board-wrap { position:relative; border-radius:20px; padding:12px; background:#dfebe0; overflow:hidden; touch-action:pinch-zoom; }
@@ -344,6 +355,48 @@
     .check.pending i { background:#f3eee5; color:#b28a58; }
     .check small { display:block; color:var(--muted); font-size:10px; margin-top:2px; }
     .tip { padding:13px; background:#fff5e4; border:1px solid #f2dfb9; border-radius:15px; font-size:11px; color:#775b36; line-height:1.6; }
+    .board.theme-sky { background:linear-gradient(#d7edf6 0 45%,#b8d9c4 45% 100%); }
+    .board.theme-sunset { background:linear-gradient(#f6d5bd 0 45%,#d7bf9e 45% 100%); }
+    .board.theme-forest { background:linear-gradient(#d7e6df 0 45%,#9fbd98 45% 100%); }
+    .board.theme-night { background:linear-gradient(#3f536c 0 45%,#536b5b 45% 100%); }
+    .board.theme-night .board-grid::after, .board.theme-night .target-label { color:rgba(255,255,255,.52); }
+    .board .piece.skin-honey { filter:sepia(.28) saturate(1.45) brightness(1.04) drop-shadow(0 6px 5px rgba(72,47,26,.16)); }
+    .board .piece.skin-candy { filter:hue-rotate(320deg) saturate(1.35) drop-shadow(0 6px 5px rgba(72,47,26,.16)); }
+    .board .piece.skin-cedar { filter:saturate(.74) sepia(.28) brightness(.92) drop-shadow(0 6px 5px rgba(72,47,26,.16)); }
+    .board-sticker { position:absolute; z-index:2; pointer-events:none; user-select:none; transform:translate(-50%,-50%); }
+    .board-sticker.cloud { width:70px; height:26px; border-radius:30px; background:rgba(255,255,255,.88); filter:drop-shadow(0 4px 3px rgba(72,47,26,.1)); }
+    .board-sticker.cloud::before,.board-sticker.cloud::after { content:''; position:absolute; border-radius:50%; background:inherit; }
+    .board-sticker.cloud::before { width:30px; height:30px; left:13px; bottom:0; } .board-sticker.cloud::after { width:38px; height:38px; left:36px; bottom:0; }
+    .board-sticker.tree { width:28px; height:56px; border-radius:12px 12px 5px 5px; background:#7b9b72; clip-path:polygon(50% 0,100% 62%,78% 62%,100% 100%,0 100%,22% 62%,0 62%); }
+    .board-sticker.flag { width:42px; height:34px; background:#df7e52; clip-path:polygon(0 0,100% 35%,0 70%); }
+    .board-sticker.dragon { font-size:35px; line-height:1; filter:drop-shadow(0 4px 3px rgba(72,47,26,.16)); }
+    .shop-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; margin:14px 0; }
+    .shop-item { display:flex; flex-direction:column; gap:5px; padding:11px; border:1px solid #e3eadf; border-radius:14px; background:#fffdf7; text-align:left; }
+    .shop-item.equipped { border-color:var(--green); box-shadow:0 0 0 2px rgba(43,155,214,.11); }
+    .shop-item strong { font-size:12px; color:var(--green-deep); }
+    .shop-item span { min-height:30px; color:var(--muted); font-size:10px; line-height:1.5; }
+    .shop-item button { min-height:31px; padding:6px 8px; border:1px solid #dce7d9; border-radius:9px; color:var(--green-deep); background:#f2f7ef; font-size:10px; font-weight:800; cursor:pointer; }
+    .shop-item button:disabled { color:#8a5a28; background:#f3e3c9; border-color:#ead8b6; cursor:default; }
+    .sticker-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:14px 0; }
+    .sticker-option { min-height:68px; border:1px solid #e3eadf; border-radius:12px; background:#fffdf7; color:#8a5a28; font-size:25px; cursor:pointer; }
+    .sticker-option small { display:block; margin-top:3px; color:var(--muted); font-size:9px; }
+    .fx-overlay { position:fixed; inset:0; z-index:60; display:none; overflow:hidden; pointer-events:none; }
+    .fx-overlay.show { display:block; }
+    .fx-dragon { position:absolute; left:50%; top:38%; transform:translate(-50%,-50%) scale(.2); opacity:0; font-size:76px; filter:drop-shadow(0 10px 10px rgba(72,47,26,.18)); }
+    .fx-cloud { position:absolute; width:90px; height:30px; border-radius:30px; background:rgba(255,255,255,.88); opacity:0; }
+    .fx-cloud::before,.fx-cloud::after { content:''; position:absolute; border-radius:50%; background:inherit; }
+    .fx-cloud::before { width:35px; height:35px; left:16px; bottom:0; } .fx-cloud::after { width:47px; height:47px; left:42px; bottom:0; }
+    .fx-sawdust { position:absolute; left:50%; top:46%; width:8px; height:8px; border-radius:2px; background:#e3b252; opacity:0; }
+    .fx-overlay.show .fx-dragon { animation:fx-dragon-in 1.1s ease-out forwards; }
+    .fx-overlay.show .fx-cloud { animation:fx-cloud-puff 1s ease-out forwards; }
+    .fx-overlay.show .fx-sawdust { animation:fx-dust 1s ease-out forwards; }
+    @keyframes fx-dragon-in { 0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(-15deg)} 38%{opacity:1;transform:translate(-50%,-50%) scale(1.08) rotate(4deg)} 100%{opacity:0;transform:translate(-50%,-66%) scale(1.22) rotate(0)} }
+    @keyframes fx-cloud-puff { 0%{opacity:0;transform:translate(0,0) scale(.5)} 28%{opacity:1} 100%{opacity:0;transform:translate(90px,-60px) scale(1.35)} }
+    @keyframes fx-dust { 0%{opacity:0;transform:translate(0,0) rotate(0)} 20%{opacity:1} 100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(260deg)} }
+    .result-story { margin:16px 0; padding:13px 14px; border-radius:14px; background:#f3e3c9; color:#76532f; font-size:12px; line-height:1.7; text-align:left; }
+    .result-story strong { display:block; margin-bottom:3px; color:#8a5a28; }
+    .result-actions { flex-wrap:wrap; }
+    .result-actions .btn { min-width:calc(50% - 5px); }
     .mobile-tabs { display:none; }
     .toast { position:fixed; left:50%; bottom:25px; z-index:20; transform:translate(-50%, 18px); opacity:0; pointer-events:none; padding:11px 15px; color:#fff; background:#26342c; border-radius:999px; box-shadow:0 8px 24px rgba(38,52,44,.25); font-size:12px; transition:.22s; white-space:nowrap; }
     .toast.show { opacity:1; transform:translate(-50%,0); }
@@ -448,6 +501,12 @@
       .mission-badge strong { font-size:16px; }
       .story-line { color:#8a5a28; font-size:10.5px; }
       .level-meta { margin-top:7px; font-size:10px; }
+      .guide-widget { margin-bottom:9px; padding:8px 9px; border-radius:14px; gap:8px; }
+      .dragon-orb { width:38px; height:38px; border-radius:12px; font-size:21px; }
+      .dragon-orb::after { bottom:-7px; font-size:7px; }
+      .guide-copy strong { font-size:10px; }
+      .guide-copy span { font-size:10.5px; }
+      .sound-btn { padding:6px 7px; font-size:9px; }
       .board-wrap { padding:8px; border-radius:16px; background:var(--wood-soft); }
       .board { min-height:460px; border-radius:13px; background:linear-gradient(#d9ecf0 0 45%,#bed7b7 45% 100%); }
       .board-grid { inset:70px 7% 28px; border-color:rgba(58,42,27,.2); }
@@ -473,6 +532,8 @@
       .user-screen .profile-card { text-align:left; }
       .user-screen .profile-avatar { margin:0 0 10px; width:58px; height:58px; border-radius:18px; }
       .user-screen .profile-stats { gap:6px; }
+      .user-screen .profile-actions { flex-wrap:wrap; }
+      .user-screen .profile-actions .btn { min-width:calc(50% - 5px); }
       .user-screen .profile-stat { background:var(--wood-soft); border-color:transparent; }
       .collection-grid { grid-template-columns:repeat(4,1fr); gap:6px; }
       .collection-item { background:var(--panel); border-color:var(--line); }
@@ -480,6 +541,9 @@
       .level-choice.current { background:rgba(43,155,214,.12); border-color:var(--green); color:var(--green-deep); }
       .modal-card { width:100%; border-radius:20px; padding:20px 18px; background:var(--panel); }
       .credits-modal-card { max-height:80dvh; }
+      .shop-grid { gap:7px; }
+      .shop-item { padding:9px; }
+      .shop-item strong { font-size:11px; }
       .toast { bottom:calc(72px + env(safe-area-inset-bottom)); background:rgba(58,42,27,.92); }
       .mobile-tabs { position:fixed; left:0; right:0; bottom:0; z-index:20; display:flex; height:calc(62px + env(safe-area-inset-bottom)); padding:0 8px env(safe-area-inset-bottom); background:rgba(255,253,247,.94); border-top:1px solid var(--line); backdrop-filter:blur(12px); }
       .mobile-tabs button { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; color:var(--muted); font-size:10px; }
@@ -498,6 +562,7 @@
       <p>输入昵称创建或进入本机账号。<br>你的木玩币、图纸和关卡进度会分别保存。</p>
       <input class="account-input" id="accountNameInput" maxlength="12" placeholder="请输入昵称，例如：小木匠" autocomplete="nickname" />
       <button class="btn btn-primary" id="accountEnterBtn" type="button">进入工坊</button>
+      <button class="btn btn-ghost" id="guestEnterBtn" type="button">游客试玩，不保存进度</button>
       <div class="account-list" id="accountList"></div>
     </div>
   </section>
@@ -517,6 +582,7 @@
         <button class="btn btn-primary" id="startGameBtn" type="button">开始游戏 <span>→</span></button>
         <button class="btn btn-soft" id="showHelpBtn" type="button">游戏说明</button>
         <button class="btn btn-ghost" id="showCreditsBtn" type="button">创作说明</button>
+        <button class="btn btn-ghost" id="demoBtn" type="button">演示试玩</button>
         <button class="btn btn-ghost" id="profileBtn" type="button">用户</button>
       </div>
       <div class="home-dashboard">
@@ -544,7 +610,12 @@
       <div class="level-grid" id="levelGrid"></div>
       <div class="profile-actions">
         <button class="btn btn-primary" id="profileContinueBtn" type="button">继续游戏</button>
+        <button class="btn btn-soft" id="shopBtn" type="button">木玩工坊</button>
         <button class="btn btn-soft" id="profileSwitchBtn" type="button">切换用户</button>
+      </div>
+      <div class="profile-actions" style="margin-top:8px">
+        <button class="btn btn-ghost" id="profileExportBtn" type="button">导出当前作品</button>
+        <button class="btn btn-ghost" id="profileShareBtn" type="button">分享作品</button>
       </div>
       <button class="btn btn-ghost" id="profileHomeBtn" type="button" style="width:100%;margin-top:8px">返回首页</button>
     </div>
@@ -580,6 +651,12 @@
           <div class="mission-badge">今日图纸<strong id="levelBadge">01 / 12</strong></div>
         </div>
 
+        <div class="guide-widget" id="guideWidget">
+          <div class="dragon-orb" aria-hidden="true">🐲</div>
+          <div class="guide-copy"><strong>云和祥龙 · 木玩向导</strong><span id="guideDialogue">云和祥龙把第一张木玩图纸送进了工坊。</span></div>
+          <button class="sound-btn" id="soundBtn" type="button" aria-label="切换操作音效">♫ 音效</button>
+        </div>
+
         <div class="board-wrap">
           <div class="board" id="board">
             <div class="sun"></div><div class="cloud"></div>
@@ -599,6 +676,7 @@
           <button class="btn btn-ghost" id="deleteBtn">⌫ 删除</button>
           <button class="btn btn-ghost" id="undoBtn">↶ 撤销</button>
           <button class="btn btn-ghost" id="resetBtn">重置</button>
+          <button class="btn btn-ghost" id="decorateBtn">✦ 装饰</button>
           <button class="btn btn-primary" id="finishBtn">完成搭建 <span>→</span></button>
         </div>
       </section>
@@ -646,10 +724,13 @@
       <div class="result-icon">✦</div>
       <h2>云木工坊完成啦</h2>
       <p>你完成了 12 张木玩图纸，成为真正的云木搭搭小匠。</p>
+      <div class="result-story" id="resultStory"><strong>云和祥龙的终章</strong>十二张图纸在云海边合成了一座会讲故事的木玩工坊。</div>
       <div class="result-score"><strong id="finalScore">0</strong><span>本次木匠得分</span></div>
       <div class="result-actions">
         <button class="btn btn-primary" id="restartGameBtn" type="button">重新开始</button>
         <button class="btn btn-soft" id="resultHomeBtn" type="button">返回首页</button>
+        <button class="btn btn-ghost" id="resultExportBtn" type="button">保存作品图片</button>
+        <button class="btn btn-ghost" id="resultShareBtn" type="button">分享作品</button>
       </div>
     </div>
   </section>
@@ -670,7 +751,7 @@
       <div class="credits-list">
         <div class="credits-item"><strong>主题与玩法</strong>以云和木玩为核心，把积木、木轮、拱形护栏和塔楼等现实木玩结构转化为12关竖屏自由拼搭游戏，并用云和祥龙串起童话工坊故事。</div>
         <div class="credits-item"><strong>AI协作内容</strong>界面视觉、关卡图纸、木玩零件造型、交互代码与舒缓木琴旋律均采用AI辅助生成，再由作者进行结构整理、体验调优和移动端适配。</div>
-        <div class="credits-item"><strong>演示路径</strong>输入昵称 → 开始游戏 → 选择本关零件自由摆放 → 旋转/删除/撤销 → 完成后进入新图纸 → 用户页查看图鉴与回玩记录。</div>
+        <div class="credits-item"><strong>演示路径</strong>输入昵称或游客试玩 → 开始游戏 → 听祥龙对白并自由摆放 → 旋转/删除/撤销/装饰 → 完成后进入新图纸 → 用户页查看图鉴、作品卡和木玩工坊。</div>
         <div class="credits-item"><strong>运行方式</strong>纯静态网页，无外部运行依赖；支持手机竖屏、双指缩放和本地多用户存档，打开链接即可体验。</div>
       </div>
       <p class="credits-note">提交前请按你的实际创作记录整理AI生成比例、过程截图和演示视频。详细赛道要求见 <a href="https://mp.weixin.qq.com/s/IM4adEDC5i2QTA3lJG3tPA" target="_blank" rel="noopener">赛事原文</a>。</p>
@@ -678,7 +759,28 @@
     </div>
   </div>
 
+  <div class="modal" id="shopModal">
+    <div class="modal-card credits-modal-card">
+      <div class="credits-kicker">木玩币工坊</div>
+      <h3>给作品换一套新气质</h3>
+      <p class="credits-note" style="margin-top:5px">木玩币：<strong id="shopCoins">120</strong>。买下后可以随时装备，效果会保存在当前用户的存档中。</p>
+      <div class="shop-grid" id="shopGrid"></div>
+      <button class="btn btn-primary" id="closeShopBtn" type="button">返回个人工坊</button>
+    </div>
+  </div>
+
+  <div class="modal" id="stickerModal">
+    <div class="modal-card">
+      <div class="credits-kicker">作品装饰</div>
+      <h3>放一枚云和小贴纸</h3>
+      <p class="credits-note" style="margin-top:5px">贴纸会收录在本关作品中，可以在图鉴里看到。</p>
+      <div class="sticker-grid" id="stickerGrid"></div>
+      <button class="btn btn-ghost" id="closeStickerBtn" type="button">暂时不要装饰</button>
+    </div>
+  </div>
+
   <div class="toast" id="toast"></div>
+  <div class="fx-overlay" id="fxOverlay" aria-hidden="true"></div>
   <div class="modal" id="successModal">
     <div class="modal-card">
       <div class="success-icon">✦</div>
@@ -704,6 +806,11 @@
     const accountList = document.getElementById('accountList');
     const helpModal = document.getElementById('helpModal');
     const creditsModal = document.getElementById('creditsModal');
+    const shopModal = document.getElementById('shopModal');
+    const stickerModal = document.getElementById('stickerModal');
+    const fxOverlay = document.getElementById('fxOverlay');
+    const guideWidget = document.getElementById('guideWidget');
+    const guideDialogue = document.getElementById('guideDialogue');
     const types = [
       { id:'wall', label:'房身', className:'piece-wall', x:.5, y:.57, rotation:0 },
       { id:'roof', label:'屋顶', className:'piece-roof', x:.5, y:.34, rotation:0 },
@@ -737,6 +844,15 @@
     let coins = 120;
     let collection = [];
     let collectionRecords = {};
+    let activeTheme = 'paper';
+    let activeSkin = 'natural';
+    let unlockedShop = ['theme-paper', 'skin-natural'];
+    let placedStickers = [];
+    let lastCompletion = { index:0, score:0, quality:0, reward:0 };
+    let soundOn = true;
+    let demoMode = false;
+    let finishing = false;
+    let lastBoardSize = { width:640, height:640 };
     let accountName = '';
     const SAVE_PREFIX = 'yunmu-builder-save-v1:';
     const ACCOUNT_LIST_KEY = 'yunmu-builder-accounts-v1';
@@ -770,6 +886,21 @@
       '旋转木马开场啦，给每位云朵朋友留一张座椅。',
       '小塔的飞檐映着晚霞，这是云和木玩的古老回声。',
       '终章灯塔亮起，十二张图纸拼成了完整的云木童话。'
+    ];
+    const shopItems = [
+      { id:'theme-paper', type:'theme', label:'奶油木纸', cost:0, description:'默认的温暖木纸工坊背景。', className:'theme-paper' },
+      { id:'theme-sky', type:'theme', label:'云朵晴空', cost:60, description:'更明亮的云海蓝与草地绿。', className:'theme-sky' },
+      { id:'theme-sunset', type:'theme', label:'晚霞木场', cost:80, description:'夕阳橙和原木棕的柔和背景。', className:'theme-sunset' },
+      { id:'theme-forest', type:'theme', label:'森林秘境', cost:100, description:'松木绿背景，适合自然主题作品。', className:'theme-forest' },
+      { id:'theme-night', type:'theme', label:'星夜云海', cost:140, description:'夜色工坊，适合终章灯塔。', className:'theme-night' },
+      { id:'skin-natural', type:'skin', label:'原木本色', cost:0, description:'保留木玩自然的颜色与纹理。', className:'skin-natural' },
+      { id:'skin-honey', type:'skin', label:'蜂蜜抛光', cost:90, description:'让木件带上柔亮的蜂蜜色。', className:'skin-honey' },
+      { id:'skin-candy', type:'skin', label:'童话彩漆', cost:120, description:'更活泼的彩色童话木玩。', className:'skin-candy' },
+      { id:'skin-cedar', type:'skin', label:'雪松深纹', cost:120, description:'更沉稳的深色木纹质感。', className:'skin-cedar' },
+      { id:'sticker-cloud', type:'sticker', label:'云朵贴纸', cost:40, description:'在作品角落放一朵软绵绵的云。', sticker:'cloud' },
+      { id:'sticker-tree', type:'sticker', label:'森林小树', cost:50, description:'给木玩场景添一棵小树。', sticker:'tree' },
+      { id:'sticker-flag', type:'sticker', label:'庆典旗帜', cost:50, description:'为完成作品插上庆典旗。', sticker:'flag' },
+      { id:'sticker-dragon', type:'sticker', label:'祥龙伙伴', cost:120, description:'让云和祥龙来到你的作品里。', sticker:'dragon' }
     ];
 
     const variantTypes = [
@@ -841,7 +972,9 @@
       try { localStorage.setItem(CURRENT_ACCOUNT_KEY, userId); } catch (_) {}
       resetRuntimeForAccount(); loadGame(); renderCollection(); updateScore(); showHome(); showToast(`欢迎回来，${accountName}`);
     }
-    function resetRuntimeForAccount() { levelNumber=1; blueprintIndex=0; score=0; coins=120; collection=[]; collectionRecords={}; history=[]; selected=null; board.querySelectorAll('.piece').forEach(el => el.remove()); renderBlueprint(); }
+    function enterGuest() { userId=''; accountName='游客'; try { localStorage.removeItem(CURRENT_ACCOUNT_KEY); } catch (_) {} resetRuntimeForAccount(); renderCollection(); updateScore(); showHome(); showToast('游客试玩已开始，完成作品不会写入本机存档'); }
+    function defaultShopState() { return { activeTheme:'paper', activeSkin:'natural', unlockedShop:['theme-paper','skin-natural'] }; }
+    function resetRuntimeForAccount() { const defaults=defaultShopState(); levelNumber=1; blueprintIndex=0; score=0; coins=120; collection=[]; collectionRecords={}; history=[]; selected=null; activeTheme=defaults.activeTheme; activeSkin=defaults.activeSkin; unlockedShop=[...defaults.unlockedShop]; placedStickers=[]; soundOn=true; board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove()); renderBlueprint(); }
     function showAccountScreen() { accountScreen.style.display='grid'; homeScreen.style.display='none'; gameScreen.style.display='none'; resultScreen.style.display='none'; userScreen.style.display='none'; renderAccountList(); setTimeout(() => accountNameInput.focus(), 0); }
     function switchAccount() { saveGame(); userId=''; accountName=''; try { localStorage.removeItem(CURRENT_ACCOUNT_KEY); } catch (_) {} resetRuntimeForAccount(); showAccountScreen(); }
     function captureBoardPieces() {
@@ -851,8 +984,14 @@
         y: Number(el.dataset.y),
         rotation: Number(el.dataset.rotation) || 0,
         width: el.offsetWidth,
-        height: el.offsetHeight
+        height: el.offsetHeight,
+        skin: el.dataset.skin || activeSkin
       }));
+    }
+    function captureBoardStickers() { return placedStickers.map(sticker => ({ type:sticker.type, x:Number(sticker.x)||.5, y:Number(sticker.y)||.5, rotation:Number(sticker.rotation)||0, scale:Number(sticker.scale)||1 })); }
+    function sanitizeStickers(value) {
+      if (!Array.isArray(value)) return [];
+      return value.filter(item => item && shopItems.some(shop => shop.type === 'sticker' && shop.sticker === item.type)).slice(0, 8).map(item => ({ type:item.type, x:Math.max(.08,Math.min(.92,Number(item.x)||.5)), y:Math.max(.1,Math.min(.9,Number(item.y)||.5)), rotation:Number(item.rotation)||0, scale:Math.max(.65,Math.min(1.4,Number(item.scale)||1)) }));
     }
     function pieceTypeForSavedData(data, levelIndex = blueprintIndex, used = new Set()) {
       const currentTypes = (levelPartIds[levelIndex] || []).map(getPieceType).filter(Boolean);
@@ -867,7 +1006,7 @@
       Object.entries(value).forEach(([key, record]) => {
         const index = Number(key);
         if (!Number.isInteger(index) || index < 0 || index >= blueprints.length || !record || !Array.isArray(record.pieces)) return;
-        records[index] = { pieces: record.pieces.filter(piece => piece && typeof piece.type === 'string').map(piece => ({ type:piece.type, x:Number(piece.x) || .5, y:Number(piece.y) || .5, rotation:Number(piece.rotation) || 0, width:Number(piece.width) || 0, height:Number(piece.height) || 0 })), savedAt:Number(record.savedAt) || Date.now(), rewarded:Boolean(record.rewarded) };
+        records[index] = { pieces: record.pieces.filter(piece => piece && typeof piece.type === 'string').map(piece => ({ type:piece.type, x:Number(piece.x) || .5, y:Number(piece.y) || .5, rotation:Number(piece.rotation) || 0, width:Number(piece.width) || 0, height:Number(piece.height) || 0, skin:typeof piece.skin === 'string' ? piece.skin : 'natural' })), stickers:sanitizeStickers(record.stickers), score:Number(record.score)||0, quality:Number(record.quality)||0, title:typeof record.title === 'string' ? record.title.slice(0,40) : '', author:typeof record.author === 'string' ? record.author.slice(0,20) : '', savedAt:Number(record.savedAt) || Date.now(), rewarded:Boolean(record.rewarded) };
       });
       return records;
     }
@@ -875,8 +1014,33 @@
       try {
         const pieces = captureBoardPieces();
         if (!userId) return;
-        localStorage.setItem(`${SAVE_PREFIX}${userId}`, JSON.stringify({ levelNumber, blueprintIndex, score, coins, collection, collectionRecords, pieces, savedAt:Date.now() }));
+        localStorage.setItem(`${SAVE_PREFIX}${userId}`, JSON.stringify({ levelNumber, blueprintIndex, score, coins, collection, collectionRecords, pieces, stickers:captureBoardStickers(), activeTheme, activeSkin, unlockedShop, soundOn, savedAt:Date.now() }));
       } catch (_) { /* 隐私模式或存储空间不足时继续让游戏可玩 */ }
+    }
+    function applyBoardStyle() {
+      board.classList.remove('theme-paper','theme-sky','theme-sunset','theme-forest','theme-night');
+      board.classList.add(`theme-${activeTheme}`);
+      board.querySelectorAll('.piece').forEach(piece => applyPieceSkin(piece, piece.dataset.skin || activeSkin));
+    }
+    function applyPieceSkin(piece, skin = activeSkin) {
+      piece.classList.remove('skin-honey','skin-candy','skin-cedar');
+      piece.dataset.skin = skin;
+      if (skin && skin !== 'natural') piece.classList.add(`skin-${skin}`);
+    }
+    function renderSticker(sticker) {
+      const el = document.createElement('div');
+      el.className = `board-sticker ${sticker.type}`;
+      el.style.left = `${sticker.x * 100}%`;
+      el.style.top = `${sticker.y * 100}%`;
+      el.style.transform = `translate(-50%,-50%) rotate(${sticker.rotation || 0}deg) scale(${sticker.scale || 1})`;
+      if (sticker.type === 'dragon') el.textContent = '🐲';
+      board.append(el);
+      return el;
+    }
+    function restoreStickers(stickers) {
+      board.querySelectorAll('.board-sticker').forEach(el => el.remove());
+      placedStickers = sanitizeStickers(stickers);
+      placedStickers.forEach(renderSticker);
     }
     function restorePieces(pieceList) {
       if (!Array.isArray(pieceList)) return;
@@ -887,24 +1051,34 @@
         used.add(type.id);
         const piece = createPiece(type, Number(data.x) || .5, Number(data.y) || .5);
         piece.dataset.rotation = Number(data.rotation) || 0;
+        applyPieceSkin(piece, data.skin || activeSkin);
         updatePiecePosition(piece);
       });
+      updatePieceProgress();
     }
     function loadGame() {
       try {
         const raw = localStorage.getItem(`${SAVE_PREFIX}${userId}`);
         if (!raw) return;
         const saved = JSON.parse(raw);
-        if (!saved || !Array.isArray(saved.pieces)) return;
+        if (!saved || typeof saved !== 'object') return;
         levelNumber = Math.max(1, Math.min(Number(saved.levelNumber) || 1, blueprints.length));
         blueprintIndex = Math.max(0, Math.min(Number(saved.blueprintIndex) || 0, blueprints.length - 1));
         score = Math.max(0, Number(saved.score) || 0);
         coins = Math.max(0, Number(saved.coins) || 120);
         collection = Array.isArray(saved.collection) ? [...new Set(saved.collection.filter(index => Number.isInteger(index) && index >= 0 && index < blueprints.length))] : [];
         collectionRecords = sanitizeCollectionRecords(saved.collectionRecords);
+        const defaults = defaultShopState();
+        activeTheme = shopItems.some(item => item.type === 'theme' && item.className === `theme-${saved.activeTheme}` && (saved.unlockedShop || []).includes(item.id)) ? saved.activeTheme : defaults.activeTheme;
+        activeSkin = shopItems.some(item => item.type === 'skin' && item.className === `skin-${saved.activeSkin}` && (saved.unlockedShop || []).includes(item.id)) ? saved.activeSkin : defaults.activeSkin;
+        unlockedShop = [...new Set([...(Array.isArray(saved.unlockedShop) ? saved.unlockedShop : []), ...defaults.unlockedShop])].filter(id => shopItems.some(item => item.id === id));
+        placedStickers = sanitizeStickers(saved.stickers);
+        soundOn = saved.soundOn !== false;
         updateScore();
         renderBlueprint();
-        restorePieces(saved.pieces);
+        applyBoardStyle();
+        restorePieces(Array.isArray(saved.pieces) ? saved.pieces : []);
+        restoreStickers(saved.stickers);
       } catch (_) { /* 损坏的本地存档不会阻止新游戏启动 */ }
     }
     const melody = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 329.63, 293.66];
@@ -929,13 +1103,44 @@
       if (musicStep % 2 === 0) playSoftNote(note / 2, 2.7, .022);
       musicStep += 1;
     }
+    function ensureAudioContext() {
+      try {
+        audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+        if (audioContext.state === 'suspended') audioContext.resume();
+        musicBus = musicBus || audioContext.createGain();
+        if (!musicBus.connected) { musicBus.connect(audioContext.destination); musicBus.connected = true; }
+        return audioContext;
+      } catch (_) { return null; }
+    }
+    function playSfx(kind) {
+      if (!soundOn) return;
+      const ctx = ensureAudioContext();
+      if (!ctx) return;
+      const now = ctx.currentTime;
+      const oscillator = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const notes = { pickup:523.25, drop:392, rotate:659.25, delete:220, coin:783.99, complete:523.25 };
+      oscillator.type = kind === 'delete' ? 'triangle' : kind === 'complete' ? 'sine' : 'sine';
+      oscillator.frequency.setValueAtTime(notes[kind] || 440, now);
+      if (kind === 'rotate') oscillator.frequency.exponentialRampToValueAtTime(783.99, now + .12);
+      if (kind === 'complete') oscillator.frequency.exponentialRampToValueAtTime(1046.5, now + .28);
+      gain.gain.setValueAtTime(.0001, now);
+      gain.gain.exponentialRampToValueAtTime(kind === 'complete' ? .09 : .045, now + .015);
+      gain.gain.exponentialRampToValueAtTime(.0001, now + (kind === 'complete' ? .42 : .16));
+      oscillator.connect(gain); gain.connect(ctx.destination); oscillator.start(now); oscillator.stop(now + .48);
+      if (navigator.vibrate && ['pickup','drop','rotate','complete'].includes(kind)) navigator.vibrate(kind === 'complete' ? [18,28,18] : 10);
+    }
+    function updateSoundButton() {
+      const label = soundOn ? '♫ 音效' : '⌁ 静音';
+      document.getElementById('soundBtn').textContent = label;
+      document.getElementById('soundBtn').setAttribute('aria-label', soundOn ? '关闭操作音效' : '开启操作音效');
+    }
+    function toggleSound() { soundOn = !soundOn; updateSoundButton(); if (soundOn) playSfx('pickup'); showToast(soundOn ? '操作音效已开启' : '操作音效已关闭'); }
     function startMusic() {
       if (musicOn) return;
-      audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
-      if (audioContext.state === 'suspended') audioContext.resume();
-      musicBus = musicBus || audioContext.createGain();
-      musicBus.gain.setValueAtTime(.72, audioContext.currentTime);
-      musicBus.connect(audioContext.destination);
+      const ctx = ensureAudioContext();
+      if (!ctx) return;
+      musicBus.gain.setValueAtTime(.72, ctx.currentTime);
       musicOn = true; musicToggle.classList.remove('muted'); musicToggle.textContent = '♫ 音乐播放中';
       playMusicStep(); musicTimer = window.setInterval(playMusicStep, 2200);
     }
@@ -945,6 +1150,7 @@
       if (musicBus && audioContext) musicBus.gain.setTargetAtTime(.0001, audioContext.currentTime, .08);
     }
     musicToggle.addEventListener('click', () => { if (musicOn) stopMusic(); else startMusic(); });
+    document.getElementById('soundBtn').addEventListener('click', toggleSound);
     document.addEventListener('pointerdown', event => {
       if (!musicOn && !event.target.closest('#musicToggle')) startMusic();
     }, { once:true });
@@ -975,6 +1181,131 @@
       document.getElementById('homeCoins').textContent = `${coins} 木币`;
       document.getElementById('homeBar').style.width = `${Math.min(100, score / 10)}%`;
     }
+    function shopItemEquipped(item) { return (item.type === 'theme' && activeTheme === item.className.replace('theme-','')) || (item.type === 'skin' && activeSkin === item.className.replace('skin-','')); }
+    function renderShop() {
+      document.getElementById('shopCoins').textContent = coins;
+      const grid = document.getElementById('shopGrid');
+      grid.innerHTML = '';
+      shopItems.forEach(item => {
+        const card = document.createElement('div');
+        card.className = `shop-item${shopItemEquipped(item) ? ' equipped' : ''}`;
+        const title = document.createElement('strong');
+        title.textContent = item.label;
+        const desc = document.createElement('span');
+        desc.textContent = item.description;
+        const button = document.createElement('button');
+        const owned = unlockedShop.includes(item.id);
+        const equipped = shopItemEquipped(item);
+        button.textContent = equipped ? '已装备' : owned ? '装备' : `${item.cost} 木玩币`;
+        button.disabled = equipped;
+        button.addEventListener('click', () => purchaseOrEquip(item));
+        card.append(title, desc, button);
+        grid.append(card);
+      });
+    }
+    function purchaseOrEquip(item) {
+      if (!unlockedShop.includes(item.id)) {
+        if (coins < item.cost) { showToast('木玩币还不够，先完成几张图纸吧'); return; }
+        coins -= item.cost;
+        unlockedShop.push(item.id);
+        playSfx('coin');
+        showToast(`已解锁「${item.label}」`);
+      }
+      if (item.type === 'theme') activeTheme = item.className.replace('theme-','');
+      if (item.type === 'skin') activeSkin = item.className.replace('skin-','');
+      applyBoardStyle();
+      renderShop();
+      updateScore();
+      saveGame();
+    }
+    function renderStickerPicker() {
+      const grid = document.getElementById('stickerGrid');
+      grid.innerHTML = '';
+      const stickers = shopItems.filter(item => item.type === 'sticker' && unlockedShop.includes(item.id));
+      if (!stickers.length) { grid.innerHTML = '<p class="credits-note" style="grid-column:1/-1">先去木玩工坊解锁贴纸。</p>'; return; }
+      stickers.forEach(item => {
+        const button = document.createElement('button');
+        button.className = 'sticker-option';
+        button.type = 'button';
+        button.innerHTML = `${item.sticker === 'cloud' ? '☁️' : item.sticker === 'tree' ? '🌳' : item.sticker === 'flag' ? '🚩' : '🐲'}<small>${item.label}</small>`;
+        button.addEventListener('click', () => addSticker(item.sticker));
+        grid.append(button);
+      });
+    }
+    function addSticker(type) {
+      const sticker = { type, x:.18 + Math.random() * .64, y:.18 + Math.random() * .56, rotation:Math.round((Math.random() * 24) - 12), scale:.8 + Math.random() * .35 };
+      placedStickers.push(sticker);
+      renderSticker(sticker);
+      stickerModal.classList.remove('show');
+      playSfx('pickup');
+      saveGame();
+      showToast('贴纸已放进作品');
+    }
+    function setGuideDialogue(message) {
+      guideDialogue.textContent = message;
+      guideWidget.classList.remove('talking');
+      requestAnimationFrame(() => guideWidget.classList.add('talking'));
+    }
+    function playBuildFx(finale = false) {
+      const dust = Array.from({ length: finale ? 18 : 10 }, (_, index) => `<i class="fx-sawdust" style="--dx:${Math.round(Math.cos(index * .7) * (80 + index * 5))}px;--dy:${Math.round(-40 - Math.abs(Math.sin(index * .9)) * 100)}px"></i>`).join('');
+      fxOverlay.innerHTML = `<div class="fx-dragon">🐲</div><div class="fx-cloud" style="left:18%;top:36%"></div><div class="fx-cloud" style="right:12%;top:56%;animation-delay:.14s"></div>${dust}`;
+      fxOverlay.classList.remove('show');
+      requestAnimationFrame(() => fxOverlay.classList.add('show'));
+      window.setTimeout(() => { fxOverlay.classList.remove('show'); fxOverlay.innerHTML = ''; }, finale ? 1700 : 1150);
+    }
+    function escapeXml(value) { return String(value || '').replace(/[<>&'"]/g, char => ({ '<':'&lt;', '>':'&gt;', '&':'&amp;', "'":'&apos;', '"':'&quot;' }[char])); }
+    function artworkTitle() { return collectionRecords[blueprintIndex]?.title || `${accountName || '小木匠'}的${blueprints[blueprintIndex]?.name || '木玩作品'}`; }
+    function buildArtworkSvg() {
+      const width = Math.max(320, Math.round(board.clientWidth || lastBoardSize.width || 640));
+      const height = Math.max(420, Math.round(board.clientHeight || lastBoardSize.height || 640));
+      const clone = board.cloneNode(true);
+      clone.querySelectorAll('.target-outline,.target-label,.board-grid,.zoom-hint').forEach(el => el.remove());
+      clone.style.width = `${width}px`;
+      clone.style.height = `${height}px`;
+      clone.style.borderRadius = '0';
+      const style = document.querySelector('style')?.textContent || '';
+      return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" width="${width}" height="${height + 52}" viewBox="0 0 ${width} ${height + 52}"><rect width="100%" height="100%" fill="#f7f1e5"/><foreignObject x="16" y="16" width="${width - 32}" height="${height - 32}"><div xmlns="http://www.w3.org/1999/xhtml"><style>${style}</style>${clone.outerHTML}</div></foreignObject><text x="20" y="${height + 36}" fill="#3a2a1b" font-family="sans-serif" font-size="14">${escapeXml(artworkTitle())} · 云木搭搭</text></svg>`;
+    }
+    async function exportArtwork() {
+      if (!board.querySelector('.piece')) { showToast('先放置一些木玩零件，再导出作品'); return; }
+      const svg = buildArtworkSvg();
+      const blob = new Blob([svg], { type:'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url; link.download = `${artworkTitle()}.svg`; link.click();
+      window.setTimeout(() => URL.revokeObjectURL(url), 1200);
+      showToast('作品图片已保存，可用于比赛展示');
+    }
+    async function shareArtwork() {
+      const title = artworkTitle();
+      const text = `${title}｜云木搭搭木玩作品，完成度 ${lastCompletion.quality || collectionRecords[blueprintIndex]?.quality || 0} 分`;
+      try {
+        if (navigator.share) { await navigator.share({ title, text, url:location.href }); showToast('分享面板已打开'); return; }
+        await navigator.clipboard?.writeText(`${text} ${location.href}`);
+        showToast('作品信息已复制，可以发给朋友');
+      } catch (_) { showToast('分享已取消'); }
+    }
+    function runDemo() {
+      demoMode = true;
+      levelNumber = 1; blueprintIndex = 0; history = []; selected = null; placedStickers = [];
+      board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove());
+      startGame();
+      setGuideDialogue('这是给评委和朋友看的快速演示，零件会依次进入图纸。');
+      const b = board.getBoundingClientRect();
+      getCurrentPartTypes().forEach((type, index) => {
+        window.setTimeout(() => {
+          const target = document.querySelector(`.target-outline ${targetSelectorForType(type)}`);
+          if (!target) return;
+          const rect = target.getBoundingClientRect();
+          const x = Math.max(.1, Math.min(.9, ((rect.left + rect.width / 2) - b.left) / b.width));
+          const y = Math.max(.12, Math.min(.88, ((rect.top + rect.height / 2) - b.top) / b.height));
+          const piece = createPiece(type, x, y);
+          selectPiece(piece);
+          playSfx('drop');
+        }, 280 + index * 360);
+      });
+      window.setTimeout(() => { demoMode = false; selected = null; playBuildFx(); setGuideDialogue('演示完成，现在轮到你自由摆放和创造了。'); showToast('演示完成，可以开始自由创作'); }, 360 + getCurrentPartTypes().length * 360);
+    }
     function renderCollectionThumb(record, levelIndex = blueprintIndex) {
       const thumb = document.createElement('div');
       thumb.className = 'collection-thumb';
@@ -985,12 +1316,22 @@
         used.add(type.id);
         const piece = document.createElement('div');
         piece.className = `piece ${type.className}`;
+        applyPieceSkin(piece, data.skin || record.skin || 'natural');
         piece.style.left = `${Math.max(0, Math.min(1, Number(data.x) || .5)) * 100}%`;
         piece.style.top = `${Math.max(0, Math.min(1, Number(data.y) || .5)) * 100}%`;
         if (Number(data.width) > 0) piece.style.width = `${Math.min(190, Number(data.width))}px`;
         if (Number(data.height) > 0) piece.style.height = `${Math.min(190, Number(data.height))}px`;
         piece.style.transform = `translate(-50%, -50%) rotate(${Number(data.rotation) || 0}deg) scale(.2)`;
         thumb.append(piece);
+      });
+      sanitizeStickers(record?.stickers).forEach(sticker => {
+        const el = document.createElement('div');
+        el.className = `board-sticker ${sticker.type}`;
+        el.style.left = `${sticker.x * 100}%`;
+        el.style.top = `${sticker.y * 100}%`;
+        el.style.transform = `translate(-50%,-50%) rotate(${sticker.rotation || 0}deg) scale(${(sticker.scale || 1) * .45})`;
+        if (sticker.type === 'dragon') el.textContent = '🐲';
+        thumb.append(el);
       });
       return thumb;
     }
@@ -1007,8 +1348,12 @@
           const record = collectionRecords[index];
           if (record) card.append(renderCollectionThumb(record, index));
           const title = document.createElement('span');
-          title.textContent = blueprint.name;
+          title.textContent = record?.title || blueprint.name;
           card.append(title);
+          const meta = document.createElement('small');
+          meta.className = 'collection-meta';
+          meta.textContent = `第${String(index + 1).padStart(2, '0')}关 · ${record?.score || 0}分 · ${record?.pieces?.length || 0}件`;
+          card.append(meta);
           card.title = '点击下方关卡按钮回玩并更新作品';
         } else {
           card.innerHTML = '<b>·</b><span>未解锁图纸</span>';
@@ -1044,9 +1389,10 @@
       blueprintIndex = index;
       history = [];
       selected = null;
-      board.querySelectorAll('.piece').forEach(el => el.remove());
+      placedStickers = [];
+      board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove());
       renderBlueprint();
-      if (collectionRecords[index]) restorePieces(collectionRecords[index].pieces);
+      if (collectionRecords[index]) { restorePieces(collectionRecords[index].pieces); restoreStickers(collectionRecords[index].stickers); }
       updateScore();
       saveGame();
       startGame();
@@ -1056,8 +1402,13 @@
     function showHome() { setMobileTab('home'); homeScreen.style.display='grid'; gameScreen.style.display='none'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; }
     function showUser() { setMobileTab('user'); updateScore(); renderCollection(); homeScreen.style.display='none'; gameScreen.style.display='none'; resultScreen.style.display='none'; accountScreen.style.display='none'; userScreen.style.display='grid'; }
     function startGame() { setMobileTab('blueprint'); homeScreen.style.display='none'; gameScreen.style.display='block'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; renderBlueprint(); updateScore(); }
-    function showResult() { document.getElementById('finalScore').textContent = score; gameScreen.style.display='none'; homeScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; resultScreen.style.display='grid'; }
-    function restartGame() { levelNumber=1; blueprintIndex=0; score=0; history=[]; board.querySelectorAll('.piece').forEach(el=>el.remove()); renderBlueprint(); updateScore(); saveGame(); startGame(); showToast('新一轮木玩拼搭开始啦'); }
+    function showResult() {
+      document.getElementById('finalScore').textContent = score;
+      document.getElementById('resultStory').innerHTML = `<strong>云和祥龙的终章</strong>${escapeXml(accountName || '小木匠')}把十二张图纸拼成了云海工坊：小屋亮起窗灯，小车驶过木桥，灯塔为每一个新故事指路。`;
+      playBuildFx(true);
+      gameScreen.style.display='none'; homeScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; resultScreen.style.display='grid';
+    }
+    function restartGame() { levelNumber=1; blueprintIndex=0; score=0; history=[]; finishing=false; placedStickers=[]; board.querySelectorAll('.piece,.board-sticker').forEach(el=>el.remove()); renderBlueprint(); updateScore(); saveGame(); startGame(); showToast('新一轮木玩拼搭开始啦'); }
     function createMiniPiece(type) {
       const wrap = document.createElement('div'); wrap.className = 'mini-piece';
       const p = document.createElement('div'); p.className = `piece ${type.className}`;
@@ -1080,6 +1431,7 @@
         card.addEventListener('click', () => {
           const piece = createPiece(type, .5, .7);
           selectPiece(piece);
+          playSfx('pickup');
           saveGame();
           showToast(`已拿起「${type.label}」，拖到画布中摆放`);
         });
@@ -1143,7 +1495,7 @@
     }
     function endDrag(el, pointerId) {
       if (!dragging || dragging !== el || (activePointerId !== null && pointerId !== activePointerId)) return;
-      dragging = null; activePointerId = null; saveGame();
+      dragging = null; activePointerId = null; playSfx('drop'); saveGame();
     }
     function cancelDrag(el, pointerId) {
       if (dragging !== el || (activePointerId !== null && pointerId !== activePointerId)) return;
@@ -1151,7 +1503,7 @@
     }
     function deleteSelected() {
       if (!selected) { showToast('先选择一个要删除的零件'); return; }
-      snapshot(); selected.remove(); selected = null; saveGame(); updatePieceProgress(); showToast('零件已删除');
+      snapshot(); selected.remove(); selected = null; playSfx('delete'); saveGame(); updatePieceProgress(); showToast('零件已删除');
     }
     function showHint() {
       const parts = getCurrentPartTypes();
@@ -1187,61 +1539,112 @@
       document.getElementById('targetLabel').textContent = blueprint.label;
       renderPalette();
       updatePieceProgress();
+      setGuideDialogue(storyBeats[blueprintIndex] || '云和木玩工坊正在等待你的创意。');
+      applyBoardStyle();
     }
     function goToNextLevel() {
       levelNumber = Math.min(levelNumber + 1, blueprints.length);
       blueprintIndex = Math.min(levelNumber - 1, blueprints.length - 1);
       renderBlueprint();
-      board.querySelectorAll('.piece').forEach(el => el.remove());
+      board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove());
+      placedStickers = [];
       history = []; selected = null;
       updateScore();
       renderCollection();
       saveGame();
       showToast(levelNumber === blueprints.length ? '终章图纸已解锁' : `已进入第 ${levelNumber} 关：新图纸已准备好`);
     }
-    function rotateSelected() { if(!selected) { showToast('先选择一个木玩零件'); return; } snapshot(); selected.dataset.rotation = (Number(selected.dataset.rotation)+90)%360; updatePiecePosition(selected); saveGame(); showToast('零件旋转 90°'); }
-    function resetBoard() { snapshot(); board.querySelectorAll('.piece').forEach(el=>el.remove()); selected=null; saveGame(); updatePieceProgress(); showToast('画布已清空'); }
+    function rotateSelected() { if(!selected) { showToast('先选择一个木玩零件'); return; } snapshot(); selected.dataset.rotation = (Number(selected.dataset.rotation)+90)%360; updatePiecePosition(selected); playSfx('rotate'); saveGame(); showToast('零件旋转 90°'); }
+    function resetBoard() { snapshot(); board.querySelectorAll('.piece,.board-sticker').forEach(el=>el.remove()); placedStickers=[]; selected=null; saveGame(); updatePieceProgress(); showToast('画布已清空'); }
     function undo() { const last=history.pop(); if(!last){showToast('还没有可以撤销的操作');return;} restoreSnapshot(last); selected=null; saveGame(); showToast('已撤销上一步'); }
+    function angleGap(a, b) { const diff = Math.abs(((Number(a) - Number(b) + 540) % 360) - 180); return Math.min(180, diff); }
+    function evaluateBoard() {
+      const boardRect = board.getBoundingClientRect();
+      const required = getCurrentPartTypes();
+      let total = 0;
+      required.forEach(type => {
+        const piece = board.querySelector(`.piece[data-type="${type.id}"]`);
+        const target = document.querySelector(`.target-outline ${targetSelectorForType(type)}`);
+        if (!piece || !target) return;
+        const pieceRect = piece.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        const distance = Math.hypot((pieceRect.left + pieceRect.width / 2) - (targetRect.left + targetRect.width / 2), (pieceRect.top + pieceRect.height / 2) - (targetRect.top + targetRect.height / 2));
+        const positionScore = Math.max(0, 1 - distance / (Math.max(boardRect.width, boardRect.height) * .52));
+        const rotationScore = 1 - angleGap(piece.dataset.rotation, type.rotation || 0) / 180;
+        total += positionScore * .72 + rotationScore * .28;
+      });
+      const quality = required.length ? Math.round((total / required.length) * 100) : 0;
+      return { quality, points:80 + Math.round(quality * .45), reward:20 + Math.round(quality * .32) };
+    }
+    function updateCompletionModal(evaluation) {
+      document.querySelector('#successModal .modal-stats strong').textContent = `${evaluation.quality}`;
+      document.querySelectorAll('#successModal .modal-stats strong')[1].textContent = `+${evaluation.points}`;
+    }
     function finish() {
+      if (finishing) return;
       const requiredTypes = getCurrentPartTypes();
       const placedIds = new Set([...board.querySelectorAll('.piece')].map(piece => piece.dataset.type));
       const missing = requiredTypes.filter(type => !placedIds.has(type.id));
       if (missing.length) { showToast(`还差 ${missing.length} 个零件：${missing.slice(0, 2).map(type => type.label).join('、')}`); return; }
+      finishing = true;
       const completedIndex = blueprintIndex;
-      collectionRecords[completedIndex] = { pieces: captureBoardPieces(), savedAt: Date.now(), rewarded: Boolean(collectionRecords[completedIndex]?.rewarded) };
-      const firstCompletion = !collection.includes(completedIndex) && !collectionRecords[completedIndex].rewarded;
+      const evaluation = evaluateBoard();
+      lastBoardSize = { width:Math.max(320, board.clientWidth), height:Math.max(420, board.clientHeight) };
+      const previous = collectionRecords[completedIndex] || {};
+      collectionRecords[completedIndex] = { pieces:captureBoardPieces(), stickers:captureBoardStickers(), score:evaluation.points, quality:evaluation.quality, title:`${accountName || '小木匠'}的${blueprints[completedIndex].name}`, author:accountName || '小木匠', savedAt:Date.now(), rewarded:Boolean(previous.rewarded) };
+      const firstCompletion = !collection.includes(completedIndex) && !previous.rewarded;
       if (firstCompletion) { collection.push(completedIndex); coins += 30; collectionRecords[completedIndex].rewarded = true; }
-      score += 100;
-      coins += 20;
+      score += evaluation.points;
+      coins += evaluation.reward;
+      lastCompletion = { index:completedIndex, score:evaluation.points, quality:evaluation.quality, reward:evaluation.reward };
+      updateCompletionModal(evaluation);
+      playSfx('complete');
+      playBuildFx(completedIndex === blueprints.length - 1);
+      setGuideDialogue(completedIndex === blueprints.length - 1 ? '十二张图纸完成了！云木童话要在灯塔下合页啦。' : `完成度 ${evaluation.quality} 分，祥龙带你去看下一张图纸。`);
       updateScore();
       renderCollection();
       saveGame();
-      if (levelNumber >= blueprints.length) { showResult(); return; }
-      goToNextLevel();
+      window.setTimeout(() => {
+        finishing = false;
+        if (levelNumber >= blueprints.length) { showResult(); return; }
+        goToNextLevel();
+      }, 720);
     }
     document.getElementById('startGameBtn').addEventListener('click', startGame);
     document.getElementById('showHelpBtn').addEventListener('click', () => helpModal.classList.add('show'));
     document.getElementById('showCreditsBtn').addEventListener('click', () => creditsModal.classList.add('show'));
+    document.getElementById('demoBtn').addEventListener('click', runDemo);
     document.getElementById('profileBtn').addEventListener('click', showUser);
     document.getElementById('closeHelpBtn').addEventListener('click', () => { helpModal.classList.remove('show'); startGame(); });
     document.getElementById('closeCreditsBtn').addEventListener('click', () => creditsModal.classList.remove('show'));
+    document.getElementById('shopBtn').addEventListener('click', () => { renderShop(); shopModal.classList.add('show'); });
+    document.getElementById('closeShopBtn').addEventListener('click', () => shopModal.classList.remove('show'));
+    document.getElementById('decorateBtn').addEventListener('click', () => { renderStickerPicker(); stickerModal.classList.add('show'); });
+    document.getElementById('closeStickerBtn').addEventListener('click', () => stickerModal.classList.remove('show'));
     document.getElementById('homeBtn').addEventListener('click', showHome);
     document.getElementById('restartGameBtn').addEventListener('click', restartGame);
     document.getElementById('resultHomeBtn').addEventListener('click', showHome);
     document.getElementById('userBtn').addEventListener('click', showUser);
     document.getElementById('profileContinueBtn').addEventListener('click', startGame);
     document.getElementById('profileHomeBtn').addEventListener('click', showHome);
+    document.getElementById('profileExportBtn').addEventListener('click', exportArtwork);
+    document.getElementById('profileShareBtn').addEventListener('click', shareArtwork);
     document.getElementById('profileSwitchBtn').addEventListener('click', switchAccount);
     document.getElementById('accountEnterBtn').addEventListener('click', () => enterAccount(accountNameInput.value));
+    document.getElementById('guestEnterBtn').addEventListener('click', enterGuest);
     accountNameInput.addEventListener('keydown', event => { if (event.key === 'Enter') enterAccount(accountNameInput.value); });
     helpModal.addEventListener('click', event => { if (event.target === helpModal) helpModal.classList.remove('show'); });
     creditsModal.addEventListener('click', event => { if (event.target === creditsModal) creditsModal.classList.remove('show'); });
+    shopModal.addEventListener('click', event => { if (event.target === shopModal) shopModal.classList.remove('show'); });
+    stickerModal.addEventListener('click', event => { if (event.target === stickerModal) stickerModal.classList.remove('show'); });
     document.getElementById('rotateBtn').addEventListener('click', rotateSelected);
     document.getElementById('hintBtn').addEventListener('click', showHint);
     document.getElementById('deleteBtn').addEventListener('click', deleteSelected);
     document.getElementById('undoBtn').addEventListener('click', undo);
     document.getElementById('resetBtn').addEventListener('click', resetBoard);
     document.getElementById('finishBtn').addEventListener('click', finish);
+    document.getElementById('resultExportBtn').addEventListener('click', exportArtwork);
+    document.getElementById('resultShareBtn').addEventListener('click', shareArtwork);
     document.getElementById('closeModal').addEventListener('click', () => { successModal.classList.remove('show'); showToast('新图纸「木轮小车」已解锁'); });
     successModal.addEventListener('click', e => { if(e.target===successModal) successModal.classList.remove('show'); });
     document.querySelectorAll('[data-mobile-tab]').forEach(button => button.addEventListener('click', () => {
@@ -1257,6 +1660,7 @@
     window.addEventListener('pointerup', event => { if (dragging) endDrag(dragging, event.pointerId); }, { passive:true });
     window.addEventListener('pointercancel', event => { if (dragging) cancelDrag(dragging, event.pointerId); }, { passive:true });
     userId = getUserId();
+    updateSoundButton();
     renderPalette();
     if (userId) {
       const account = readAccounts().find(item => item.id === userId);
@@ -1272,6 +1676,7 @@
     } else {
       showAccountScreen();
     }
+    updateSoundButton();
   </script>
 </body>
 </html>
