@@ -922,10 +922,13 @@
       if (!selector) return;
       const target = document.querySelector(`.target-outline ${selector}`);
       if (!target) return;
+      // 取未旋转前的布局尺寸，避免风车叶片、灯塔光束等旋转虚线的外接矩形把零件撑大。
       const rect = target.getBoundingClientRect();
+      const width = target.offsetWidth || rect.width;
+      const height = target.offsetHeight || rect.height;
       const minimum = type.thin ? 8 : 12;
-      el.style.width = `${Math.max(minimum, rect.width * .92)}px`;
-      el.style.height = `${Math.max(minimum, rect.height * .92)}px`;
+      el.style.width = `${Math.max(minimum, width * .92)}px`;
+      el.style.height = `${Math.max(minimum, height * .92)}px`;
     }
     function createPiece(type, x, y) {
       const el = document.createElement('div');
