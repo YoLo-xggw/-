@@ -50,8 +50,9 @@
     .welcome-art .welcome-cloud { position:absolute; width:82px; height:22px; left:24px; top:55px; border-radius:30px; background:rgba(255,255,255,.8); }
     .welcome-art .welcome-cloud::before,.welcome-art .welcome-cloud::after { content:""; position:absolute; border-radius:50%; background:inherit; }
     .welcome-art .welcome-cloud::before { width:32px; height:32px; left:15px; bottom:0; } .welcome-art .welcome-cloud::after { width:42px; height:42px; left:42px; bottom:0; }
-    .welcome-house { position:absolute; left:50%; bottom:40px; width:116px; height:96px; transform:translateX(-50%); border:3px solid #6c7068; border-radius:5px; background:#fcfaf2; box-shadow:0 8px 0 rgba(106,77,44,.12); z-index:2; }
-    .welcome-house::before { content:""; position:absolute; left:-14px; top:-57px; width:138px; height:70px; border:3px solid #6c7068; border-bottom:0; background:#fbf5e7; clip-path:polygon(50% 0,100% 100%,0 100%); }
+    .welcome-house { position:absolute; left:50%; bottom:40px; width:116px; height:96px; transform:translateX(-50%); border:3px solid #6c7068; border-radius:5px; background:linear-gradient(90deg,#fffdf5,#f6f0df); box-shadow:0 8px 0 rgba(106,77,44,.12); z-index:2; }
+    .welcome-house::before { content:""; position:absolute; left:-16px; top:-61px; width:148px; height:76px; border:3px solid #8b5239; border-bottom:0; background:linear-gradient(155deg,#e59a5d 0%,#c96f48 58%,#a9513f 100%); background-image:repeating-linear-gradient(166deg,rgba(255,239,192,.25) 0 2px,transparent 2px 10px),linear-gradient(155deg,#e59a5d 0%,#c96f48 58%,#a9513f 100%); clip-path:polygon(50% 0,100% 100%,0 100%); box-shadow:inset 0 -5px 0 rgba(103,55,38,.22); }
+    .welcome-house::after { content:""; position:absolute; left:-20px; top:3px; width:156px; height:8px; border-radius:8px; background:linear-gradient(#b76543,#8b4c38); box-shadow:0 3px 0 rgba(106,77,44,.13); }
     .welcome-door { position:absolute; left:42px; bottom:0; width:30px; height:49px; border:2px solid #93613f; border-bottom:0; border-radius:13px 13px 0 0; background:#c99564; }
     .welcome-window { position:absolute; left:16px; top:30px; width:23px; height:22px; border:2px solid #77968a; background:#d9eef0; box-shadow:46px 0 0 -2px #d9eef0,46px 0 0 0 #77968a; }
     .welcome-piece { position:absolute; bottom:20px; width:30px; height:24px; border:2px solid #95623e; background:linear-gradient(135deg,#e3b47a,#c88750); border-radius:4px; box-shadow:0 4px 0 rgba(116,74,42,.16); z-index:3; }
@@ -77,6 +78,7 @@
     .home-quick { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin:0 0 12px; }
     .home-quick-item { padding:8px 5px; border:1px solid rgba(65,107,85,.12); border-radius:12px; background:rgba(247,244,234,.86); color:#8a6a49; font-size:9px; line-height:1.3; }
     .home-quick-item b { display:block; color:var(--green-deep); font-size:15px; }
+    .mobile-free-build { display:none; }
     .home-dashboard { margin:13px 0 12px; padding:12px 14px 10px; border-radius:16px; text-align:left; background:#3a2a1b; color:#f7f1e5; }
     .home-dashboard-head, .home-dashboard-foot { display:flex; align-items:center; justify-content:space-between; gap:8px; }
     .home-dashboard-head strong { font-size:13px; }
@@ -378,6 +380,9 @@
     .mini-piece { position:relative; transform:scale(.36); transform-origin:center; width:65px; height:35px; margin:-9px 0 -3px; pointer-events:none; }
     .mini-piece .piece { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); }
     .control-row { display:flex; gap:9px; margin-top:12px; }
+    .control-heading { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:14px; color:var(--green-deep); }
+    .control-heading strong { font-size:12px; }
+    .control-heading span { color:var(--muted); font-size:10px; }
     .btn { border:1px solid var(--line); background:#fff; border-radius:14px; padding:11px 13px; cursor:pointer; transition:.15s; display:inline-flex; align-items:center; justify-content:center; gap:7px; font-size:12px; font-weight:700; }
     .btn:hover { transform:translateY(-1px); box-shadow:0 6px 14px rgba(43,58,48,.09); }
     .btn:active { transform:translateY(0); }
@@ -577,6 +582,7 @@
       .home-quick { gap:5px; margin-bottom:9px; }
       .home-quick-item { padding:7px 4px; font-size:8px; }
       .home-quick-item b { font-size:14px; }
+      .mobile-free-build { display:flex; width:100%; min-height:42px; margin:0 0 8px; align-items:center; justify-content:center; gap:6px; border:1px solid rgba(224,145,62,.28); border-radius:12px; background:rgba(224,145,62,.11); color:#8a5a28; font-size:11px; font-weight:800; cursor:pointer; }
       .welcome-actions { grid-template-columns:repeat(2,1fr); gap:6px; }
       .welcome-actions .btn { min-height:46px; border-radius:12px; }
       .welcome-actions #showCreditsBtn, .welcome-actions #demoBtn, .welcome-actions #profileBtn, .welcome-actions #freeBuildBtn { min-height:40px; padding:6px 3px; font-size:10px; }
@@ -627,7 +633,13 @@
       .piece-card small { color:var(--muted); }
       .control-row { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-top:9px; }
       .control-row .btn { min-width:0; padding:9px 4px; border-radius:11px; font-size:10px; }
-      .control-row .btn-primary { grid-column:span 2; }
+      .control-heading { margin-top:12px; padding:0 2px; }
+      .control-heading strong { font-size:11px; }
+      .control-heading span { font-size:9px; }
+      .control-row .btn { min-height:42px; border-width:1px; box-shadow:0 2px 0 rgba(58,42,27,.04); }
+      .control-row .btn-soft { background:rgba(43,155,214,.12); border-color:rgba(43,155,214,.2); color:var(--key-ink); }
+      .control-row .btn-ghost { background:rgba(255,253,247,.9); border-color:var(--line); color:var(--ink); }
+      .control-row .btn-primary { grid-column:1 / -1; min-height:46px; font-size:12px; }
       .side { display:block; margin-top:12px; }
       .side-card { margin-top:10px; padding:14px; border-radius:16px; background:var(--panel); border-color:var(--line); box-shadow:none; }
       .progress-card { background:radial-gradient(120% 160% at 20% 0%,#3a2a1b,#241812); color:var(--paper); border:0; }
@@ -692,6 +704,7 @@
         <div class="home-quick-item"><b>60+</b>种木玩零件</div>
         <div class="home-quick-item"><b>∞</b>自由创作</div>
       </div>
+      <button class="mobile-free-build" id="mobileFreeBuildBtn" type="button">✦ 手机专属入口 · 立即自由创作</button>
       <div class="welcome-actions">
         <button class="btn btn-primary" id="startGameBtn" type="button">开始游戏 <span>→</span></button>
         <button class="btn btn-soft" id="showHelpBtn" type="button">游戏说明</button>
@@ -787,14 +800,15 @@
           <div class="palette-head"><strong id="paletteTitle">本关专属木玩零件</strong><span id="paletteHint">点击零件，再拖入画布</span></div>
           <div class="pieces" id="pieces"></div>
         </div>
+        <div class="control-heading"><strong>编辑工具</strong><span>选中零件后可旋转、删除或装饰</span></div>
         <div class="control-row">
-          <button class="btn btn-soft" id="hintBtn">✦ 提示</button>
-          <button class="btn btn-soft" id="rotateBtn">↻ 旋转</button>
-          <button class="btn btn-ghost" id="deleteBtn">⌫ 删除</button>
-          <button class="btn btn-ghost" id="undoBtn">↶ 撤销</button>
-          <button class="btn btn-ghost" id="resetBtn">重置</button>
-          <button class="btn btn-ghost" id="decorateBtn">✦ 装饰</button>
-          <button class="btn btn-primary" id="finishBtn">完成搭建 <span>→</span></button>
+          <button class="btn btn-soft" id="hintBtn" type="button" aria-label="查看摆放提示">✦ 提示</button>
+          <button class="btn btn-soft" id="rotateBtn" type="button" aria-label="旋转选中的零件">↻ 旋转</button>
+          <button class="btn btn-ghost" id="deleteBtn" type="button" aria-label="删除选中的零件">⌫ 删除</button>
+          <button class="btn btn-ghost" id="undoBtn" type="button" aria-label="撤销上一步操作">↶ 撤销</button>
+          <button class="btn btn-ghost" id="resetBtn" type="button" aria-label="清空画布">重置</button>
+          <button class="btn btn-ghost" id="decorateBtn" type="button" aria-label="给作品添加贴纸">✦ 装饰</button>
+          <button class="btn btn-primary" id="finishBtn" type="button">完成搭建 <span>→</span></button>
         </div>
       </section>
 
@@ -830,7 +844,7 @@
     <nav class="mobile-tabs" aria-label="工坊导航">
       <button type="button" data-mobile-tab="home"><span>⌂</span><small>首页</small></button>
       <button type="button" class="active" data-mobile-tab="blueprint"><span>▤</span><small>图纸</small></button>
-      <button type="button" data-mobile-tab="workshop"><span>⌘</span><small>工坊</small></button>
+      <button type="button" data-mobile-tab="workshop"><span>✦</span><small>创作</small></button>
       <button type="button" data-mobile-tab="collection"><span>▧</span><small>图鉴</small></button>
       <button type="button" data-mobile-tab="user"><span>●</span><small>用户</small></button>
     </nav>
@@ -1717,7 +1731,7 @@
     function showHome() { setMobileTab('home'); homeScreen.style.display='grid'; gameScreen.style.display='none'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; }
     function showUser() { setMobileTab('user'); updateScore(); renderCollection(); homeScreen.style.display='none'; gameScreen.style.display='none'; resultScreen.style.display='none'; accountScreen.style.display='none'; userScreen.style.display='grid'; }
     function startGame() { const wasCreative = creativeMode; creativeMode = false; if (wasCreative) { history = []; selected = null; placedStickers = []; board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove()); } setMobileTab('blueprint'); homeScreen.style.display='none'; gameScreen.style.display='block'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; renderBlueprint(); updateScore(); saveGame(); }
-    function startCreativeMode() { creativeMode = true; history = []; selected = null; placedStickers = []; board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove()); setMobileTab('blueprint'); homeScreen.style.display='none'; gameScreen.style.display='block'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; renderBlueprint(); updateScore(); saveGame(); showToast('自由创作已开启：零件不限数量，完成后可保存到我的作品'); }
+    function startCreativeMode() { creativeMode = true; history = []; selected = null; placedStickers = []; board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove()); setMobileTab('workshop'); homeScreen.style.display='none'; gameScreen.style.display='block'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; renderBlueprint(); updateScore(); saveGame(); showToast('自由创作已开启：零件不限数量，完成后可保存到我的作品'); }
     function showResult() {
       document.getElementById('finalScore').textContent = score;
       const themeNames = { paper:'奶油木纸', sky:'云朵晴空', sunset:'晚霞木场', forest:'森林秘境', night:'星夜云海', spring:'春日嫩芽', summer:'夏日晴湾', autumn:'秋日木歌', winter:'冬日雪庭' };
@@ -1989,7 +2003,7 @@
       if (tab === 'user') showUser();
       if (tab === 'blueprint') startGame();
       if (tab === 'collection') { showUser(); document.getElementById('collectionGrid')?.scrollIntoView({ behavior:'smooth', block:'start' }); }
-      if (tab === 'workshop') { startGame(); document.getElementById('pieces')?.scrollIntoView({ behavior:'smooth', block:'center' }); }
+      if (tab === 'workshop') startCreativeMode();
     }));
     window.addEventListener('resize', () => board.querySelectorAll('.piece').forEach(piece => { const type = getPieceType(piece.dataset.type); if (type) fitPieceToTarget(piece, type); updatePiecePosition(piece); }));
     window.addEventListener('pointerup', event => { if (dragging) endDrag(dragging, event.pointerId); }, { passive:true });
