@@ -214,7 +214,7 @@
     .board-wrap { position:relative; border-radius:20px; padding:0; background:transparent; overflow:visible; touch-action:none; }
     .board { position:relative; min-height:488px; border-radius:18px; overflow:hidden; background:linear-gradient(#d9ecf0 0 45%, #bed7b7 45% 100%); border:0; box-shadow:0 10px 26px rgba(62,94,70,.11); touch-action:none; }
     .board-world { position:absolute; inset:0; transform-origin:0 0; will-change:transform; touch-action:none; }
-    .board.creative-mode { background:linear-gradient(145deg,#d9edf0 0 42%,#c9dfbf 42% 100%); }
+    .board.creative-mode { background:linear-gradient(145deg,#d9edf0 0 42%,#c9dfbf 42% 100%); overflow:visible; }
     .board.creative-mode .target-outline, .board.creative-mode .target-label { display:none; }
     .board.creative-mode .board-grid { display:none; }
     .creative-only { display:none; }
@@ -1202,11 +1202,15 @@
     function resetRuntimeForAccount() { const defaults=defaultShopState(); levelNumber=1; blueprintIndex=0; score=0; coins=120; collection=[]; collectionRecords={}; creativeWorks=[]; creativeMode=false; history=[]; selected=null; activeTheme=defaults.activeTheme; activeSkin=defaults.activeSkin; activeDragonSkin=defaults.activeDragonSkin; unlockedShop=[...defaults.unlockedShop]; placedStickers=[]; soundOn=true; board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove()); applyGuideSkin(); renderBlueprint(); }
     function showAccountScreen() { accountScreen.style.display='grid'; homeScreen.style.display='none'; gameScreen.style.display='none'; resultScreen.style.display='none'; userScreen.style.display='none'; renderAccountList(); setTimeout(() => accountNameInput.focus(), 0); }
     function switchAccount() { saveGame(); userId=''; accountName=''; try { localStorage.removeItem(CURRENT_ACCOUNT_KEY); } catch (_) {} resetRuntimeForAccount(); showAccountScreen(); }
+    function freeCanvasCoordinate(value, fallback = .5) {
+      const number = Number(value);
+      return Number.isFinite(number) ? Math.max(-4, Math.min(4, number)) : fallback;
+    }
     function captureBoardPieces() {
       return [...board.querySelectorAll('.piece')].map(el => ({
         type: el.dataset.type,
-        x: Number(el.dataset.x),
-        y: Number(el.dataset.y),
+        x: creativeMode ? freeCanvasCoordinate(el.dataset.x) : Number(el.dataset.x),
+        y: creativeMode ? freeCanvasCoordinate(el.dataset.y) : Number(el.dataset.y),
         rotation: Number(el.dataset.rotation) || 0,
         width: el.offsetWidth,
         height: el.offsetHeight,
@@ -1240,7 +1244,7 @@
       return value.filter(work => work && Array.isArray(work.pieces)).slice(0, 18).map((work, index) => ({
         id:typeof work.id === 'string' ? work.id.slice(0, 48) : `creative-${index}`,
         title:typeof work.title === 'string' ? work.title.slice(0, 32) : `自由木玩作品 ${index + 1}`,
-        pieces:work.pieces.filter(piece => piece && typeof piece.type === 'string').slice(0, 80).map(piece => ({ type:piece.type, x:Math.max(.08,Math.min(.92,Number(piece.x)||.5)), y:Math.max(.12,Math.min(.9,Number(piece.y)||.5)), rotation:Number(piece.rotation)||0, width:Number(piece.width)||0, height:Number(piece.height)||0, skin:typeof piece.skin === 'string' ? piece.skin : 'natural' })),
+        pieces:work.pieces.filter(piece => piece && typeof piece.type === 'string').slice(0, 80).map(piece => ({ type:piece.type, x:freeCanvasCoordinate(piece.x), y:freeCanvasCoordinate(piece.y), rotation:Number(piece.rotation)||0, width:Number(piece.width)||0, height:Number(piece.height)||0, skin:typeof piece.skin === 'string' ? piece.skin : 'natural' })),
         stickers:sanitizeStickers(work.stickers),
         theme:typeof work.theme === 'string' ? work.theme : 'paper',
         skin:typeof work.skin === 'string' ? work.skin : 'natural',
@@ -1295,7 +1299,8 @@
         const type = pieceTypeForSavedData(data, blueprintIndex, used);
         if (!type) return;
         used.add(type.id);
-        const piece = createPiece(type, Number(data.x) || .5, Number(data.y) || .5);
+        const savedX = Number(data.x), savedY = Number(data.y);
+        const piece = createPiece(type, Number.isFinite(savedX) ? savedX : .5, Number.isFinite(savedY) ? savedY : .5);
         piece.dataset.rotation = Number(data.rotation) || 0;
         applyPieceSkin(piece, data.skin || activeSkin);
         updatePiecePosition(piece);
@@ -1955,7 +1960,7 @@
         event.preventDefault(); selectPiece(el); snapshot(); dragging = el; activePointerId = event.pointerId; el.setPointerCapture?.(event.pointerId);
         const point = boardWorldPoint(event.clientX, event.clientY); dragOffset.x = point.x - Number(el.dataset.x) * boardWorld.clientWidth; dragOffset.y = point.y - Number(el.dataset.y) * boardWorld.clientHeight;
       };
-      el.onpointermove = (event) => { if (!dragging || dragging !== el) return; const point=boardWorldPoint(event.clientX, event.clientY); const x=Math.max(.02,Math.min(.98,(point.x-dragOffset.x)/Math.max(1,boardWorld.clientWidth))); const y=Math.max(.04,Math.min(.96,(point.y-dragOffset.y)/Math.max(1,boardWorld.clientHeight))); el.dataset.x=x; el.dataset.y=y; updatePiecePosition(el); };
+      el.onpointermove = (event) => { if (!dragging || dragging !== el) return; const point=boardWorldPoint(event.clientX, event.clientY); const rawX=(point.x-dragOffset.x)/Math.max(1,boardWorld.clientWidth); const rawY=(point.y-dragOffset.y)/Math.max(1,boardWorld.clientHeight); const x=creativeMode ? rawX : Math.max(.02,Math.min(.98,rawX)); const y=creativeMode ? rawY : Math.max(.04,Math.min(.96,rawY)); el.dataset.x=x; el.dataset.y=y; updatePiecePosition(el); };
       el.onpointerup = (event) => endDrag(el, event.pointerId);
       el.onpointercancel = (event) => cancelDrag(el, event.pointerId);
       el.onlostpointercapture = (event) => { if (dragging === el) endDrag(el, event.pointerId); };
