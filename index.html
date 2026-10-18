@@ -162,6 +162,11 @@
     .level-meta strong { color:var(--green); }
     .guide-widget { display:flex; align-items:center; gap:10px; margin:0 0 12px; padding:10px 12px; border:1px solid #ead8b6; border-radius:16px; background:linear-gradient(100deg,#fff8e9,#fffdf7); }
     .dragon-orb { position:relative; flex:none; width:44px; height:44px; display:grid; place-items:center; border-radius:15px; background:linear-gradient(145deg,#e9a45c,#d66d4f); color:#fff8e9; font-size:25px; box-shadow:0 6px 12px rgba(214,109,79,.2); }
+    .dragon-orb.dragon-skin-jade { background:linear-gradient(145deg,#5aa78e,#2f6c5e); box-shadow:0 6px 12px rgba(47,108,94,.24); }
+    .dragon-orb.dragon-skin-cloud { background:linear-gradient(145deg,#acd9df,#5b9eb1); color:#fff; box-shadow:0 6px 12px rgba(91,158,177,.24); }
+    .dragon-orb.dragon-skin-sunset { background:linear-gradient(145deg,#f4bd67,#c95d55); box-shadow:0 6px 12px rgba(201,93,85,.24); }
+    .dragon-orb.dragon-skin-night { background:linear-gradient(145deg,#52658c,#282e50); color:#f5db8b; box-shadow:0 6px 12px rgba(40,46,80,.3); }
+    .dragon-orb.dragon-skin-gold { background:linear-gradient(145deg,#f4d57a,#b87933); color:#fff9dc; box-shadow:0 6px 12px rgba(184,121,51,.28); }
     .dragon-orb::after { content:'云和祥龙'; position:absolute; left:50%; bottom:-8px; transform:translateX(-50%); white-space:nowrap; padding:2px 5px; border-radius:6px; color:#8a5a28; background:#f3e3c9; font-size:8px; font-weight:800; }
     .guide-copy { min-width:0; flex:1; }
     .guide-copy strong { display:block; color:#8a5a28; font-size:11px; }
@@ -379,14 +384,23 @@
     .check.pending i { background:#f3eee5; color:#b28a58; }
     .check small { display:block; color:var(--muted); font-size:10px; margin-top:2px; }
     .tip { padding:13px; background:#fff5e4; border:1px solid #f2dfb9; border-radius:15px; font-size:11px; color:#775b36; line-height:1.6; }
-    .board.theme-sky { background:linear-gradient(#d7edf6 0 45%,#b8d9c4 45% 100%); }
-    .board.theme-sunset { background:linear-gradient(#f6d5bd 0 45%,#d7bf9e 45% 100%); }
-    .board.theme-forest { background:linear-gradient(#d7e6df 0 45%,#9fbd98 45% 100%); }
-    .board.theme-night { background:linear-gradient(#3f536c 0 45%,#536b5b 45% 100%); }
+    .shop-preview-board.theme-sky,.board.theme-sky { background:linear-gradient(#d7edf6 0 45%,#b8d9c4 45% 100%); }
+    .shop-preview-board.theme-sunset,.board.theme-sunset { background:linear-gradient(#f6d5bd 0 45%,#d7bf9e 45% 100%); }
+    .shop-preview-board.theme-forest,.board.theme-forest { background:linear-gradient(#d7e6df 0 45%,#9fbd98 45% 100%); }
+    .shop-preview-board.theme-night,.board.theme-night { background:linear-gradient(#3f536c 0 45%,#536b5b 45% 100%); }
+    .shop-preview-board.theme-spring,.board.theme-spring { background:linear-gradient(#d9eff0 0 45%,#c3ddb3 45% 100%); }
+    .shop-preview-board.theme-summer,.board.theme-summer { background:linear-gradient(#a9d9eb 0 45%,#a9cb8d 45% 100%); }
+    .shop-preview-board.theme-autumn,.board.theme-autumn { background:linear-gradient(#f2c6a7 0 45%,#c89b70 45% 100%); }
+    .shop-preview-board.theme-winter,.board.theme-winter { background:linear-gradient(#dce8f1 0 45%,#c8d6da 45% 100%); }
     .board.theme-night .board-grid::after, .board.theme-night .target-label { color:rgba(255,255,255,.52); }
     .board .piece.skin-honey { filter:sepia(.28) saturate(1.45) brightness(1.04) drop-shadow(0 6px 5px rgba(72,47,26,.16)); }
     .board .piece.skin-candy { filter:hue-rotate(320deg) saturate(1.35) drop-shadow(0 6px 5px rgba(72,47,26,.16)); }
     .board .piece.skin-cedar { filter:saturate(.74) sepia(.28) brightness(.92) drop-shadow(0 6px 5px rgba(72,47,26,.16)); }
+    .board .piece.skin-bark { filter:sepia(.62) saturate(.82) brightness(.74) drop-shadow(0 6px 5px rgba(72,47,26,.2)); }
+    .board .piece.skin-maple { filter:sepia(.22) saturate(1.85) hue-rotate(338deg) brightness(1.04) drop-shadow(0 6px 5px rgba(72,47,26,.16)); }
+    .board .piece.skin-ocean { filter:hue-rotate(145deg) saturate(.92) brightness(1.05) drop-shadow(0 6px 5px rgba(72,47,26,.16)); }
+    .board .piece.skin-ink { filter:saturate(.7) brightness(.68) contrast(1.12) drop-shadow(0 6px 5px rgba(28,34,48,.28)); }
+    .board .piece.skin-rainbow { filter:hue-rotate(24deg) saturate(1.65) brightness(1.08) drop-shadow(0 6px 5px rgba(72,47,26,.16)); }
     .board-sticker { position:absolute; z-index:2; pointer-events:none; user-select:none; transform:translate(-50%,-50%); }
     .board-sticker.cloud { width:70px; height:26px; border-radius:30px; background:rgba(255,255,255,.88); filter:drop-shadow(0 4px 3px rgba(72,47,26,.1)); }
     .board-sticker.cloud::before,.board-sticker.cloud::after { content:''; position:absolute; border-radius:50%; background:inherit; }
@@ -394,16 +408,40 @@
     .board-sticker.tree { width:28px; height:56px; border-radius:12px 12px 5px 5px; background:#7b9b72; clip-path:polygon(50% 0,100% 62%,78% 62%,100% 100%,0 100%,22% 62%,0 62%); }
     .board-sticker.flag { width:42px; height:34px; background:#df7e52; clip-path:polygon(0 0,100% 35%,0 70%); }
     .board-sticker.dragon { font-size:35px; line-height:1; filter:drop-shadow(0 4px 3px rgba(72,47,26,.16)); }
+    .board-sticker.grain { width:54px; height:54px; border:6px solid rgba(132,83,43,.72); border-radius:50%; background:repeating-radial-gradient(ellipse at 48% 52%, transparent 0 5px, rgba(132,83,43,.2) 6px 8px, transparent 9px 14px),#d59b5e; box-shadow:inset 0 0 0 3px rgba(255,230,179,.35),0 4px 3px rgba(72,47,26,.12); }
+    .board-sticker.leaf { width:39px; height:23px; border-radius:100% 0 100% 0; background:#78a46e; transform-origin:bottom right; box-shadow:inset -3px -2px rgba(54,91,58,.18); }
+    .board-sticker.acorn { width:25px; height:34px; border-radius:45% 45% 50% 50%; background:#d28c4e; border:3px solid #8b5939; box-shadow:inset 0 9px #8b5939; }
+    .board-sticker.sun { width:34px; height:34px; border-radius:50%; background:#f2c15e; box-shadow:0 0 0 8px rgba(242,193,94,.2),0 4px 3px rgba(72,47,26,.1); }
     .shop-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; margin:14px 0; }
     .shop-item { display:flex; flex-direction:column; gap:5px; padding:11px; border:1px solid #e3eadf; border-radius:14px; background:#fffdf7; text-align:left; }
     .shop-item.equipped { border-color:var(--green); box-shadow:0 0 0 2px rgba(43,155,214,.11); }
     .shop-item strong { font-size:12px; color:var(--green-deep); }
     .shop-item span { min-height:30px; color:var(--muted); font-size:10px; line-height:1.5; }
+    .shop-item .shop-status { min-height:0; color:#9b7047; font-size:9px; font-weight:800; }
     .shop-item button { min-height:31px; padding:6px 8px; border:1px solid #dce7d9; border-radius:9px; color:var(--green-deep); background:#f2f7ef; font-size:10px; font-weight:800; cursor:pointer; }
     .shop-item button:disabled { color:#8a5a28; background:#f3e3c9; border-color:#ead8b6; cursor:default; }
     .sticker-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:14px 0; }
     .sticker-option { min-height:68px; border:1px solid #e3eadf; border-radius:12px; background:#fffdf7; color:#8a5a28; font-size:25px; cursor:pointer; }
     .sticker-option small { display:block; margin-top:3px; color:var(--muted); font-size:9px; }
+    .shop-preview { position:relative; min-height:112px; margin:12px 0 2px; padding:10px; border:1px solid #e6dfd0; border-radius:15px; overflow:hidden; background:#f3eadb; }
+    .shop-preview-board { position:relative; height:92px; border-radius:11px; overflow:hidden; background:linear-gradient(#d9ecf0 0 45%,#bed7b7 45% 100%); }
+    .shop-preview-board::before { content:""; position:absolute; inset:0; background:linear-gradient(143deg,transparent 0 33%,rgba(255,255,255,.34) 33% 35%,transparent 35% 59%,rgba(255,255,255,.22) 59% 61%,transparent 61%); }
+    .shop-preview-piece { position:absolute; left:50%; top:57%; width:78px; height:43px; border-radius:13px; background:linear-gradient(135deg,#e5b77f,#c98752); border:2px solid #a96d44; transform:translate(-50%,-50%) rotate(-4deg); box-shadow:0 5px 5px rgba(72,47,26,.16); }
+    .shop-preview-piece.skin-honey { filter:sepia(.28) saturate(1.45) brightness(1.04); }
+    .shop-preview-piece.skin-candy { filter:hue-rotate(320deg) saturate(1.35); }
+    .shop-preview-piece.skin-cedar { filter:saturate(.74) sepia(.28) brightness(.92); }
+    .shop-preview-piece.skin-bark { filter:sepia(.62) saturate(.82) brightness(.74); }
+    .shop-preview-piece.skin-maple { filter:sepia(.22) saturate(1.85) hue-rotate(338deg) brightness(1.04); }
+    .shop-preview-piece.skin-ocean { filter:hue-rotate(145deg) saturate(.92) brightness(1.05); }
+    .shop-preview-piece.skin-ink { filter:saturate(.7) brightness(.68) contrast(1.12); }
+    .shop-preview-piece.skin-rainbow { filter:hue-rotate(24deg) saturate(1.65) brightness(1.08); }
+    .shop-preview-dragon { position:absolute; right:18px; top:15px; z-index:2; display:grid; place-items:center; width:40px; height:40px; border-radius:14px; font-size:24px; color:#fff8e9; background:linear-gradient(145deg,#e9a45c,#d66d4f); box-shadow:0 6px 12px rgba(214,109,79,.2); }
+    .shop-preview-dragon.dragon-skin-jade { background:linear-gradient(145deg,#5aa78e,#2f6c5e); box-shadow:0 6px 12px rgba(47,108,94,.24); }
+    .shop-preview-dragon.dragon-skin-cloud { background:linear-gradient(145deg,#acd9df,#5b9eb1); color:#fff; box-shadow:0 6px 12px rgba(91,158,177,.24); }
+    .shop-preview-dragon.dragon-skin-sunset { background:linear-gradient(145deg,#f4bd67,#c95d55); box-shadow:0 6px 12px rgba(201,93,85,.24); }
+    .shop-preview-dragon.dragon-skin-night { background:linear-gradient(145deg,#52658c,#282e50); color:#f5db8b; box-shadow:0 6px 12px rgba(40,46,80,.3); }
+    .shop-preview-dragon.dragon-skin-gold { background:linear-gradient(145deg,#f4d57a,#b87933); color:#fff9dc; box-shadow:0 6px 12px rgba(184,121,51,.28); }
+    .shop-preview-label { position:absolute; left:13px; bottom:9px; z-index:3; padding:4px 7px; border-radius:7px; background:rgba(255,253,247,.72); color:#76532f; font-size:9px; }
     .fx-overlay { position:fixed; inset:0; z-index:60; display:none; overflow:hidden; pointer-events:none; }
     .fx-overlay.show { display:block; }
     .fx-dragon { position:absolute; left:50%; top:38%; transform:translate(-50%,-50%) scale(.2); opacity:0; font-size:76px; filter:drop-shadow(0 10px 10px rgba(72,47,26,.18)); }
@@ -790,6 +828,7 @@
       <div class="credits-kicker">木玩币工坊</div>
       <h3>给作品换一套新气质</h3>
       <p class="credits-note" style="margin-top:5px">木玩币：<strong id="shopCoins">120</strong>。买下后可以随时装备，效果会保存在当前用户的存档中。</p>
+      <div class="shop-preview" id="shopPreview"><div class="shop-preview-board theme-paper"><div class="shop-preview-dragon dragon-skin-classic">🐲</div><div class="shop-preview-piece"></div><span class="shop-preview-label" id="shopPreviewLabel">选择一件工坊物品预览</span></div></div>
       <div class="shop-grid" id="shopGrid"></div>
       <button class="btn btn-primary" id="closeShopBtn" type="button">返回个人工坊</button>
     </div>
@@ -872,7 +911,8 @@
     let collectionRecords = {};
     let activeTheme = 'paper';
     let activeSkin = 'natural';
-    let unlockedShop = ['theme-paper', 'skin-natural'];
+    let activeDragonSkin = 'classic';
+    let unlockedShop = ['theme-paper', 'skin-natural', 'dragon-classic'];
     let placedStickers = [];
     let lastCompletion = { index:0, score:0, quality:0, reward:0 };
     let soundOn = true;
@@ -914,6 +954,25 @@
       '终章灯塔亮起，十二张图纸拼成了完整的云木童话。'
     ];
     const shopItems = [
+      { id:'dragon-classic', type:'dragon', label:'原木祥龙', cost:0, description:'默认的暖橙祥龙，陪你走过每一张图纸。', dragonSkin:'classic' },
+      { id:'theme-spring', type:'theme', label:'春日嫩芽', cost:90, description:'柔和青绿和清透天蓝，适合自然木玩。', className:'theme-spring' },
+      { id:'theme-summer', type:'theme', label:'夏日晴湾', cost:110, description:'明亮蓝天和草地，像云和的夏日工坊。', className:'theme-summer' },
+      { id:'theme-autumn', type:'theme', label:'秋日木歌', cost:130, description:'暖橙天空和原木大地，适合城堡与木桥。', className:'theme-autumn' },
+      { id:'theme-winter', type:'theme', label:'冬日雪庭', cost:150, description:'雾蓝与雪灰的安静画布，突出木玩轮廓。', className:'theme-winter' },
+      { id:'skin-bark', type:'skin', label:'深棕树皮', cost:100, description:'更沉稳的树皮棕，突出结构和阴影。', className:'skin-bark' },
+      { id:'skin-maple', type:'skin', label:'枫糖暖木', cost:130, description:'带一点枫叶暖红的抛光木纹。', className:'skin-maple' },
+      { id:'skin-ocean', type:'skin', label:'云海青木', cost:140, description:'清新的青绿色木玩外观，适合云海主题。', className:'skin-ocean' },
+      { id:'skin-ink', type:'skin', label:'夜墨木纹', cost:160, description:'深墨木纹与金色零件细节，适合终章。', className:'skin-ink' },
+      { id:'skin-rainbow', type:'skin', label:'彩虹童话', cost:180, description:'轻快多彩的童话涂装，让作品更活泼。', className:'skin-rainbow' },
+      { id:'dragon-jade', type:'dragon', label:'碧玉祥龙', cost:120, description:'祥龙换上松林碧玉色，陪你完成自然主题。', dragonSkin:'jade' },
+      { id:'dragon-cloud', type:'dragon', label:'云海祥龙', cost:140, description:'云朵蓝和银白色的轻盈祥龙皮肤。', dragonSkin:'cloud' },
+      { id:'dragon-sunset', type:'dragon', label:'晚霞祥龙', cost:150, description:'夕照橙红的祥龙皮肤，完成时更有庆典感。', dragonSkin:'sunset' },
+      { id:'dragon-night', type:'dragon', label:'星夜祥龙', cost:180, description:'深蓝星夜色祥龙，守护你的终章图纸。', dragonSkin:'night' },
+      { id:'dragon-gold', type:'dragon', label:'鎏金祥龙', cost:220, description:'鎏金木雕质感，作为工坊收藏款。', dragonSkin:'gold' },
+      { id:'sticker-grain', type:'sticker', label:'木纹年轮', cost:60, description:'一枚温暖的木纹年轮贴纸，突出木玩主题。', sticker:'grain' },
+      { id:'sticker-leaf', type:'sticker', label:'四季木叶', cost:55, description:'给作品加一片轻盈的森林叶子。', sticker:'leaf' },
+      { id:'sticker-acorn', type:'sticker', label:'橡果小印', cost:65, description:'适合树屋、森林和秋日主题作品。', sticker:'acorn' },
+      { id:'sticker-sun', type:'sticker', label:'暖阳印记', cost:45, description:'为画布添一枚柔和的木玩太阳。', sticker:'sun' },
       { id:'theme-paper', type:'theme', label:'奶油木纸', cost:0, description:'默认的温暖木纸工坊背景。', className:'theme-paper' },
       { id:'theme-sky', type:'theme', label:'云朵晴空', cost:60, description:'更明亮的云海蓝与草地绿。', className:'theme-sky' },
       { id:'theme-sunset', type:'theme', label:'晚霞木场', cost:80, description:'夕阳橙和原木棕的柔和背景。', className:'theme-sunset' },
@@ -999,8 +1058,8 @@
       resetRuntimeForAccount(); loadGame(); renderCollection(); updateScore(); showHome(); showToast(`欢迎回来，${accountName}`);
     }
     function enterGuest() { userId=''; accountName='游客'; try { localStorage.removeItem(CURRENT_ACCOUNT_KEY); } catch (_) {} resetRuntimeForAccount(); renderCollection(); updateScore(); showHome(); showToast('游客试玩已开始，完成作品不会写入本机存档'); }
-    function defaultShopState() { return { activeTheme:'paper', activeSkin:'natural', unlockedShop:['theme-paper','skin-natural'] }; }
-    function resetRuntimeForAccount() { const defaults=defaultShopState(); levelNumber=1; blueprintIndex=0; score=0; coins=120; collection=[]; collectionRecords={}; history=[]; selected=null; activeTheme=defaults.activeTheme; activeSkin=defaults.activeSkin; unlockedShop=[...defaults.unlockedShop]; placedStickers=[]; soundOn=true; board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove()); renderBlueprint(); }
+    function defaultShopState() { return { activeTheme:'paper', activeSkin:'natural', activeDragonSkin:'classic', unlockedShop:['theme-paper','skin-natural','dragon-classic'] }; }
+    function resetRuntimeForAccount() { const defaults=defaultShopState(); levelNumber=1; blueprintIndex=0; score=0; coins=120; collection=[]; collectionRecords={}; history=[]; selected=null; activeTheme=defaults.activeTheme; activeSkin=defaults.activeSkin; activeDragonSkin=defaults.activeDragonSkin; unlockedShop=[...defaults.unlockedShop]; placedStickers=[]; soundOn=true; board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove()); applyGuideSkin(); renderBlueprint(); }
     function showAccountScreen() { accountScreen.style.display='grid'; homeScreen.style.display='none'; gameScreen.style.display='none'; resultScreen.style.display='none'; userScreen.style.display='none'; renderAccountList(); setTimeout(() => accountNameInput.focus(), 0); }
     function switchAccount() { saveGame(); userId=''; accountName=''; try { localStorage.removeItem(CURRENT_ACCOUNT_KEY); } catch (_) {} resetRuntimeForAccount(); showAccountScreen(); }
     function captureBoardPieces() {
@@ -1040,18 +1099,25 @@
       try {
         const pieces = captureBoardPieces();
         if (!userId) return;
-        localStorage.setItem(`${SAVE_PREFIX}${userId}`, JSON.stringify({ levelNumber, blueprintIndex, score, coins, collection, collectionRecords, pieces, stickers:captureBoardStickers(), activeTheme, activeSkin, unlockedShop, soundOn, savedAt:Date.now() }));
+        localStorage.setItem(`${SAVE_PREFIX}${userId}`, JSON.stringify({ levelNumber, blueprintIndex, score, coins, collection, collectionRecords, pieces, stickers:captureBoardStickers(), activeTheme, activeSkin, activeDragonSkin, unlockedShop, soundOn, savedAt:Date.now() }));
       } catch (_) { /* 隐私模式或存储空间不足时继续让游戏可玩 */ }
     }
     function applyBoardStyle() {
-      board.classList.remove('theme-paper','theme-sky','theme-sunset','theme-forest','theme-night');
+      board.classList.remove('theme-paper','theme-sky','theme-sunset','theme-forest','theme-night','theme-spring','theme-summer','theme-autumn','theme-winter');
       board.classList.add(`theme-${activeTheme}`);
-      board.querySelectorAll('.piece').forEach(piece => applyPieceSkin(piece, piece.dataset.skin || activeSkin));
+      board.querySelectorAll('.piece').forEach(piece => applyPieceSkin(piece, activeSkin));
+      applyGuideSkin();
     }
     function applyPieceSkin(piece, skin = activeSkin) {
-      piece.classList.remove('skin-honey','skin-candy','skin-cedar');
+      piece.classList.remove('skin-honey','skin-candy','skin-cedar','skin-bark','skin-maple','skin-ocean','skin-ink','skin-rainbow');
       piece.dataset.skin = skin;
       if (skin && skin !== 'natural') piece.classList.add(`skin-${skin}`);
+    }
+    function applyGuideSkin(skin = activeDragonSkin) {
+      const orb = document.querySelector('.dragon-orb');
+      if (!orb) return;
+      orb.classList.remove('dragon-skin-classic','dragon-skin-jade','dragon-skin-cloud','dragon-skin-sunset','dragon-skin-night','dragon-skin-gold');
+      orb.classList.add(`dragon-skin-${skin || 'classic'}`);
     }
     function renderSticker(sticker) {
       const el = document.createElement('div');
@@ -1095,9 +1161,11 @@
         collection = Array.isArray(saved.collection) ? [...new Set(saved.collection.filter(index => Number.isInteger(index) && index >= 0 && index < blueprints.length))] : [];
         collectionRecords = sanitizeCollectionRecords(saved.collectionRecords);
         const defaults = defaultShopState();
-        activeTheme = shopItems.some(item => item.type === 'theme' && item.className === `theme-${saved.activeTheme}` && (saved.unlockedShop || []).includes(item.id)) ? saved.activeTheme : defaults.activeTheme;
-        activeSkin = shopItems.some(item => item.type === 'skin' && item.className === `skin-${saved.activeSkin}` && (saved.unlockedShop || []).includes(item.id)) ? saved.activeSkin : defaults.activeSkin;
-        unlockedShop = [...new Set([...(Array.isArray(saved.unlockedShop) ? saved.unlockedShop : []), ...defaults.unlockedShop])].filter(id => shopItems.some(item => item.id === id));
+        const savedShop = Array.isArray(saved.unlockedShop) ? saved.unlockedShop : [];
+        unlockedShop = [...new Set([...savedShop, ...defaults.unlockedShop])].filter(id => shopItems.some(item => item.id === id));
+        activeTheme = shopItems.some(item => item.type === 'theme' && item.className === `theme-${saved.activeTheme}` && unlockedShop.includes(item.id)) ? saved.activeTheme : defaults.activeTheme;
+        activeSkin = shopItems.some(item => item.type === 'skin' && item.className === `skin-${saved.activeSkin}` && unlockedShop.includes(item.id)) ? saved.activeSkin : defaults.activeSkin;
+        activeDragonSkin = shopItems.some(item => item.type === 'dragon' && item.dragonSkin === saved.activeDragonSkin && unlockedShop.includes(item.id)) ? saved.activeDragonSkin : defaults.activeDragonSkin;
         placedStickers = sanitizeStickers(saved.stickers);
         soundOn = saved.soundOn !== false;
         updateScore();
@@ -1249,6 +1317,70 @@
       updateScore();
       saveGame();
     }
+    function shopItemEquippedEnhanced(item) {
+      return (item.type === 'theme' && activeTheme === item.className.replace('theme-','')) ||
+        (item.type === 'skin' && activeSkin === item.className.replace('skin-','')) ||
+        (item.type === 'dragon' && activeDragonSkin === item.dragonSkin);
+    }
+    function renderShopPreview(item = null) {
+      const preview = document.getElementById('shopPreview');
+      if (!preview) return;
+      const boardPreview = document.createElement('div');
+      boardPreview.className = `shop-preview-board theme-${item?.type === 'theme' ? item.className.replace('theme-','') : activeTheme}`;
+      const dragon = document.createElement('div');
+      const dragonSkin = item?.type === 'dragon' ? item.dragonSkin : activeDragonSkin;
+      dragon.className = `shop-preview-dragon dragon-skin-${dragonSkin}`;
+      dragon.textContent = '🐲';
+      const piece = document.createElement('div');
+      const pieceSkin = item?.type === 'skin' ? item.className.replace('skin-','') : activeSkin;
+      piece.className = `shop-preview-piece${pieceSkin === 'natural' ? '' : ` skin-${pieceSkin}`}`;
+      const label = document.createElement('span');
+      label.className = 'shop-preview-label';
+      const sticker = item?.type === 'sticker' ? document.createElement('div') : null;
+      if (sticker) { sticker.className = `board-sticker ${item.sticker}`; sticker.style.left = '78%'; sticker.style.top = '58%'; sticker.style.transform = 'translate(-50%,-50%) scale(.62)'; if (item.sticker === 'dragon') sticker.textContent = '🐲'; }
+      label.textContent = item ? `${item.label} · ${unlockedShop.includes(item.id) ? (shopItemEquippedEnhanced(item) ? '已装备' : '已拥有') : `${item.cost} 木玩币`}` : '选择一件工坊物品预览';
+      boardPreview.append(piece, dragon);
+      if (sticker) boardPreview.append(sticker);
+      boardPreview.append(label);
+      preview.replaceChildren(boardPreview);
+    }
+    function renderShopEnhanced(selectedItem = null) {
+      document.getElementById('shopCoins').textContent = coins;
+      const grid = document.getElementById('shopGrid');
+      grid.innerHTML = '';
+      shopItems.forEach(item => {
+        const owned = unlockedShop.includes(item.id);
+        const equipped = shopItemEquippedEnhanced(item);
+        const card = document.createElement('div');
+        card.className = `shop-item${equipped ? ' equipped' : ''}`;
+        const title = document.createElement('strong'); title.textContent = item.label;
+        const desc = document.createElement('span'); desc.textContent = item.description;
+        const status = document.createElement('em'); status.className = 'shop-status'; status.textContent = equipped ? '已装备' : owned ? '已拥有' : '未解锁';
+        const button = document.createElement('button');
+        button.textContent = equipped ? '已装备' : item.type === 'sticker' && owned ? '去装饰' : owned ? '装备' : `${item.cost} 木玩币`;
+        button.disabled = equipped;
+        button.addEventListener('click', () => purchaseOrEquipEnhanced(item));
+        card.addEventListener('pointerenter', () => renderShopPreview(item));
+        card.addEventListener('focusin', () => renderShopPreview(item));
+        card.append(title, desc, status, button); grid.append(card);
+      });
+      renderShopPreview(selectedItem);
+    }
+    function purchaseOrEquipEnhanced(item) {
+      const owned = unlockedShop.includes(item.id);
+      if (!owned) {
+        if (coins < item.cost) { showToast('木玩币还不够，先完成几张图纸吧'); renderShopPreview(item); return; }
+        coins -= item.cost; unlockedShop.push(item.id); playSfx('coin'); showToast(`已解锁「${item.label}」`);
+      }
+      if (item.type === 'theme') activeTheme = item.className.replace('theme-','');
+      if (item.type === 'skin') activeSkin = item.className.replace('skin-','');
+      if (item.type === 'dragon') activeDragonSkin = item.dragonSkin;
+      applyBoardStyle();
+      renderShopEnhanced(item);
+      updateScore();
+      saveGame();
+      if (item.type === 'sticker') showToast(owned ? '已拥有，可在画布点击“装饰”使用' : `已解锁「${item.label}」，可在画布装饰`);
+    }
     function renderStickerPicker() {
       const grid = document.getElementById('stickerGrid');
       grid.innerHTML = '';
@@ -1258,7 +1390,9 @@
         const button = document.createElement('button');
         button.className = 'sticker-option';
         button.type = 'button';
-        button.innerHTML = `${item.sticker === 'cloud' ? '☁️' : item.sticker === 'tree' ? '🌳' : item.sticker === 'flag' ? '🚩' : '🐲'}<small>${item.label}</small>`;
+        const glyph = { cloud:'☁️', tree:'🌳', flag:'⚑', dragon:'🐲', grain:'◉', leaf:'🍃', acorn:'🌰', sun:'☀️' }[item.sticker] || '✦';
+        const stickerLabel = document.createElement('small'); stickerLabel.textContent = item.label;
+        button.replaceChildren(document.createTextNode(glyph), stickerLabel);
         button.addEventListener('click', () => addSticker(item.sticker));
         grid.append(button);
       });
@@ -1648,7 +1782,7 @@
     document.getElementById('profileBtn').addEventListener('click', showUser);
     document.getElementById('closeHelpBtn').addEventListener('click', () => { helpModal.classList.remove('show'); startGame(); });
     document.getElementById('closeCreditsBtn').addEventListener('click', () => creditsModal.classList.remove('show'));
-    document.getElementById('shopBtn').addEventListener('click', () => { renderShop(); shopModal.classList.add('show'); });
+    document.getElementById('shopBtn').addEventListener('click', () => { renderShopEnhanced(); shopModal.classList.add('show'); });
     document.getElementById('closeShopBtn').addEventListener('click', () => shopModal.classList.remove('show'));
     document.getElementById('decorateBtn').addEventListener('click', () => { renderStickerPicker(); stickerModal.classList.add('show'); });
     document.getElementById('closeStickerBtn').addEventListener('click', () => stickerModal.classList.remove('show'));
