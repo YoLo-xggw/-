@@ -669,6 +669,23 @@
       .control-row .btn-soft { background:rgba(43,155,214,.12); border-color:rgba(43,155,214,.2); color:var(--key-ink); }
       .control-row .btn-ghost { background:rgba(255,253,247,.9); border-color:var(--line); color:var(--ink); }
       .control-row .btn-primary { grid-column:1 / -1; min-height:46px; font-size:12px; }
+      /* 自由创作在手机端使用更清晰的创作层级：先看状态，再选零件，最后保存作品。 */
+      .game-screen.creative-active .quest-row { margin:0 0 8px; padding:10px 11px 9px; border:1px solid rgba(224,145,62,.26); border-radius:16px; background:linear-gradient(135deg,rgba(255,249,235,.96),rgba(238,248,239,.94)); }
+      .game-screen.creative-active .quest-row h2 { font-size:20px; }
+      .game-screen.creative-active .quest-row p { font-size:11px; }
+      .game-screen.creative-active .mission-badge { min-width:62px; padding:7px 8px; background:rgba(255,255,255,.55); border-color:rgba(224,145,62,.24); }
+      .game-screen.creative-active .mission-badge strong { font-size:15px; }
+      .game-screen.creative-active .story-line { margin-top:6px; padding:6px 8px; border-radius:10px; background:rgba(255,255,255,.52); }
+      .game-screen.creative-active .guide-widget { margin-bottom:8px; border-color:rgba(43,155,214,.2); background:linear-gradient(100deg,rgba(232,247,250,.94),rgba(255,253,247,.95)); box-shadow:0 5px 13px rgba(43,155,214,.08); }
+      .game-screen.creative-active .board { height:min(64dvh,520px); min-height:420px; max-height:560px; border-radius:18px; background:linear-gradient(145deg,#d9edf0 0 42%,#c9dfbf 42% 100%); }
+      .game-screen.creative-active .zoom-hint { right:9px; bottom:9px; color:var(--key-ink); background:rgba(255,253,247,.82); }
+      .game-screen.creative-active .palette { margin-top:12px; border-color:rgba(43,155,214,.2); background:linear-gradient(180deg,rgba(255,253,247,.98),rgba(241,248,244,.96)); box-shadow:0 6px 16px rgba(43,155,214,.06); }
+      .game-screen.creative-active .palette-head { margin-bottom:8px; }
+      .game-screen.creative-active .palette-head strong { color:var(--key-ink); }
+      .game-screen.creative-active .palette-head span { color:#8a5a28; }
+      .game-screen.creative-active .piece-card { flex-basis:78px; height:84px; }
+      .game-screen.creative-active .control-heading { margin-top:11px; }
+      .game-screen.creative-active .control-row .btn-primary { min-height:48px; }
       .side { display:block; margin-top:12px; }
       .side-card { margin-top:10px; padding:14px; border-radius:16px; background:var(--panel); border-color:var(--line); box-shadow:none; }
       .progress-card { background:radial-gradient(120% 160% at 20% 0%,#3a2a1b,#241812); color:var(--paper); border:0; }
@@ -1768,10 +1785,10 @@
       showToast(`已打开第 ${levelNumber} 关：${blueprints[index].name}`);
     }
     function setMobileTab(name) { document.querySelectorAll('[data-mobile-tab]').forEach(item => item.classList.toggle('active', item.dataset.mobileTab === name)); }
-    function showHome() { setMobileTab('home'); homeScreen.style.display='grid'; gameScreen.style.display='none'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; }
-    function showUser() { setMobileTab('user'); updateScore(); renderCollection(); homeScreen.style.display='none'; gameScreen.style.display='none'; resultScreen.style.display='none'; accountScreen.style.display='none'; userScreen.style.display='grid'; }
-    function startGame() { const wasCreative = creativeMode; creativeMode = false; if (wasCreative) { history = []; selected = null; placedStickers = []; board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove()); } setMobileTab('blueprint'); homeScreen.style.display='none'; gameScreen.style.display='block'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; renderBlueprint(); updateScore(); saveGame(); }
-    function startCreativeMode() { creativeMode = true; history = []; selected = null; placedStickers = []; board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove()); setMobileTab('workshop'); homeScreen.style.display='none'; gameScreen.style.display='block'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; renderBlueprint(); updateScore(); saveGame(); showToast('自由创作已开启：零件不限数量，完成后可保存到我的作品'); }
+    function showHome() { setMobileTab('home'); gameScreen.classList.remove('creative-active'); homeScreen.style.display='grid'; gameScreen.style.display='none'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; }
+    function showUser() { setMobileTab('user'); gameScreen.classList.remove('creative-active'); updateScore(); renderCollection(); homeScreen.style.display='none'; gameScreen.style.display='none'; resultScreen.style.display='none'; accountScreen.style.display='none'; userScreen.style.display='grid'; }
+    function startGame() { const wasCreative = creativeMode; creativeMode = false; gameScreen.classList.remove('creative-active'); if (wasCreative) { history = []; selected = null; placedStickers = []; board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove()); } setMobileTab('blueprint'); homeScreen.style.display='none'; gameScreen.style.display='block'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; renderBlueprint(); updateScore(); saveGame(); }
+    function startCreativeMode() { creativeMode = true; gameScreen.classList.add('creative-active'); history = []; selected = null; placedStickers = []; board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove()); setMobileTab('workshop'); homeScreen.style.display='none'; gameScreen.style.display='block'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; renderBlueprint(); updateScore(); saveGame(); showToast('自由创作已开启：零件不限数量，完成后可保存到我的作品'); }
     function showResult() {
       document.getElementById('finalScore').textContent = score;
       const themeNames = { paper:'奶油木纸', sky:'云朵晴空', sunset:'晚霞木场', forest:'森林秘境', night:'星夜云海', spring:'春日嫩芽', summer:'夏日晴湾', autumn:'秋日木歌', winter:'冬日雪庭' };
@@ -1796,7 +1813,7 @@
       piecesTray.innerHTML = '';
       const currentTypes = getPalettePartTypes();
       document.getElementById('paletteTitle').textContent = creativeMode ? '自由创作零件库' : '本关专属木玩零件';
-      document.getElementById('paletteHint').textContent = creativeMode ? `${currentTypes.length} 种零件 · 不限数量` : `${currentTypes.length} 个专属零件 · 自由摆放`;
+      document.getElementById('paletteHint').textContent = creativeMode ? `${currentTypes.length} 种零件 · 点一下添加 · 不限数量` : `${currentTypes.length} 个专属零件 · 自由摆放`;
       currentTypes.forEach(type => {
         const card = document.createElement('button');
         card.className = 'piece-card';
@@ -2077,6 +2094,7 @@
     document.getElementById('showCreditsBtn').addEventListener('click', () => creditsModal.classList.add('show'));
     document.getElementById('demoBtn').addEventListener('click', runDemo);
     document.getElementById('freeBuildBtn').addEventListener('click', startCreativeMode);
+    document.getElementById('mobileFreeBuildBtn').addEventListener('click', startCreativeMode);
     document.getElementById('profileBtn').addEventListener('click', showUser);
     document.getElementById('closeHelpBtn').addEventListener('click', () => { helpModal.classList.remove('show'); startGame(); });
     document.getElementById('closeCreditsBtn').addEventListener('click', () => creditsModal.classList.remove('show'));
