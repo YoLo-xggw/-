@@ -39,10 +39,12 @@
     .screen { min-height: 100dvh; }
     .game-screen { display:none; }
     .home-screen, .result-screen { display:grid; place-items:center; padding:24px; }
-    .welcome-card, .result-card { width:min(440px, 100%); padding:30px 24px 24px; border-radius:28px; text-align:center; background:rgba(255,255,255,.84); border:1px solid rgba(255,255,255,.9); box-shadow:var(--shadow); backdrop-filter:blur(14px); }
+    .home-screen { align-items:start; padding-top:clamp(18px, 5vh, 46px); }
+    .welcome-card, .result-card { width:min(470px, 100%); padding:22px 24px 18px; border-radius:28px; text-align:center; background:rgba(255,255,255,.84); border:1px solid rgba(255,255,255,.9); box-shadow:var(--shadow); backdrop-filter:blur(14px); }
     .welcome-card { position:relative; overflow:hidden; }
     .welcome-card::before { content:""; position:absolute; inset:0; pointer-events:none; opacity:.28; background-image:radial-gradient(rgba(143,100,57,.22) .7px, transparent .7px); background-size:13px 13px; mask-image:linear-gradient(to bottom, #000, transparent 72%); }
-    .welcome-art { position:relative; height:278px; margin:-5px auto 18px; border:1px solid rgba(65,107,85,.28); border-radius:24px; overflow:hidden; background:linear-gradient(#d7edf2 0 50%, #b9d3b3 50% 100%); box-shadow:inset 0 0 0 7px rgba(255,255,255,.35), 0 12px 24px rgba(65,107,85,.1); }
+    .welcome-art { position:relative; height:252px; margin:-4px auto 15px; border:1px solid rgba(65,107,85,.28); border-radius:24px; overflow:hidden; background:linear-gradient(#d7edf2 0 50%, #b9d3b3 50% 100%); box-shadow:inset 0 0 0 7px rgba(255,255,255,.35), 0 12px 24px rgba(65,107,85,.1); }
+    .welcome-art::before { content:""; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,.45),transparent 45%),repeating-linear-gradient(0deg,rgba(116,74,42,.06) 0 1px,transparent 1px 9px); pointer-events:none; }
     .welcome-art::after { content:""; position:absolute; left:0; right:0; bottom:0; height:42px; background:repeating-linear-gradient(0deg, rgba(116,74,42,.12) 0 2px, transparent 2px 10px); opacity:.55; pointer-events:none; }
     .welcome-art .welcome-sun { position:absolute; width:62px; height:62px; right:28px; top:26px; border-radius:50%; background:#f5c86f; box-shadow:0 0 0 10px rgba(245,200,111,.18); }
     .welcome-art .welcome-cloud { position:absolute; width:82px; height:22px; left:24px; top:55px; border-radius:30px; background:rgba(255,255,255,.8); }
@@ -59,16 +61,23 @@
     .welcome-cloud.second { left:auto; right:112px; top:92px; transform:scale(.62); opacity:.56; }
     .welcome-spark { position:absolute; z-index:2; width:7px; height:7px; border-radius:50%; background:#f3c766; box-shadow:0 0 0 5px rgba(243,199,102,.17); }
     .welcome-spark.one { left:30px; top:112px; } .welcome-spark.two { right:36px; top:150px; transform:scale(.7); }
+    .welcome-art-caption { position:absolute; left:18px; bottom:16px; z-index:4; padding:7px 9px; border-radius:10px; text-align:left; background:rgba(255,252,242,.76); color:#76532f; box-shadow:0 5px 12px rgba(72,47,26,.08); backdrop-filter:blur(4px); }
+    .welcome-art-caption strong, .welcome-art-caption small { display:block; }
+    .welcome-art-caption strong { font-size:10px; letter-spacing:.08em; }
+    .welcome-art-caption small { margin-top:2px; color:#9b7650; font-size:9px; }
     .welcome-title { margin:0; font-size:30px; letter-spacing:.1em; color:var(--green-deep); }
     .welcome-subtitle { margin:8px 0 4px; font-size:13px; color:var(--muted); letter-spacing:.12em; }
     .welcome-signature { margin:0 0 20px; font-size:11px; color:#a27955; }
     .welcome-tag { display:inline-flex; align-items:center; justify-content:center; margin:-8px auto 14px; padding:5px 10px; border-radius:999px; background:#f3e3c9; color:#8a5a28; font-size:10px; font-weight:800; }
     .demo-link { color:var(--green-deep); font-size:11px; font-weight:800; text-decoration:underline; text-underline-offset:3px; }
-    .welcome-actions { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+    .welcome-actions { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
     .welcome-actions #startGameBtn, .welcome-actions #showHelpBtn { grid-column:1/-1; }
-    .welcome-actions #showCreditsBtn, .welcome-actions #demoBtn, .welcome-actions #profileBtn { padding-left:8px; padding-right:8px; }
+    .welcome-actions #showCreditsBtn, .welcome-actions #demoBtn, .welcome-actions #profileBtn, .welcome-actions #freeBuildBtn { padding-left:6px; padding-right:6px; }
     .welcome-actions .btn { min-height:48px; font-size:14px; }
-    .home-dashboard { margin:16px 0 14px; padding:13px 14px 11px; border-radius:16px; text-align:left; background:#3a2a1b; color:#f7f1e5; }
+    .home-quick { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin:0 0 12px; }
+    .home-quick-item { padding:8px 5px; border:1px solid rgba(65,107,85,.12); border-radius:12px; background:rgba(247,244,234,.86); color:#8a6a49; font-size:9px; line-height:1.3; }
+    .home-quick-item b { display:block; color:var(--green-deep); font-size:15px; }
+    .home-dashboard { margin:13px 0 12px; padding:12px 14px 10px; border-radius:16px; text-align:left; background:#3a2a1b; color:#f7f1e5; }
     .home-dashboard-head, .home-dashboard-foot { display:flex; align-items:center; justify-content:space-between; gap:8px; }
     .home-dashboard-head strong { font-size:13px; }
     .home-dashboard-head span, .home-dashboard-foot { color:rgba(247,241,229,.66); font-size:10px; }
@@ -111,8 +120,12 @@
     .profile-stat span { color:var(--muted); font-size:10px; }
     .profile-actions { display:flex; gap:9px; }
     .profile-actions .btn { flex:1; min-height:45px; }
-    .account-screen { display:none; place-items:center; padding:24px; }
-    .account-card { width:min(420px,100%); padding:28px 22px 22px; border-radius:28px; background:rgba(255,255,255,.82); border:1px solid rgba(255,255,255,.9); box-shadow:var(--shadow); text-align:center; }
+    .account-screen { display:none; place-items:center; padding:24px; position:relative; overflow:hidden; background:radial-gradient(circle at 18% 18%,rgba(255,255,255,.82) 0 9%,transparent 10%),radial-gradient(circle at 88% 78%,rgba(233,164,92,.16) 0 13%,transparent 14%); }
+    .account-screen::before, .account-screen::after { content:""; position:absolute; border:1px solid rgba(65,107,85,.13); border-radius:50%; pointer-events:none; }
+    .account-screen::before { width:230px; height:230px; left:-110px; top:12%; box-shadow:0 0 0 18px rgba(65,107,85,.04),0 0 0 39px rgba(65,107,85,.03); }
+    .account-screen::after { width:180px; height:180px; right:-82px; bottom:10%; box-shadow:0 0 0 16px rgba(233,164,92,.05),0 0 0 34px rgba(233,164,92,.035); }
+    .account-card { width:min(420px,100%); padding:23px 22px 20px; border-radius:28px; background:rgba(255,255,255,.82); border:1px solid rgba(255,255,255,.9); box-shadow:var(--shadow); text-align:center; position:relative; z-index:1; }
+    .account-kicker { margin-bottom:10px; color:var(--orange); font-size:10px; font-weight:800; letter-spacing:.15em; }
     .account-card h2 { margin:0; color:var(--green-deep); font-size:24px; }
     .account-card p { margin:8px 0 18px; color:var(--muted); font-size:12px; line-height:1.6; }
     .account-input { width:100%; height:48px; border:1px solid #dfe5dc; border-radius:14px; padding:0 14px; outline:none; color:var(--ink); background:#fbfcf8; font:inherit; }
@@ -126,6 +139,15 @@
     .collection-item { min-height:67px; padding:8px 4px; border:1px solid #e3eadf; border-radius:12px; background:#f7faf4; color:var(--green-deep); font-size:10px; }
     .collection-item.locked { background:#f5f4ef; color:#a6aaa2; filter:grayscale(.65); }
     .collection-item b { display:block; font-size:18px; margin-bottom:3px; }
+    .creative-title { display:flex; align-items:center; justify-content:space-between; gap:8px; margin:18px 0 10px; color:var(--green-deep); font-weight:800; font-size:13px; }
+    .creative-title span { color:var(--muted); font-size:10px; font-weight:500; }
+    .creative-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+    .creative-work { min-height:102px; padding:8px; border:1px solid #ead8b6; border-radius:13px; background:#fffaf0; text-align:left; cursor:pointer; }
+    .creative-work:hover { border-color:var(--orange); transform:translateY(-1px); }
+    .creative-work .collection-thumb { height:65px; margin-bottom:6px; }
+    .creative-work strong, .creative-work small { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .creative-work strong { color:#76532f; font-size:10px; }
+    .creative-work small { margin-top:3px; color:var(--muted); font-size:9px; }
     .collection-meta { display:block; margin-top:3px; color:var(--muted); font-size:9px; line-height:1.4; }
     .collection-thumb { position:relative; height:58px; margin:-2px -1px 5px; overflow:hidden; border-radius:9px; background:linear-gradient(#d9ecf0 0 45%, #bed7b7 45% 100%); border:1px solid rgba(65,107,85,.14); }
     .collection-thumb .piece { pointer-events:none; filter:drop-shadow(0 2px 2px rgba(72,47,26,.14)); }
@@ -178,6 +200,12 @@
     .mission-badge strong { display:block; font-size:18px; margin-top:3px; }
     .board-wrap { position:relative; border-radius:20px; padding:12px; background:#dfebe0; overflow:hidden; touch-action:pinch-zoom; }
     .board { position:relative; min-height:488px; border-radius:15px; overflow:hidden; background:linear-gradient(#d9ecf0 0 45%, #bed7b7 45% 100%); border:1px solid rgba(255,255,255,.8); touch-action:pinch-zoom; }
+    .board.creative-mode { background:linear-gradient(145deg,#d9edf0 0 42%,#c9dfbf 42% 100%); }
+    .board.creative-mode .target-outline, .board.creative-mode .target-label { display:none; }
+    .board.creative-mode .board-grid { opacity:.08; }
+    .creative-only { display:none; }
+    .creative-mode-label { display:none; }
+    .board.creative-mode + .creative-mode-label { display:block; }
     .board::before { content:""; position:absolute; inset:0; opacity:.35; background:linear-gradient(143deg, transparent 0 33%, rgba(255,255,255,.38) 33% 35%, transparent 35% 59%, rgba(255,255,255,.25) 59% 61%, transparent 61%); }
     .sun { position:absolute; width:70px; height:70px; border-radius:50%; right:34px; top:29px; background:#f5c86f; box-shadow:0 0 0 11px rgba(245,200,111,.2); }
     .cloud { position:absolute; width:100px; height:25px; left:30px; top:65px; border-radius:50px; background:rgba(255,255,255,.78); }
@@ -457,6 +485,13 @@
     @keyframes fx-dust { 0%{opacity:0;transform:translate(0,0) rotate(0)} 20%{opacity:1} 100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(260deg)} }
     .result-story { margin:16px 0; padding:13px 14px; border-radius:14px; background:#f3e3c9; color:#76532f; font-size:12px; line-height:1.7; text-align:left; }
     .result-story strong { display:block; margin-bottom:3px; color:#8a5a28; }
+    .story-transition { position:fixed; inset:0; z-index:55; display:grid; place-items:center; padding:24px; opacity:0; pointer-events:none; background:rgba(39,58,46,.18); backdrop-filter:blur(3px); transition:opacity .24s ease; }
+    .story-transition.show { opacity:1; }
+    .story-transition-card { width:min(340px,100%); padding:22px 20px; border:1px solid rgba(255,255,255,.72); border-radius:22px; background:rgba(255,252,242,.94); box-shadow:0 18px 45px rgba(43,58,48,.18); text-align:center; transform:translateY(10px) scale(.97); transition:transform .3s ease; }
+    .story-transition.show .story-transition-card { transform:translateY(0) scale(1); }
+    .story-transition-card .kicker { color:var(--orange); font-size:10px; font-weight:800; letter-spacing:.12em; }
+    .story-transition-card strong { display:block; margin:7px 0 5px; color:var(--green-deep); font-size:19px; }
+    .story-transition-card p { margin:0; color:#76532f; font-size:12px; line-height:1.65; }
     .result-actions { flex-wrap:wrap; }
     .result-actions .btn { min-width:calc(50% - 5px); }
     .mobile-tabs { display:none; }
@@ -527,17 +562,25 @@
         --wood-soft:#f3e3c9;
       }
       body { background:var(--paper); background-image:none; overflow-x:hidden; }
-      .screen.home-screen, .screen.result-screen, .screen.user-screen, .screen.account-screen { padding:18px 16px calc(18px + env(safe-area-inset-bottom)); }
+      .screen.home-screen, .screen.result-screen, .screen.user-screen, .screen.account-screen { padding:14px 12px calc(18px + env(safe-area-inset-bottom)); }
       .welcome-card, .result-card, .profile-card, .account-card { width:100%; padding:18px 14px 14px; border-radius:20px; background:var(--panel); border:1px solid var(--line); box-shadow:0 12px 30px rgba(58,42,27,.09); }
-      .welcome-art { height:250px; margin:-2px 0 16px; border:0; border-radius:20px; background:var(--wood-soft); }
+      .home-screen { align-items:start; }
+      .welcome-card { padding-top:14px; }
+      .welcome-art { height:218px; margin:-2px 0 12px; border:0; border-radius:20px; background:var(--wood-soft); }
+      .welcome-art-caption { left:13px; bottom:12px; padding:6px 8px; }
+      .welcome-art-caption strong { font-size:9px; }
+      .welcome-art-caption small { font-size:8px; }
       .welcome-title { color:var(--ink); font-size:25px; }
       .welcome-subtitle { color:var(--muted); }
-      .welcome-signature { color:var(--muted); margin-bottom:16px; }
+      .welcome-signature { color:var(--muted); margin-bottom:12px; }
       .welcome-tag { background:rgba(43,155,214,.12); color:var(--key-ink); }
-      .welcome-actions { gap:8px; }
+      .home-quick { gap:5px; margin-bottom:9px; }
+      .home-quick-item { padding:7px 4px; font-size:8px; }
+      .home-quick-item b { font-size:14px; }
+      .welcome-actions { grid-template-columns:repeat(2,1fr); gap:6px; }
       .welcome-actions .btn { min-height:46px; border-radius:12px; }
-      .welcome-actions #showCreditsBtn, .welcome-actions #demoBtn, .welcome-actions #profileBtn { min-height:42px; padding:7px 3px; font-size:10px; }
-      .home-dashboard { margin:14px 0 12px; }
+      .welcome-actions #showCreditsBtn, .welcome-actions #demoBtn, .welcome-actions #profileBtn, .welcome-actions #freeBuildBtn { min-height:40px; padding:6px 3px; font-size:10px; }
+      .home-dashboard { margin:10px 0 8px; }
       .btn-primary { background:var(--green); border-color:var(--green); box-shadow:0 6px 14px rgba(43,155,214,.28); }
       .btn-soft { background:rgba(43,155,214,.12); border-color:rgba(43,155,214,.2); color:var(--green-deep); }
       .btn-ghost { color:var(--ink); }
@@ -620,6 +663,7 @@
 <body>
   <section class="screen account-screen" id="accountScreen">
     <div class="account-card">
+      <div class="account-kicker">云和木玩 · 本地工坊</div>
       <div class="profile-avatar">木</div>
       <h2>进入云木工坊</h2>
       <p>输入昵称创建或进入本机账号。<br>你的木玩币、图纸和关卡进度会分别保存。</p>
@@ -637,16 +681,23 @@
         <div class="welcome-spark one"></div><div class="welcome-spark two"></div><div class="welcome-dragon">🐲</div>
         <div class="welcome-house"><div class="welcome-door"></div><div class="welcome-window"></div></div>
         <div class="welcome-piece one"></div><div class="welcome-piece two"></div><div class="welcome-piece three"></div>
+        <div class="welcome-art-caption"><strong>云和木玩 · 云木工坊</strong><small>拼出你的童话风景</small></div>
       </div>
       <h1 class="welcome-title">云木搭搭</h1>
       <p class="welcome-subtitle">木玩拼图 · 云和童话工坊</p>
       <p class="welcome-signature">设计署名：云木小匠</p>
       <div class="welcome-tag">赛道三 · AI小游戏类 · 可直接游玩</div>
+      <div class="home-quick" aria-label="游戏特色">
+        <div class="home-quick-item"><b>12</b>张故事图纸</div>
+        <div class="home-quick-item"><b>60+</b>种木玩零件</div>
+        <div class="home-quick-item"><b>∞</b>自由创作</div>
+      </div>
       <div class="welcome-actions">
         <button class="btn btn-primary" id="startGameBtn" type="button">开始游戏 <span>→</span></button>
         <button class="btn btn-soft" id="showHelpBtn" type="button">游戏说明</button>
         <button class="btn btn-ghost" id="showCreditsBtn" type="button">创作说明</button>
         <button class="btn btn-ghost" id="demoBtn" type="button">演示试玩</button>
+        <button class="btn btn-ghost" id="freeBuildBtn" type="button">自由创作</button>
         <button class="btn btn-ghost" id="profileBtn" type="button">用户</button>
       </div>
       <div class="home-dashboard">
@@ -670,6 +721,8 @@
       </div>
       <div class="collection-title"><span>木玩图鉴</span><span id="collectionCount">0/12 已收藏</span></div>
       <div class="collection-grid" id="collectionGrid"></div>
+      <div class="creative-title"><span>我的作品</span><span id="creativeWorkCount">0 件</span></div>
+      <div class="creative-grid" id="creativeWorksGrid"></div>
       <div class="level-picker-title"><span>关卡选择</span><span>已完成可回玩</span></div>
       <div class="level-grid" id="levelGrid"></div>
       <div class="profile-actions">
@@ -710,7 +763,7 @@
             <h2 id="levelTitle">搭一座云朵小屋</h2>
             <p id="levelDescription">把木块放进轮廓里，让小屋稳稳站起来。</p>
             <div class="story-line" id="levelStory">云和祥龙把第一张木玩图纸送进了工坊。</div>
-            <div class="level-meta"><span id="pieceProgress"><strong>0 / 5</strong> 个零件已放置</span><span>自由摆放模式</span></div>
+            <div class="level-meta"><span id="pieceProgress"><strong>0 / 5</strong> 个零件已放置</span><span id="modeText">自由摆放模式</span></div>
           </div>
           <div class="mission-badge">今日图纸<strong id="levelBadge">01 / 12</strong></div>
         </div>
@@ -731,7 +784,7 @@
         </div>
 
         <div class="palette">
-          <div class="palette-head"><strong>本关专属木玩零件</strong><span id="paletteHint">点击零件，再拖入画布</span></div>
+          <div class="palette-head"><strong id="paletteTitle">本关专属木玩零件</strong><span id="paletteHint">点击零件，再拖入画布</span></div>
           <div class="pieces" id="pieces"></div>
         </div>
         <div class="control-row">
@@ -799,11 +852,20 @@
     </div>
   </section>
 
+  <div class="story-transition" id="storyTransition" aria-hidden="true">
+    <div class="story-transition-card">
+      <div class="kicker">云和祥龙 · 新篇章</div>
+      <strong id="transitionTitle">新的图纸正在展开</strong>
+      <p id="transitionText">把刚才的木屑收进小口袋，下一段故事马上开始。</p>
+    </div>
+  </div>
+
   <div class="modal" id="helpModal">
     <div class="modal-card help-modal-card">
       <h3>怎么玩？</h3>
       <p>从下方选择本关专属木玩零件，按住后自由拖到画布上；虚线只是造型参考，摆在你喜欢的位置即可。</p>
       <p>选中零件后可以旋转、删除或撤销，也可以双指缩放画布查看细节。每张图纸完成后会进入下一关，12关全部完成后结算。</p>
+      <p>首页的“自由创作”会开放全部木玩零件，不限数量；搭好后点击“保存到我的作品”，可以在用户页继续修改。</p>
       <button class="btn btn-primary" id="closeHelpBtn" type="button">知道了，开始搭建</button>
     </div>
   </div>
@@ -874,6 +936,9 @@
     const shopModal = document.getElementById('shopModal');
     const stickerModal = document.getElementById('stickerModal');
     const fxOverlay = document.getElementById('fxOverlay');
+    const storyTransition = document.getElementById('storyTransition');
+    const transitionTitle = document.getElementById('transitionTitle');
+    const transitionText = document.getElementById('transitionText');
     const guideWidget = document.getElementById('guideWidget');
     const guideDialogue = document.getElementById('guideDialogue');
     const types = [
@@ -917,6 +982,9 @@
     let lastCompletion = { index:0, score:0, quality:0, reward:0 };
     let soundOn = true;
     let demoMode = false;
+    let creativeMode = false;
+    let creativeWorks = [];
+    let transitionTimer = null;
     let finishing = false;
     let lastBoardSize = { width:640, height:640 };
     let accountName = '';
@@ -1018,7 +1086,8 @@
       ['lightTower','lightTop','lightBeam']
     ];
     function getPieceType(id) { return types.find(type => type.id === id) || variantTypeMap[id] || null; }
-    function getCurrentPartTypes() { return (levelPartIds[blueprintIndex] || []).map(getPieceType).filter(Boolean); }
+    function getCurrentPartTypes() { return creativeMode ? [] : (levelPartIds[blueprintIndex] || []).map(getPieceType).filter(Boolean); }
+    function getPalettePartTypes() { return creativeMode ? variantTypes : getCurrentPartTypes(); }
     function targetSelectorForType(type) { const blueprint = blueprints[blueprintIndex]; return blueprint?.targets?.[type.targetKey || type.id] || null; }
     function readAccounts() {
       try { return JSON.parse(localStorage.getItem(ACCOUNT_LIST_KEY) || '[]').filter(account => account && account.id && account.name); }
@@ -1059,7 +1128,7 @@
     }
     function enterGuest() { userId=''; accountName='游客'; try { localStorage.removeItem(CURRENT_ACCOUNT_KEY); } catch (_) {} resetRuntimeForAccount(); renderCollection(); updateScore(); showHome(); showToast('游客试玩已开始，完成作品不会写入本机存档'); }
     function defaultShopState() { return { activeTheme:'paper', activeSkin:'natural', activeDragonSkin:'classic', unlockedShop:['theme-paper','skin-natural','dragon-classic'] }; }
-    function resetRuntimeForAccount() { const defaults=defaultShopState(); levelNumber=1; blueprintIndex=0; score=0; coins=120; collection=[]; collectionRecords={}; history=[]; selected=null; activeTheme=defaults.activeTheme; activeSkin=defaults.activeSkin; activeDragonSkin=defaults.activeDragonSkin; unlockedShop=[...defaults.unlockedShop]; placedStickers=[]; soundOn=true; board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove()); applyGuideSkin(); renderBlueprint(); }
+    function resetRuntimeForAccount() { const defaults=defaultShopState(); levelNumber=1; blueprintIndex=0; score=0; coins=120; collection=[]; collectionRecords={}; creativeWorks=[]; creativeMode=false; history=[]; selected=null; activeTheme=defaults.activeTheme; activeSkin=defaults.activeSkin; activeDragonSkin=defaults.activeDragonSkin; unlockedShop=[...defaults.unlockedShop]; placedStickers=[]; soundOn=true; board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove()); applyGuideSkin(); renderBlueprint(); }
     function showAccountScreen() { accountScreen.style.display='grid'; homeScreen.style.display='none'; gameScreen.style.display='none'; resultScreen.style.display='none'; userScreen.style.display='none'; renderAccountList(); setTimeout(() => accountNameInput.focus(), 0); }
     function switchAccount() { saveGame(); userId=''; accountName=''; try { localStorage.removeItem(CURRENT_ACCOUNT_KEY); } catch (_) {} resetRuntimeForAccount(); showAccountScreen(); }
     function captureBoardPieces() {
@@ -1095,16 +1164,30 @@
       });
       return records;
     }
+    function sanitizeCreativeWorks(value) {
+      if (!Array.isArray(value)) return [];
+      return value.filter(work => work && Array.isArray(work.pieces)).slice(0, 18).map((work, index) => ({
+        id:typeof work.id === 'string' ? work.id.slice(0, 48) : `creative-${index}`,
+        title:typeof work.title === 'string' ? work.title.slice(0, 32) : `自由木玩作品 ${index + 1}`,
+        pieces:work.pieces.filter(piece => piece && typeof piece.type === 'string').slice(0, 80).map(piece => ({ type:piece.type, x:Math.max(.08,Math.min(.92,Number(piece.x)||.5)), y:Math.max(.12,Math.min(.9,Number(piece.y)||.5)), rotation:Number(piece.rotation)||0, width:Number(piece.width)||0, height:Number(piece.height)||0, skin:typeof piece.skin === 'string' ? piece.skin : 'natural' })),
+        stickers:sanitizeStickers(work.stickers),
+        theme:typeof work.theme === 'string' ? work.theme : 'paper',
+        skin:typeof work.skin === 'string' ? work.skin : 'natural',
+        dragonSkin:typeof work.dragonSkin === 'string' ? work.dragonSkin : 'classic',
+        savedAt:Number(work.savedAt) || Date.now()
+      }));
+    }
     function saveGame() {
       try {
         const pieces = captureBoardPieces();
         if (!userId) return;
-        localStorage.setItem(`${SAVE_PREFIX}${userId}`, JSON.stringify({ levelNumber, blueprintIndex, score, coins, collection, collectionRecords, pieces, stickers:captureBoardStickers(), activeTheme, activeSkin, activeDragonSkin, unlockedShop, soundOn, savedAt:Date.now() }));
+        localStorage.setItem(`${SAVE_PREFIX}${userId}`, JSON.stringify({ levelNumber, blueprintIndex, score, coins, collection, collectionRecords, creativeWorks, creativeMode, pieces, stickers:captureBoardStickers(), activeTheme, activeSkin, activeDragonSkin, unlockedShop, soundOn, savedAt:Date.now() }));
       } catch (_) { /* 隐私模式或存储空间不足时继续让游戏可玩 */ }
     }
     function applyBoardStyle() {
       board.classList.remove('theme-paper','theme-sky','theme-sunset','theme-forest','theme-night','theme-spring','theme-summer','theme-autumn','theme-winter');
       board.classList.add(`theme-${activeTheme}`);
+      board.classList.toggle('creative-mode', creativeMode);
       board.querySelectorAll('.piece').forEach(piece => applyPieceSkin(piece, activeSkin));
       applyGuideSkin();
     }
@@ -1160,6 +1243,8 @@
         coins = Math.max(0, Number(saved.coins) || 120);
         collection = Array.isArray(saved.collection) ? [...new Set(saved.collection.filter(index => Number.isInteger(index) && index >= 0 && index < blueprints.length))] : [];
         collectionRecords = sanitizeCollectionRecords(saved.collectionRecords);
+        creativeWorks = sanitizeCreativeWorks(saved.creativeWorks);
+        creativeMode = Boolean(saved.creativeMode);
         const defaults = defaultShopState();
         const savedShop = Array.isArray(saved.unlockedShop) ? saved.unlockedShop : [];
         unlockedShop = [...new Set([...savedShop, ...defaults.unlockedShop])].filter(id => shopItems.some(item => item.id === id));
@@ -1411,6 +1496,68 @@
       guideWidget.classList.remove('talking');
       requestAnimationFrame(() => guideWidget.classList.add('talking'));
     }
+    function completionDialogue(quality) {
+      if (quality >= 90) return '祥龙说：木纹和轮廓都配合得很漂亮，这件作品可以挂进云和工坊的橱窗。';
+      if (quality >= 70) return '祥龙说：结构已经稳稳站住啦，再留一点自己的摆放巧思，会更有故事。';
+      return '祥龙说：每一次尝试都算数，木屑会记住你的手感，下一张图纸继续加油。';
+    }
+    function showStoryTransition(nextIndex, quality) {
+      if (!storyTransition || nextIndex < 0 || nextIndex >= blueprints.length) return;
+      const next = blueprints[nextIndex];
+      transitionTitle.textContent = `第 ${String(nextIndex + 1).padStart(2, '0')} 张 · ${next.name}`;
+      transitionText.textContent = `${completionDialogue(quality)} ${storyBeats[nextIndex] || '新的木玩故事正在展开。'}`;
+      storyTransition.classList.add('show');
+      storyTransition.setAttribute('aria-hidden', 'false');
+      clearTimeout(transitionTimer);
+      transitionTimer = window.setTimeout(() => { storyTransition.classList.remove('show'); storyTransition.setAttribute('aria-hidden', 'true'); }, 1500);
+    }
+    function saveCreativeWork() {
+      const pieces = captureBoardPieces();
+      const stickers = captureBoardStickers();
+      if (!pieces.length && !stickers.length) { showToast('先放几块零件或贴纸，再保存你的作品'); return; }
+      const work = { id:`creative-${Date.now()}`, title:`${accountName || '小木匠'}的自由作品 ${creativeWorks.length + 1}`, pieces, stickers, theme:activeTheme, skin:activeSkin, dragonSkin:activeDragonSkin, savedAt:Date.now() };
+      creativeWorks = [work, ...creativeWorks].slice(0, 18);
+      saveGame();
+      renderCreativeWorks();
+      playBuildFx();
+      setGuideDialogue('祥龙说：这件作品已经收进“我的作品”，下次回来还能继续修改。');
+      showToast(userId ? '已保存到“我的作品”' : '游客作品暂存于本次体验，登录后可长期保存');
+    }
+    function renderCreativeWorks() {
+      const grid = document.getElementById('creativeWorksGrid');
+      const count = document.getElementById('creativeWorkCount');
+      if (!grid || !count) return;
+      count.textContent = `${creativeWorks.length} 件`;
+      grid.innerHTML = '';
+      if (!creativeWorks.length) { grid.innerHTML = '<div class="credits-note" style="grid-column:1/-1;margin:0">进入自由创作，保存你的第一件云木作品。</div>'; return; }
+      creativeWorks.forEach((work, index) => {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'creative-work';
+        card.append(renderCollectionThumb(work, 0));
+        const title = document.createElement('strong'); title.textContent = work.title;
+        const meta = document.createElement('small'); meta.textContent = `${work.pieces.length} 件零件 · ${work.stickers.length} 枚贴纸`;
+        card.append(title, meta);
+        card.addEventListener('click', () => loadCreativeWork(index));
+        grid.append(card);
+      });
+    }
+    function loadCreativeWork(index) {
+      const work = creativeWorks[index];
+      if (!work) return;
+      creativeMode = true;
+      history = []; selected = null; placedStickers = [];
+      board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove());
+      if (unlockedShop.includes(`theme-${work.theme}`)) activeTheme = work.theme;
+      if (unlockedShop.includes(`skin-${work.skin}`)) activeSkin = work.skin;
+      if (unlockedShop.includes(`dragon-${work.dragonSkin}`)) activeDragonSkin = work.dragonSkin;
+      renderBlueprint();
+      restorePieces(work.pieces);
+      restoreStickers(work.stickers);
+      setMobileTab('blueprint');
+      homeScreen.style.display='none'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; gameScreen.style.display='block';
+      showToast(`已打开「${work.title}」，可以继续修改`);
+    }
     function playBuildFx(finale = false) {
       const dust = Array.from({ length: finale ? 18 : 10 }, (_, index) => `<i class="fx-sawdust" style="--dx:${Math.round(Math.cos(index * .7) * (80 + index * 5))}px;--dy:${Math.round(-40 - Math.abs(Math.sin(index * .9)) * 100)}px"></i>`).join('');
       fxOverlay.innerHTML = `<div class="fx-dragon">🐲</div><div class="fx-cloud" style="left:18%;top:36%"></div><div class="fx-cloud" style="right:12%;top:56%;animation-delay:.14s"></div>${dust}`;
@@ -1419,7 +1566,7 @@
       window.setTimeout(() => { fxOverlay.classList.remove('show'); fxOverlay.innerHTML = ''; }, finale ? 1700 : 1150);
     }
     function escapeXml(value) { return String(value || '').replace(/[<>&'"]/g, char => ({ '<':'&lt;', '>':'&gt;', '&':'&amp;', "'":'&apos;', '"':'&quot;' }[char])); }
-    function artworkTitle() { return collectionRecords[blueprintIndex]?.title || `${accountName || '小木匠'}的${blueprints[blueprintIndex]?.name || '木玩作品'}`; }
+    function artworkTitle() { return creativeMode ? (creativeWorks[0]?.title || `${accountName || '小木匠'}的自由木玩作品`) : (collectionRecords[blueprintIndex]?.title || `${accountName || '小木匠'}的${blueprints[blueprintIndex]?.name || '木玩作品'}`); }
     function buildArtworkSvg() {
       const width = Math.max(320, Math.round(board.clientWidth || lastBoardSize.width || 640));
       const height = Math.max(420, Math.round(board.clientHeight || lastBoardSize.height || 640));
@@ -1451,6 +1598,7 @@
       } catch (_) { showToast('分享已取消'); }
     }
     function runDemo() {
+      creativeMode = false;
       demoMode = true;
       levelNumber = 1; blueprintIndex = 0; history = []; selected = null; placedStickers = [];
       board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove());
@@ -1525,6 +1673,7 @@
         }
         grid.append(card);
       });
+      renderCreativeWorks();
       renderLevelGrid();
     }
     function renderLevelGrid() {
@@ -1550,6 +1699,7 @@
       const completed = new Set([...collection, ...Object.keys(collectionRecords).map(Number)]);
       if (index > Math.max(0, blueprintIndex, ...completed)) { showToast('请先完成前面的图纸'); return; }
       saveGame();
+      creativeMode = false;
       levelNumber = index + 1;
       blueprintIndex = index;
       history = [];
@@ -1566,14 +1716,21 @@
     function setMobileTab(name) { document.querySelectorAll('[data-mobile-tab]').forEach(item => item.classList.toggle('active', item.dataset.mobileTab === name)); }
     function showHome() { setMobileTab('home'); homeScreen.style.display='grid'; gameScreen.style.display='none'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; }
     function showUser() { setMobileTab('user'); updateScore(); renderCollection(); homeScreen.style.display='none'; gameScreen.style.display='none'; resultScreen.style.display='none'; accountScreen.style.display='none'; userScreen.style.display='grid'; }
-    function startGame() { setMobileTab('blueprint'); homeScreen.style.display='none'; gameScreen.style.display='block'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; renderBlueprint(); updateScore(); }
+    function startGame() { const wasCreative = creativeMode; creativeMode = false; if (wasCreative) { history = []; selected = null; placedStickers = []; board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove()); } setMobileTab('blueprint'); homeScreen.style.display='none'; gameScreen.style.display='block'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; renderBlueprint(); updateScore(); saveGame(); }
+    function startCreativeMode() { creativeMode = true; history = []; selected = null; placedStickers = []; board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove()); setMobileTab('blueprint'); homeScreen.style.display='none'; gameScreen.style.display='block'; resultScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; renderBlueprint(); updateScore(); saveGame(); showToast('自由创作已开启：零件不限数量，完成后可保存到我的作品'); }
     function showResult() {
       document.getElementById('finalScore').textContent = score;
-      document.getElementById('resultStory').innerHTML = `<strong>云和祥龙的终章</strong>${escapeXml(accountName || '小木匠')}把十二张图纸拼成了云海工坊：小屋亮起窗灯，小车驶过木桥，灯塔为每一个新故事指路。`;
+      const themeNames = { paper:'奶油木纸', sky:'云朵晴空', sunset:'晚霞木场', forest:'森林秘境', night:'星夜云海', spring:'春日嫩芽', summer:'夏日晴湾', autumn:'秋日木歌', winter:'冬日雪庭' };
+      const stickerNames = { cloud:'云朵', tree:'森林小树', flag:'庆典旗帜', dragon:'祥龙伙伴', grain:'木纹年轮', leaf:'四季木叶', acorn:'橡果小印', sun:'暖阳印记' };
+      const stickerSet = [...new Set(placedStickers.map(sticker => sticker.type))];
+      const themeName = themeNames[activeTheme] || '奶油木纸';
+      const decoration = stickerSet.length ? `你用${stickerSet.map(type => stickerNames[type] || '特别贴纸').join('、')}留下了自己的记号，` : '你让画布保留了清爽的木作留白，';
+      const ending = activeTheme === 'night' || activeTheme === 'winter' ? '灯塔在安静的云海里亮起，祥龙把这束光送向更远的木玩小镇。' : activeTheme === 'forest' || activeTheme === 'spring' ? '森林和嫩芽沿着工坊边缘生长，新的木玩伙伴从树影里探出头来。' : '小屋亮起窗灯，小车驶过木桥，灯塔为每一个新故事指路。';
+      document.getElementById('resultStory').innerHTML = `<strong>云和祥龙的终章 · ${escapeXml(themeName)}</strong>${escapeXml(accountName || '小木匠')}把十二张图纸拼成了云海工坊：${escapeXml(decoration)}${escapeXml(ending)}`;
       playBuildFx(true);
       gameScreen.style.display='none'; homeScreen.style.display='none'; userScreen.style.display='none'; accountScreen.style.display='none'; resultScreen.style.display='grid';
     }
-    function restartGame() { levelNumber=1; blueprintIndex=0; score=0; history=[]; finishing=false; placedStickers=[]; board.querySelectorAll('.piece,.board-sticker').forEach(el=>el.remove()); renderBlueprint(); updateScore(); saveGame(); startGame(); showToast('新一轮木玩拼搭开始啦'); }
+    function restartGame() { creativeMode=false; levelNumber=1; blueprintIndex=0; score=0; history=[]; finishing=false; placedStickers=[]; board.querySelectorAll('.piece,.board-sticker').forEach(el=>el.remove()); renderBlueprint(); updateScore(); saveGame(); startGame(); showToast('新一轮木玩拼搭开始啦'); }
     function createMiniPiece(type) {
       const wrap = document.createElement('div'); wrap.className = 'mini-piece';
       const p = document.createElement('div'); p.className = `piece ${type.className}`;
@@ -1583,8 +1740,9 @@
     }
     function renderPalette() {
       piecesTray.innerHTML = '';
-      const currentTypes = getCurrentPartTypes();
-      document.getElementById('paletteHint').textContent = `${currentTypes.length} 个专属零件 · 自由摆放`;
+      const currentTypes = getPalettePartTypes();
+      document.getElementById('paletteTitle').textContent = creativeMode ? '自由创作零件库' : '本关专属木玩零件';
+      document.getElementById('paletteHint').textContent = creativeMode ? `${currentTypes.length} 种零件 · 不限数量` : `${currentTypes.length} 个专属零件 · 自由摆放`;
       currentTypes.forEach(type => {
         const card = document.createElement('button');
         card.className = 'piece-card';
@@ -1671,6 +1829,7 @@
       snapshot(); selected.remove(); selected = null; playSfx('delete'); saveGame(); updatePieceProgress(); showToast('零件已删除');
     }
     function showHint() {
+      if (creativeMode) { showToast('自由创作没有固定答案，试试叠出一座自己的木玩建筑'); return; }
       const parts = getCurrentPartTypes();
       const selectedType = selected ? getPieceType(selected.dataset.type) : null;
       const type = selectedType || parts.find(item => ![...board.querySelectorAll('.piece')].some(piece => piece.dataset.type === item.id));
@@ -1684,6 +1843,12 @@
       showToast(selected ? '发光的位置就是它的摆放区域' : `试试先拿起「${type.label}」`);
     }
     function updatePieceProgress() {
+      if (creativeMode) {
+        const placed = board.querySelectorAll('.piece').length;
+        const progress = document.getElementById('pieceProgress');
+        if (progress) progress.innerHTML = `<strong>${placed}</strong> 件零件已放置 · 无限创作`;
+        return;
+      }
       const currentTypes = getCurrentPartTypes();
       const placed = new Set([...board.querySelectorAll('.piece')].map(piece => piece.dataset.type));
       const count = currentTypes.filter(type => placed.has(type.id)).length;
@@ -1691,20 +1856,22 @@
       if (progress) progress.innerHTML = `<strong>${count} / ${currentTypes.length}</strong> 个零件已放置`;
     }
     function renderBlueprint() {
-      const blueprint = blueprints[blueprintIndex];
+      const blueprint = blueprints[blueprintIndex] || blueprints[0];
       const outline = document.getElementById('targetOutline');
-      outline.className = `target-outline ${blueprint.className}`.trim();
-      outline.innerHTML = blueprint.markup;
+      outline.className = `target-outline ${creativeMode ? '' : blueprint.className}`.trim();
+      outline.innerHTML = creativeMode ? '' : blueprint.markup;
       const level = String(levelNumber).padStart(2, '0');
-      document.getElementById('levelEyebrow').textContent = `Blueprint ${level} · ${blueprint.stage}`;
-      document.getElementById('levelTitle').textContent = `搭一座${blueprint.name}`;
-      document.getElementById('levelDescription').textContent = blueprint.description;
-      document.getElementById('levelStory').textContent = storyBeats[blueprintIndex] || '云和木玩工坊正在等待你的创意。';
-      document.getElementById('levelBadge').textContent = `${level} / 12`;
-      document.getElementById('targetLabel').textContent = blueprint.label;
+      document.getElementById('levelEyebrow').textContent = creativeMode ? '自由创作 · 无限木玩库' : `Blueprint ${level} · ${blueprint.stage}`;
+      document.getElementById('levelTitle').textContent = creativeMode ? '搭建你的云木世界' : `搭一座${blueprint.name}`;
+      document.getElementById('levelDescription').textContent = creativeMode ? '所有图纸零件都已开放，数量不限，按自己的想法组合。' : blueprint.description;
+      document.getElementById('levelStory').textContent = creativeMode ? '祥龙说：这里没有标准答案，每一块木头都可以成为你的故事。' : storyBeats[blueprintIndex] || '云和木玩工坊正在等待你的创意。';
+      document.getElementById('levelBadge').textContent = creativeMode ? '∞' : `${level} / 12`;
+      document.getElementById('targetLabel').textContent = creativeMode ? '自由画布 · 没有固定答案' : blueprint.label;
+      document.getElementById('modeText').textContent = creativeMode ? '不限零件 · 自由搭建' : '自由摆放模式';
+      document.getElementById('finishBtn').innerHTML = creativeMode ? '保存到我的作品 <span>⌘</span>' : '完成搭建 <span>→</span>';
       renderPalette();
       updatePieceProgress();
-      setGuideDialogue(storyBeats[blueprintIndex] || '云和木玩工坊正在等待你的创意。');
+      setGuideDialogue(creativeMode ? '这里没有标准答案，每一块木头都可以成为你的故事。' : storyBeats[blueprintIndex] || '云和木玩工坊正在等待你的创意。');
       applyBoardStyle();
     }
     function goToNextLevel() {
@@ -1747,6 +1914,7 @@
     }
     function finish() {
       if (finishing) return;
+      if (creativeMode) { saveCreativeWork(); return; }
       const requiredTypes = getCurrentPartTypes();
       const placedIds = new Set([...board.querySelectorAll('.piece')].map(piece => piece.dataset.type));
       const missing = requiredTypes.filter(type => !placedIds.has(type.id));
@@ -1765,7 +1933,8 @@
       updateCompletionModal(evaluation);
       playSfx('complete');
       playBuildFx(completedIndex === blueprints.length - 1);
-      setGuideDialogue(completedIndex === blueprints.length - 1 ? '十二张图纸完成了！云木童话要在灯塔下合页啦。' : `完成度 ${evaluation.quality} 分，祥龙带你去看下一张图纸。`);
+      setGuideDialogue(completedIndex === blueprints.length - 1 ? '十二张图纸完成了！云木童话要在灯塔下合页啦。' : completionDialogue(evaluation.quality));
+      if (completedIndex < blueprints.length - 1) showStoryTransition(completedIndex + 1, evaluation.quality);
       updateScore();
       renderCollection();
       saveGame();
@@ -1779,6 +1948,7 @@
     document.getElementById('showHelpBtn').addEventListener('click', () => helpModal.classList.add('show'));
     document.getElementById('showCreditsBtn').addEventListener('click', () => creditsModal.classList.add('show'));
     document.getElementById('demoBtn').addEventListener('click', runDemo);
+    document.getElementById('freeBuildBtn').addEventListener('click', startCreativeMode);
     document.getElementById('profileBtn').addEventListener('click', showUser);
     document.getElementById('closeHelpBtn').addEventListener('click', () => { helpModal.classList.remove('show'); startGame(); });
     document.getElementById('closeCreditsBtn').addEventListener('click', () => creditsModal.classList.remove('show'));
