@@ -213,9 +213,9 @@
     @keyframes dragon-bob { 0%,100%{transform:translateY(0) rotate(0)} 40%{transform:translateY(-4px) rotate(-4deg)} 70%{transform:translateY(1px) rotate(3deg)} }
     .mission-badge { min-width:104px; padding:10px 12px; background:#eff5ed; border:1px solid #dae8d8; border-radius:16px; font-size:11px; color:var(--green-deep); text-align:right; }
     .mission-badge strong { display:block; font-size:18px; margin-top:3px; }
-    .board-wrap { position:relative; border-radius:20px; padding:0; background:transparent; overflow:visible; touch-action:none; }
-    .board { position:relative; min-height:488px; border-radius:18px; overflow:hidden; background:linear-gradient(#d9ecf0 0 45%, #bed7b7 45% 100%); border:0; box-shadow:0 10px 26px rgba(62,94,70,.11); touch-action:none; }
-    .board-world { position:absolute; inset:0; transform-origin:0 0; will-change:transform; touch-action:none; }
+    .board-wrap { position:relative; border-radius:20px; padding:0; background:transparent; overflow:visible; touch-action:pan-y; }
+    .board { position:relative; min-height:488px; border-radius:18px; overflow:hidden; background:linear-gradient(#d9ecf0 0 45%, #bed7b7 45% 100%); border:0; box-shadow:0 10px 26px rgba(62,94,70,.11); touch-action:pan-y; }
+    .board-world { position:absolute; inset:0; transform-origin:0 0; will-change:transform; touch-action:pan-y; }
     .board.creative-mode { background:linear-gradient(145deg,#d9edf0 0 42%,#c9dfbf 42% 100%); overflow:visible; }
     .board.creative-mode .target-outline, .board.creative-mode .target-label { display:none; }
     .board.creative-mode .board-grid { display:none; }
@@ -848,7 +848,7 @@
               <div class="target-outline" id="targetOutline"><div class="roof"></div><div class="house"></div><div class="door"></div><div class="window"></div><div class="chimney"></div></div>
               <div class="target-label" id="targetLabel">轮廓图纸 · 云朵小屋</div>
             </div>
-            <div class="zoom-hint" aria-hidden="true">双指缩放 · 单指拖动画布</div>
+            <div class="zoom-hint" aria-hidden="true">双指拖动/缩放 · 单指滚动页面</div>
           </div>
         </div>
 
@@ -1907,31 +1907,31 @@
     function startBoardPointer(event) {
       if (event.pointerType !== 'touch' || event.target.closest('.piece')) return;
       boardPointers.set(event.pointerId, { x:event.clientX, y:event.clientY });
-      board.setPointerCapture?.(event.pointerId);
       const points = [...boardPointers.values()];
       const rect = board.getBoundingClientRect();
-      if (points.length === 1) {
-        boardGesture = { mode:'pan', startX:event.clientX, startY:event.clientY, startPanX:boardPanX, startPanY:boardPanY, startScale:boardScale };
-      } else if (points.length === 2) {
+      if (points.length < 2) {
+        // 单指交给浏览器处理页面纵向滚动，不启动画布平移。
+        boardGesture = null;
+        return;
+      }
+      if (points.length === 2) {
+        boardPointers.forEach((_, pointerId) => board.setPointerCapture?.(pointerId));
         const a = points[0], b = points[1];
         const midX = (a.x + b.x) / 2 - rect.left;
         const midY = (a.y + b.y) / 2 - rect.top;
         const worldMid = boardWorldPoint((a.x + b.x) / 2, (a.y + b.y) / 2);
         boardGesture = { mode:'pinch', startScale:boardScale, startDistance:Math.hypot(a.x - b.x, a.y - b.y), worldMidX:worldMid.x, worldMidY:worldMid.y, midX, midY };
+        event.preventDefault();
       }
     }
     function moveBoardPointer(event) {
       if (!boardPointers.has(event.pointerId)) return;
       boardPointers.set(event.pointerId, { x:event.clientX, y:event.clientY });
-      if (boardPointers.size) { event.preventDefault(); updateBoardGesture(); }
+      if (boardPointers.size >= 2 && boardGesture) { event.preventDefault(); updateBoardGesture(); }
     }
     function endBoardPointer(event) {
       boardPointers.delete(event.pointerId);
-      if (!boardPointers.size) boardGesture = null;
-      else if (boardPointers.size === 1) {
-        const point = [...boardPointers.values()][0];
-        boardGesture = { mode:'pan', startX:point.x, startY:point.y, startPanX:boardPanX, startPanY:boardPanY, startScale:boardScale };
-      }
+      if (boardPointers.size < 2) boardGesture = null;
     }
     board.addEventListener('pointerdown', startBoardPointer);
     board.addEventListener('pointermove', moveBoardPointer, { passive:false });
