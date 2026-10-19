@@ -178,6 +178,8 @@
     .brand p { margin:3px 0 0; font-size:11px; color:var(--muted); letter-spacing:.1em; }
     .top-actions { display:flex; align-items:center; gap:10px; }
     .top-pill { display:flex; align-items:center; gap:8px; padding:9px 12px; border:1px solid var(--line); background:rgba(255,255,255,.65); border-radius:999px; font-size:12px; color:var(--muted); }
+    .hint-pill { color:var(--green-deep); background:#eef5ed; border-color:#d8e6d8; }
+    .hint-pill.depleted { color:var(--muted); background:rgba(255,255,255,.65); border-color:var(--line); }
     .music-toggle { border:1px solid #d8e6d8; background:#eef5ed; color:var(--green-deep); border-radius:999px; padding:9px 12px; cursor:pointer; font-size:12px; font-weight:700; transition:.15s; }
     .music-toggle:hover { transform:translateY(-1px); box-shadow:0 6px 14px rgba(43,58,48,.09); }
     .music-toggle.muted { background:rgba(255,255,255,.65); border-color:var(--line); color:var(--muted); }
@@ -629,6 +631,9 @@
       .score-pill, .coin-pill { height:30px; padding:0 9px; border-radius:999px; font-size:11px; background:var(--panel); border-color:var(--line); color:var(--ink); }
       .top-actions .top-pill { display:flex; padding:0; border:0; background:transparent; }
       .top-actions .top-pill strong, .top-actions .top-pill:not(:last-child) { display:none; }
+      .top-actions .top-pill.hint-pill { display:flex; gap:4px; padding:0 8px; border:1px solid rgba(43,155,214,.2); background:rgba(43,155,214,.1); color:var(--key-ink); font-size:10px; }
+      .top-actions .top-pill.hint-pill strong { display:inline; font-size:10px; }
+      .top-actions .top-pill.hint-pill.depleted { background:rgba(58,42,27,.06); border-color:var(--line); color:var(--muted); }
       .top-actions .avatar { width:30px; height:30px; border-radius:50%; background:var(--wood-soft); color:#8a5a28; }
       .layout { display:block; }
       .play-panel { padding:0; border:0; box-shadow:none; background:transparent; }
@@ -810,7 +815,7 @@
         <button class="home-btn" id="userBtn" type="button">用户</button>
         <div class="score-pill">得分 <strong id="scoreValue">0</strong></div>
         <div class="coin-pill">木玩币 <strong id="coinValue">120</strong></div>
-        <div class="top-pill">☼ 今日灵感 <strong>3/3</strong></div>
+        <div class="top-pill hint-pill" title="每天可使用 3 次提示，提示会自动放置一个尚未摆放的木块">💡 今日提示 <strong id="hintCounter">3/3</strong></div>
         <button class="music-toggle" id="musicToggle" type="button" aria-label="开启舒缓音乐">♫ 开启音乐</button>
         <div class="top-pill"><div class="avatar">木</div><span id="topAccountName">用户</span></div>
       </div>
@@ -1052,6 +1057,9 @@
     let placedStickers = [];
     let lastCompletion = { index:0, score:0, quality:0, reward:0 };
     let soundOn = true;
+    const DAILY_HINT_LIMIT = 3;
+    let hintDate = '';
+    let hintsUsed = 0;
     let demoMode = false;
     let creativeMode = false;
     let creativeWorks = [];
@@ -1064,6 +1072,31 @@
     const CURRENT_ACCOUNT_KEY = 'yunmu-builder-current-account';
     const LEGACY_USER_ID_KEY = 'yunmu-builder-user-id';
     let userId = '';
+    function getLocalDateKey() {
+      const now = new Date();
+      return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    }
+    function resetDailyHintsIfNeeded() {
+      const today = getLocalDateKey();
+      if (hintDate !== today) { hintDate = today; hintsUsed = 0; }
+    }
+    function getHintsRemaining() {
+      resetDailyHintsIfNeeded();
+      return Math.max(0, DAILY_HINT_LIMIT - Math.min(DAILY_HINT_LIMIT, Number(hintsUsed) || 0));
+    }
+    function updateHintCounter() {
+      const counter = document.getElementById('hintCounter');
+      if (!counter) return;
+      const remaining = getHintsRemaining();
+      counter.textContent = `${remaining}/${DAILY_HINT_LIMIT}`;
+      counter.parentElement?.setAttribute('aria-label', `今日提示剩余 ${remaining} 次`);
+      counter.parentElement?.classList.toggle('depleted', remaining === 0);
+      const hintButton = document.getElementById('hintBtn');
+      if (hintButton) {
+        hintButton.textContent = remaining ? `✦ 提示（${remaining}）` : '✦ 今日用完';
+        hintButton.setAttribute('aria-label', remaining ? `使用提示，今日剩余 ${remaining} 次` : '今日提示次数已用完');
+      }
+    }
     const blueprints = [
       { name:'云朵小屋', stage:'入门拼搭', description:'把木块放进轮廓里，让小屋稳稳站起来。', label:'轮廓图纸 · 云朵小屋', className:'', targets:{wall:'.house',roof:'.roof',door:'.door',window:'.window',chimney:'.chimney'}, markup:'<div class="roof"></div><div class="house"></div><div class="door"></div><div class="window"></div><div class="chimney"></div>' },
       { name:'云端小车', stage:'结构拼搭', description:'把车身、车顶和两个木轮拼在一起，开往云端。', label:'轮廓图纸 · 云端小车', className:'blueprint-cart', targets:{wall:'.cart-body',roof:'.cart-roof',wheel:'.cart-wheel.left',tree:'.cart-wheel.right',window:'.cart-window'}, markup:'<div class="cart-body"></div><div class="cart-roof"></div><div class="cart-wheel left"></div><div class="cart-wheel right"></div><div class="cart-window"></div>' },
@@ -1199,7 +1232,7 @@
     }
     function enterGuest() { userId=''; accountName='游客'; try { localStorage.removeItem(CURRENT_ACCOUNT_KEY); } catch (_) {} resetRuntimeForAccount(); renderCollection(); updateScore(); showHome(); showToast('游客试玩已开始，完成作品不会写入本机存档'); }
     function defaultShopState() { return { activeTheme:'paper', activeSkin:'natural', activeDragonSkin:'classic', unlockedShop:['theme-paper','skin-natural','dragon-classic'] }; }
-    function resetRuntimeForAccount() { const defaults=defaultShopState(); levelNumber=1; blueprintIndex=0; score=0; coins=120; collection=[]; collectionRecords={}; creativeWorks=[]; creativeMode=false; history=[]; selected=null; activeTheme=defaults.activeTheme; activeSkin=defaults.activeSkin; activeDragonSkin=defaults.activeDragonSkin; unlockedShop=[...defaults.unlockedShop]; placedStickers=[]; soundOn=true; board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove()); applyGuideSkin(); renderBlueprint(); }
+    function resetRuntimeForAccount() { const defaults=defaultShopState(); levelNumber=1; blueprintIndex=0; score=0; coins=120; collection=[]; collectionRecords={}; creativeWorks=[]; creativeMode=false; history=[]; selected=null; activeTheme=defaults.activeTheme; activeSkin=defaults.activeSkin; activeDragonSkin=defaults.activeDragonSkin; unlockedShop=[...defaults.unlockedShop]; placedStickers=[]; soundOn=true; hintDate=getLocalDateKey(); hintsUsed=0; board.querySelectorAll('.piece,.board-sticker').forEach(el => el.remove()); applyGuideSkin(); renderBlueprint(); }
     function showAccountScreen() { accountScreen.style.display='grid'; homeScreen.style.display='none'; gameScreen.style.display='none'; resultScreen.style.display='none'; userScreen.style.display='none'; renderAccountList(); setTimeout(() => accountNameInput.focus(), 0); }
     function switchAccount() { saveGame(); userId=''; accountName=''; try { localStorage.removeItem(CURRENT_ACCOUNT_KEY); } catch (_) {} resetRuntimeForAccount(); showAccountScreen(); }
     function freeCanvasCoordinate(value, fallback = .5) {
@@ -1256,7 +1289,7 @@
       try {
         const pieces = captureBoardPieces();
         if (!userId) return;
-        localStorage.setItem(`${SAVE_PREFIX}${userId}`, JSON.stringify({ levelNumber, blueprintIndex, score, coins, collection, collectionRecords, creativeWorks, creativeMode, pieces, stickers:captureBoardStickers(), activeTheme, activeSkin, activeDragonSkin, unlockedShop, soundOn, savedAt:Date.now() }));
+        localStorage.setItem(`${SAVE_PREFIX}${userId}`, JSON.stringify({ levelNumber, blueprintIndex, score, coins, collection, collectionRecords, creativeWorks, creativeMode, pieces, stickers:captureBoardStickers(), activeTheme, activeSkin, activeDragonSkin, unlockedShop, soundOn, hintDate, hintsUsed, savedAt:Date.now() }));
       } catch (_) { /* 隐私模式或存储空间不足时继续让游戏可玩 */ }
     }
     function applyBoardStyle() {
@@ -1329,6 +1362,9 @@
         activeDragonSkin = shopItems.some(item => item.type === 'dragon' && item.dragonSkin === saved.activeDragonSkin && unlockedShop.includes(item.id)) ? saved.activeDragonSkin : defaults.activeDragonSkin;
         placedStickers = sanitizeStickers(saved.stickers);
         soundOn = saved.soundOn !== false;
+        hintDate = typeof saved.hintDate === 'string' ? saved.hintDate : getLocalDateKey();
+        hintsUsed = Math.max(0, Math.min(DAILY_HINT_LIMIT, Number(saved.hintsUsed) || 0));
+        resetDailyHintsIfNeeded();
         updateScore();
         renderBlueprint();
         applyBoardStyle();
@@ -1420,6 +1456,7 @@
       clearTimeout(showToast.timer); showToast.timer = setTimeout(() => toast.classList.remove('show'), 1800);
     }
     function updateScore() {
+      updateHintCounter();
       document.getElementById('scoreValue').textContent = score;
       document.getElementById('coinValue').textContent = coins;
       document.getElementById('profileScore').textContent = score;
@@ -1979,17 +2016,33 @@
     }
     function showHint() {
       if (creativeMode) { showToast('自由创作没有固定答案，试试叠出一座自己的木玩建筑'); return; }
+      const remaining = getHintsRemaining();
+      if (!remaining) { updateHintCounter(); showToast('今日提示次数已用完，明天会恢复 3 次'); return; }
       const parts = getCurrentPartTypes();
-      const selectedType = selected ? getPieceType(selected.dataset.type) : null;
-      const type = selectedType || parts.find(item => ![...board.querySelectorAll('.piece')].some(piece => piece.dataset.type === item.id));
+      const placedIds = new Set([...board.querySelectorAll('.piece')].map(piece => piece.dataset.type));
+      const type = parts.find(item => !placedIds.has(item.id));
       const targetSelector = type && targetSelectorForType(type);
       if (!type || !targetSelector) { showToast('这张图纸已经没有待摆放的零件了'); return; }
       const target = document.querySelector(`.target-outline ${targetSelector}`);
-      target?.classList.remove('hint-target');
-      target?.classList.add('hint-target');
-      if (selected) { selected.classList.remove('hint'); selected.classList.add('hint'); }
-      window.setTimeout(() => { target?.classList.remove('hint-target'); selected?.classList.remove('hint'); }, 2500);
-      showToast(selected ? '发光的位置就是它的摆放区域' : `试试先拿起「${type.label}」`);
+      if (!target) { showToast('这张图纸暂时没有找到对应的摆放位置'); return; }
+      const targetRect = target.getBoundingClientRect();
+      const targetCenter = boardWorldPoint(targetRect.left + targetRect.width / 2, targetRect.top + targetRect.height / 2);
+      const x = targetCenter.x / Math.max(1, boardWorld.clientWidth);
+      const y = targetCenter.y / Math.max(1, boardWorld.clientHeight);
+      snapshot();
+      const piece = createPiece(type, x, y);
+      selectPiece(piece);
+      hintsUsed += 1;
+      resetDailyHintsIfNeeded();
+      updateHintCounter();
+      target.classList.remove('hint-target');
+      target.classList.add('hint-target');
+      piece.classList.add('hint');
+      window.setTimeout(() => { target.classList.remove('hint-target'); piece.classList.remove('hint'); }, 1800);
+      playSfx('drop');
+      updatePieceProgress();
+      saveGame();
+      showToast(`提示已使用：已帮你放好「${type.label}」 · 今日剩余 ${getHintsRemaining()} 次`);
     }
     function updatePieceProgress() {
       if (creativeMode) {
